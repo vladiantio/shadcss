@@ -8,7 +8,13 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      fs: {
+        // Allow serving files from one level up to the project root
+        allow: [".."],
+      },
+    },
   },
 
   integrations: [mdx()]
