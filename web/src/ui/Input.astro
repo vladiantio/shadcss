@@ -1,0 +1,13 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../utils/cn";
+import "./input.css";
+
+type Props = HTMLAttributes<"input">;
+const { class: className, ...rest } = Astro.props;
+---
+
+<input
+  class={cn("input", className)}
+  {...rest}
+/>
