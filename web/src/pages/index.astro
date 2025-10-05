@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+const docs = await getCollection("docs");
+---
+
+<Layout>
+  <img src="/favicon.svg" alt="Logo" width="64" height="64" />
+  <h1 class="text-3xl">shad<strong class="text-primary">css</strong></h1>
+  <p><em>(WIP)</em></p>
+  <ul>
+    {
+      docs.map((doc) => (
+        <li>
+          <a href={`/docs/${doc.id}`}>{doc.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

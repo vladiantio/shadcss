@@ -1,0 +1,25 @@
+---
+title: Button
+description: Displays a button or a component that looks like a button.
+---
+import Button from "@/ui/Button.astro";
+import { ArrowUpRight } from "@lucide/astro";
+
+## Sizes
+
+<Button size="sm">Small</Button>
+<Button>Default</Button>
+<Button size="lg">Large</Button>
+<Button size="icon"><ArrowUpRight /></Button>
+<Button size="icon-sm"><ArrowUpRight /></Button>
+<Button size="icon-lg"><ArrowUpRight /></Button>
+<Button><ArrowUpRight />Icon & Text</Button>
+
+## Variants
+
+<Button>Default (Primary)</Button>
+<Button variant="destructive">Destructive</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>
