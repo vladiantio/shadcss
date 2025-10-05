@@ -23,8 +23,6 @@ pnpm-debug.log*
 # Editor directories and files
 .idea/
 .vscode/
-!.vscode/extensions.json
-!.vscode/launch.json
 .zed/
 
 # Lock files
