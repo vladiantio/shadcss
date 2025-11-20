@@ -21,16 +21,16 @@
   }
 
   &:focus-visible {
-    border-color: var(--color-ring);
-    --focus-ring-color: color-mix(in oklab, var(--color-ring) 50%, transparent);
+    border-color: var(--ring);
+    --focus-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
     box-shadow: 0 0 0 3px var(--focus-ring-color);
   }
 
   &[aria-invalid="true"] {
-    border-color: var(--color-destructive);
-    --focus-ring-color: color-mix(in oklab, var(--color-destructive) 20%, transparent);
+    border-color: var(--destructive);
+    --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
     &:is(.dark *) {
-      --focus-ring-color: color-mix(in oklab, var(--color-destructive) 40%, transparent);
+      --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
     }
   }
 
@@ -87,37 +87,37 @@
 /* Variants */
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-primary-foreground);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
   &:hover,
   &[aria-pressed="true"] {
-    background-color: color-mix(in oklab, var(--color-primary) 90%, transparent);
+    background-color: color-mix(in oklab, var(--primary) 90%, transparent);
   }
 }
 
 .btn-secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-secondary-foreground);
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
   &:hover,
   &[aria-pressed="true"] {
-    background-color: color-mix(in oklab, var(--color-secondary) 80%, transparent);
+    background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
   }
 }
 
 .btn-outline {
   border-width: 1px;
-  background-color: var(--color-background);
+  background-color: var(--background);
   box-shadow:var(--shadow-xs);
   &:is(.dark *) {
-    background-color: color-mix(in oklab, var(--color-input) 30%, transparent);
-    border-color: var(--color-input);
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+    border-color: var(--input);
   }
   &:hover,
   &[aria-pressed="true"] {
-    background-color: var(--color-accent);
-    color: var(--color-accent-foreground);
+    background-color: var(--accent);
+    color: var(--accent-foreground);
     &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--color-accent) 50%, transparent);
+      background-color: color-mix(in oklab, var(--accent) 50%, transparent);
     }
   }
 }
@@ -125,16 +125,16 @@
 .btn-ghost {
   &:hover,
   &[aria-pressed="true"] {
-    background-color: var(--color-accent);
-    color: var(--color-accent-foreground);
+    background-color: var(--accent);
+    color: var(--accent-foreground);
     &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--color-accent) 50%, transparent);
+      background-color: color-mix(in oklab, var(--accent) 50%, transparent);
     }
   }
 }
 
 .btn-link {
-  color: var(--color-primary);
+  color: var(--primary);
   text-underline-offset: 4px;
   &:hover,
   &[aria-pressed="true"] {
@@ -143,18 +143,18 @@
 }
 
 .btn-destructive {
-  background-color: var(--color-destructive);
-  color: var(--color-white);
-  --focus-ring-color: color-mix(in oklab, var(--color-destructive) 20%, transparent);
+  background-color: var(--destructive);
+  color: var(--color-white, #fff);
+  --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
   &:is(.dark *) {
-    background-color: color-mix(in oklab, var(--color-destructive) 60%, transparent);
-    --focus-ring-color: color-mix(in oklab, var(--color-destructive) 40%, transparent);
+    background-color: color-mix(in oklab, var(--destructive) 60%, transparent);
+    --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
   }
   &:hover,
   &[aria-pressed="true"] {
-    background-color: color-mix(in oklab, var(--color-destructive) 90%, transparent);
+    background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
     &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--color-destructive) 50%, transparent);
+      background-color: color-mix(in oklab, var(--destructive) 50%, transparent);
     }
   }
 }
