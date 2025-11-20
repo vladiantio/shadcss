@@ -4,6 +4,7 @@ import { cn } from "../utils/cn";
 import "./button.css";
 
 const variants = {
+  primary: "btn-primary",
   secondary: "btn-secondary",
   outline: "btn-outline",
   ghost: "btn-ghost",
@@ -13,6 +14,7 @@ const variants = {
 
 const sizes = {
   sm: "btn-sm",
+  md: "btn-md",
   lg: "btn-lg",
   icon: "btn-icon",
   "icon-sm": "btn-icon-sm",
@@ -25,7 +27,12 @@ type Props = HTMLAttributes<"button"> &
     size?: keyof typeof sizes;
   };
 
-const { variant, size, class: className, ...rest } = Astro.props;
+const {
+  variant = "primary",
+  size = "md",
+  class: className,
+  ...rest
+} = Astro.props;
 
 const Tag = Astro.props.href ? "a" : "button";
 ---
@@ -33,8 +40,8 @@ const Tag = Astro.props.href ? "a" : "button";
 <Tag
   class={cn(
     "btn",
-    variant && variants[variant],
-    size && sizes[size],
+    variants[variant],
+    sizes[size],
     className,
   )}
   {...rest}
