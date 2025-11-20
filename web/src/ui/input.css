@@ -1,27 +1,72 @@
-@reference "../styles/global.css";
+.form input,
+.input {
+  border: 1px solid var(--color-input);
+  height: calc(var(--spacing) * 9);
+  width: 100%;
+  min-width: 0px;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  padding-inline: calc(var(--spacing) * 3);
+  padding-block: calc(var(--spacing) * 1);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  box-shadow: var(--shadow-xs);
+  transition: color, box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
+  outline-style: none;
 
-@layer components {
-  .form input,
-  .input {
-    @apply placeholder:text-muted-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none md:text-sm;
-    & *::selection,
-    &::selection {
-      @apply bg-primary text-primary-foreground;
+  &:is(.dark *) {
+    background-color: color-mix(in oklab, var(--color-input) 30%, transparent);
+  }
+
+  @media (width >= 768px) {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+
+  &::placeholder {
+    color: var(--color-muted-foreground);
+  }
+
+  & *::selection,
+  &::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+
+  &:read-only:not([type=file]) {
+    background-color: color-mix(in oklab, var(--color-input) 30%, transparent);
+    &:is(.dark *) {
+      background-color: color-mix(in oklab, var(--color-input) 60%, transparent);
     }
-    &:read-only:not([type=file]) {
-      @apply bg-input/30 dark:bg-input/60;
+  }
+
+  &::file-selector-button {
+    color: var(--color-foreground);
+    display: inline-flex;
+    height: calc(var(--spacing) * 7);
+    border: 0;
+    background-color: transparent;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &:focus-visible {
+    border-color: var(--color-ring);
+    --focus-ring-color: color-mix(in oklab, var(--color-ring) 50%, transparent);
+    box-shadow: 0 0 0 3px var(--focus-ring-color);
+  }
+
+  &[aria-invalid="true"] {
+    border-color: var(--color-destructive);
+    --focus-ring-color: color-mix(in oklab, var(--color-destructive) 20%, transparent);
+    &:is(.dark *) {
+      --focus-ring-color: color-mix(in oklab, var(--color-destructive) 40%, transparent);
     }
-    &::file-selector-button {
-      @apply text-foreground inline-flex h-7 border-0 bg-transparent text-sm font-medium;
-    }
-    &:focus-visible {
-      @apply border-ring ring-ring/50 ring-[3px];
-    }
-    &[aria-invalid="true"] {
-      @apply ring-destructive/20 dark:ring-destructive/40 border-destructive;
-    }
-    &:disabled {
-      @apply pointer-events-none opacity-50;
-    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }
