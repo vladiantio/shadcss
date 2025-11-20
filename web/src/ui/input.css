@@ -1,72 +1,74 @@
-.form input,
-.input {
-  border: 1px solid var(--input);
-  height: calc(var(--spacing) * 9);
-  width: 100%;
-  min-width: 0px;
-  border-radius: var(--radius-md);
-  background-color: transparent;
-  padding-inline: calc(var(--spacing) * 3);
-  padding-block: calc(var(--spacing) * 1);
-  font-size: var(--text-base);
-  line-height: var(--text-base--line-height);
-  box-shadow: var(--shadow-xs);
-  transition: color, box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
-  outline-style: none;
-
-  &:is(.dark *) {
-    background-color: color-mix(in oklab, var(--input) 30%, transparent);
-  }
-
-  @media (width >= 768px) {
-    font-size: var(--text-sm);
-    line-height: var(--text-sm--line-height);
-  }
-
-  &::placeholder {
-    color: var(--muted-foreground);
-  }
-
-  & *::selection,
-  &::selection {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-  }
-
-  &:read-only:not([type=file]) {
-    background-color: color-mix(in oklab, var(--input) 30%, transparent);
-    &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--input) 60%, transparent);
-    }
-  }
-
-  &::file-selector-button {
-    color: var(--foreground);
-    display: inline-flex;
-    height: calc(var(--spacing) * 7);
-    border: 0;
+@layer components {
+  .form input,
+  .input {
+    border: 1px solid var(--input);
+    height: calc(var(--spacing) * 9);
+    width: 100%;
+    min-width: 0px;
+    border-radius: var(--radius-md);
     background-color: transparent;
-    font-size: var(--text-sm);
-    line-height: var(--text-sm--line-height);
-    font-weight: var(--font-weight-medium);
-  }
+    padding-inline: calc(var(--spacing) * 3);
+    padding-block: calc(var(--spacing) * 1);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    box-shadow: var(--shadow-xs);
+    transition: color, box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
+    outline-style: none;
 
-  &:focus-visible {
-    border-color: var(--ring);
-    --focus-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
-    box-shadow: 0 0 0 3px var(--focus-ring-color);
-  }
-
-  &[aria-invalid="true"] {
-    border-color: var(--destructive);
-    --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
     &:is(.dark *) {
-      --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
     }
-  }
 
-  &:disabled {
-    opacity: 0.5;
-    pointer-events: none;
+    @media (width >= 768px) {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    &::placeholder {
+      color: var(--muted-foreground);
+    }
+
+    & *::selection,
+    &::selection {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    &:read-only:not([type=file]) {
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+      &:is(.dark *) {
+        background-color: color-mix(in oklab, var(--input) 60%, transparent);
+      }
+    }
+
+    &::file-selector-button {
+      color: var(--foreground);
+      display: inline-flex;
+      height: calc(var(--spacing) * 7);
+      border: 0;
+      background-color: transparent;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      font-weight: var(--font-weight-medium);
+    }
+
+    &:focus-visible {
+      border-color: var(--ring);
+      --focus-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+      box-shadow: 0 0 0 3px var(--focus-ring-color);
+    }
+
+    &[aria-invalid="true"] {
+      border-color: var(--destructive);
+      --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
+      &:is(.dark *) {
+        --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 }
