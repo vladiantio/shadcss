@@ -1,6 +1,6 @@
 .form input,
 .input {
-  border: 1px solid var(--color-input);
+  border: 1px solid var(--input);
   height: calc(var(--spacing) * 9);
   width: 100%;
   min-width: 0px;
@@ -15,7 +15,7 @@
   outline-style: none;
 
   &:is(.dark *) {
-    background-color: color-mix(in oklab, var(--color-input) 30%, transparent);
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
   }
 
   @media (width >= 768px) {
@@ -24,24 +24,24 @@
   }
 
   &::placeholder {
-    color: var(--color-muted-foreground);
+    color: var(--muted-foreground);
   }
 
   & *::selection,
   &::selection {
-    background-color: var(--color-primary);
-    color: var(--color-primary-foreground);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
   }
 
   &:read-only:not([type=file]) {
-    background-color: color-mix(in oklab, var(--color-input) 30%, transparent);
+    background-color: color-mix(in oklab, var(--input) 30%, transparent);
     &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--color-input) 60%, transparent);
+      background-color: color-mix(in oklab, var(--input) 60%, transparent);
     }
   }
 
   &::file-selector-button {
-    color: var(--color-foreground);
+    color: var(--foreground);
     display: inline-flex;
     height: calc(var(--spacing) * 7);
     border: 0;
@@ -52,16 +52,16 @@
   }
 
   &:focus-visible {
-    border-color: var(--color-ring);
-    --focus-ring-color: color-mix(in oklab, var(--color-ring) 50%, transparent);
+    border-color: var(--ring);
+    --focus-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
     box-shadow: 0 0 0 3px var(--focus-ring-color);
   }
 
   &[aria-invalid="true"] {
-    border-color: var(--color-destructive);
-    --focus-ring-color: color-mix(in oklab, var(--color-destructive) 20%, transparent);
+    border-color: var(--destructive);
+    --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
     &:is(.dark *) {
-      --focus-ring-color: color-mix(in oklab, var(--color-destructive) 40%, transparent);
+      --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
     }
   }
 
