@@ -6,16 +6,10 @@
   "scripts": {
     "test": "pnpm --filter=web check",
     "web:dev": "pnpm --filter=web dev",
-    "web:build": "pnpm --filter=web build",
-    "prepare": "husky install"
+    "web:build": "pnpm --filter=web build"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.18.0",
-  "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/config-conventional": "^20.0.0",
-    "husky": "^8.0.0"
-  }
+  "packageManager": "pnpm@10.18.0"
 }
