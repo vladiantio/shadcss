@@ -1,0 +1,46 @@
+/* Card */
+@layer shadcss.components {
+  .card {
+    display: flex;
+    flex-direction: column;
+
+    > header {
+      container-type: inline-size;
+      container-name: card-header;
+      display: grid;
+      grid-auto-rows: min-content;
+      align-items: flex-start;
+
+      &:has(> [data-slot='action'], > .card-action) {
+        grid-template-columns: 1fr auto;
+      }
+
+      &:has(> p) {
+        grid-template-rows: auto auto;
+      }
+    }
+
+    > header > :is(h2, h3, [data-slot='title'], .card-title) {
+      line-height: 1;
+    }
+
+    > header > :is([data-slot='action'], .card-action) {
+      grid-column-start: 2;
+      grid-row: span 2 / span 2;
+      grid-row-start: 1;
+      align-self: flex-start;
+      justify-self: flex-end;
+    }
+
+    > header > menu.card-action {
+      margin: 0;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    > footer {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

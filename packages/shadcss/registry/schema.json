@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shadcss.dev/schema/registry.json",
+  "title": "shadcss registry",
+  "type": "object",
+  "required": ["name", "version", "items"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+" },
+    "items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/item" }
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "required": ["name", "type", "status", "title", "description", "root", "files"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+        "type": { "enum": ["component", "primitive", "foundation", "theme"] },
+        "status": { "enum": ["stable", "experimental"] },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "docs": { "type": "string" },
+        "root": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "registryDependencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "optionalDependencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "files": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/file" }
+        },
+        "examples": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "file": {
+      "type": "object",
+      "required": ["path", "target", "role", "layer"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "target": { "type": "string", "minLength": 1 },
+        "role": { "enum": ["base", "theme"] },
+        "layer": {
+          "enum": [
+            "shadcss.tokens",
+            "shadcss.reset",
+            "shadcss.base",
+            "shadcss.components",
+            "shadcss.theme",
+            "shadcss.utilities"
+          ]
+        }
+      }
+    }
+  }
+}

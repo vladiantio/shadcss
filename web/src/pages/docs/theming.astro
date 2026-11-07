@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Layout title="Theming" description="Tokens, layers, dark mode and the public style contract.">
+  <div class="docs-content">
+    <p class="docs-eyebrow">Getting started</p>
+    <h1>Theming</h1>
+    <p class="docs-lead">
+      Colors, radius, shadows and typography are CSS custom properties. The visual style lives in
+      <code>themes/nova</code>; the structure lives in <code>components</code>.
+    </p>
+
+    <h2>Layers</h2>
+    <p>
+      The generated <code>index.css</code> declares the layer order. Keep it before your own layers
+      so component styles can be overridden deliberately.
+    </p>
+    <CodeBlock
+      lang="css"
+      code={`@layer shadcss.tokens, shadcss.reset, shadcss.base, shadcss.components, shadcss.theme, shadcss.utilities;`}
+    />
+
+    <h2>Tokens</h2>
+    <p>
+      Tokens use the same names as shadcn/ui: <code>--background</code>, <code>--foreground</code>,
+      <code>--primary</code>, <code>--muted</code>, <code>--border</code>, <code>--ring</code>,
+      <code>--radius</code>, and so on.
+    </p>
+    <CodeBlock
+      lang="css"
+      code={`:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
+}`}
+    />
+
+    <h2>Dark mode</h2>
+    <p>
+      Add <code>.dark</code> to the <code>&lt;html&gt;</code> element. The token file also sets
+      <code>color-scheme</code> so native controls follow the theme.
+    </p>
+    <CodeBlock lang="js" code={`document.documentElement.classList.toggle("dark", isDark);`} />
+
+    <h2>Public style contract</h2>
+    <p>
+      Components expose variants, sizes and states through data attributes and ARIA. The most common
+      hooks are:
+    </p>
+    <ul>
+      <li><code>data-variant</code> and <code>data-size</code> for visual variants.</li>
+      <li><code>data-slot="title|description|action|header|shortcut|indicator"</code> for parts.</li>
+      <li><code>aria-invalid="true"</code> for invalid controls.</li>
+      <li><code>aria-selected="true"</code> for tabs, options and selectable rows.</li>
+      <li><code>aria-checked="true"</code> for checkable menu items.</li>
+      <li><code>data-highlighted</code> for the highlighted menu item.</li>
+      <li><code>:disabled</code> and <code>aria-disabled="true"</code> for disabled states.</li>
+    </ul>
+
+    <h2>Styles and themes</h2>
+    <p>
+      <code>themes/nova</code> is the default visual style. To create a new style, copy that folder,
+      edit its files and point <code>shadcss.json</code> at the new theme when you initialize a
+      project. v1 ships Nova only.
+    </p>
+    <p>
+      Tokens are the primary customization surface. If a change cannot be expressed with tokens,
+      edit the component or theme file you own.
+    </p>
+
+    <div class="docs-callout">
+      <strong>No prefixes.</strong> Classes and tokens are intentionally unprefixed to match
+      shadcn/ui and the source nomenclature. Use one design system per project to avoid collisions.
+    </div>
+  </div>
+</Layout>

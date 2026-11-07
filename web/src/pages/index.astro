@@ -1,20 +1,90 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
-const docs = await getCollection("docs");
+import InstallCommand from "../components/InstallCommand.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+import { components } from "../data/components";
+
+const featured = ["button", "card", "field", "dialog", "dropdown-menu", "table"]
+  .map((id) => components.find((component) => component.id === id))
+  .filter((component) => component !== undefined);
 ---
 
 <Layout>
-  <img src="/favicon.svg" alt="Logo" width="64" height="64" />
-  <h1 class="text-3xl">shad<strong class="text-primary">css</strong></h1>
-  <p><em>(WIP)</em></p>
-  <ul>
-    {
-      docs.map((doc) => (
-        <li>
-          <a href={`/docs/${doc.id}`}>{doc.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="docs-content">
+    <section class="docs-hero">
+      <span class="docs-badge">Native CSS · copy-paste · MIT</span>
+      <h1>Native CSS scaffolds with the shadcn feel.</h1>
+      <p>
+        shadcss gives you the component CSS and the markup contract. No Tailwind, no runtime, no
+        framework lock-in. Run the CLI, copy the files, own the code.
+      </p>
+      <div class="docs-hero-actions">
+        <a class="btn" href="/docs/installation">Get started</a>
+        <a class="btn" data-variant="outline" href="/docs/components">Browse components</a>
+      </div>
+    </section>
+
+    <InstallCommand command="npx shadcss init" />
+
+    <div class="docs-grid">
+      <div class="docs-card">
+        <span class="docs-card-title">Native CSS</span>
+        <span class="docs-card-description">
+          Nesting, layers, logical properties and modern selectors. No build step required.
+        </span>
+      </div>
+      <div class="docs-card">
+        <span class="docs-card-title">Copy-paste ownership</span>
+        <span class="docs-card-description">
+          The CLI writes readable CSS files into your project. You can edit or delete them.
+        </span>
+      </div>
+      <div class="docs-card">
+        <span class="docs-card-title">Tokens and themes</span>
+        <span class="docs-card-description">
+          shadcn-compatible CSS variables, light/dark out of the box, and a swappable Nova theme.
+        </span>
+      </div>
+      <div class="docs-card">
+        <span class="docs-card-title">CSS-only</span>
+        <span class="docs-card-description">
+          Components are styles. JavaScript behavior stays yours, with a documented data contract.
+        </span>
+      </div>
+    </div>
+
+    <section>
+      <div class="docs-section-header">
+        <h2>Start with the contract</h2>
+        <a class="docs-header-link" href="/docs/theming">Read the theming guide</a>
+      </div>
+      <CodeBlock
+        lang="css"
+        code={`@layer shadcss.tokens, shadcss.reset, shadcss.base, shadcss.components, shadcss.theme, shadcss.utilities;
+
+@import "./shadcss/index.css";
+
+.my-button {
+  --icon-size: 1.25rem;
+}`}
+      />
+    </section>
+
+    <section>
+      <div class="docs-section-header">
+        <h2>Featured components</h2>
+        <a class="docs-header-link" href="/docs/components">View all</a>
+      </div>
+      <div class="docs-grid">
+        {
+          featured.map((component) => (
+            <a class="docs-card" href={`/docs/components/${component.id}`}>
+              <span class="docs-card-title">{component.title}</span>
+              <span class="docs-card-description">{component.description}</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
 </Layout>

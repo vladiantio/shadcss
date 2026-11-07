@@ -1,0 +1,43 @@
+/* Alert */
+@layer shadcss.components {
+  .alert {
+    position: relative;
+    width: 100%;
+
+    &:has(> footer) {
+      padding-inline-end: 4.5rem;
+    }
+
+    > :is(h2, h3, h4, h5, h6, strong, [data-slot='title']) {
+      min-height: 1rem;
+    }
+
+    > section {
+      display: grid;
+      justify-items: start;
+      gap: 0.25rem;
+
+      :where(p, ul, ol) {
+        margin: 0;
+      }
+
+      :where(p, ul, ol):not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        list-style-position: inside;
+        list-style-type: disc;
+      }
+
+      ol {
+        list-style-position: inside;
+        list-style-type: decimal;
+      }
+    }
+
+    > footer {
+      position: absolute;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+<!-- Edit profile -->
+<button type="button" class="btn">Open dialog</button>
+
+<dialog class="dialog" id="demo-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+  <div>
+    <header>
+      <h2 data-slot="title" id="dialog-title">Edit profile</h2>
+      <p data-slot="description" id="dialog-description">
+        Make changes to your profile here. Click save when you're done.
+      </p>
+    </header>
+    <section>
+      <div class="field">
+        <label class="label" for="dialog-name">Name</label>
+        <input class="input" id="dialog-name" value="Ada Lovelace">
+      </div>
+    </section>
+    <footer>
+      <button type="button" class="btn" data-variant="outline">Cancel</button>
+      <button type="button" class="btn">Save changes</button>
+    </footer>
+    <form method="dialog">
+      <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Close">×</button>
+    </form>
+  </div>
+</dialog>

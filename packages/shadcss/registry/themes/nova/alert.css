@@ -1,0 +1,109 @@
+/* Alert */
+@layer shadcss.theme {
+  .alert {
+    background-color: var(--card);
+    color: var(--card-foreground);
+    display: grid;
+    gap: 0.125rem;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    padding-inline: 0.625rem;
+    padding-block: 0.5rem;
+    text-align: start;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+
+    &:has(> svg) {
+      grid-template-columns: auto 1fr;
+      column-gap: 0.5rem;
+    }
+
+    > svg {
+      grid-row: span 2 / span 2;
+      translate: 0 0.125rem;
+      color: currentcolor;
+    }
+
+    > svg {
+      width: var(--icon-size, 1rem);
+      height: var(--icon-size, 1rem);
+    }
+
+    &[data-variant='destructive'] {
+      background-color: var(--card);
+      color: var(--destructive);
+
+      > svg {
+        color: currentcolor;
+      }
+    }
+
+    > :is(h2, h3, h4, h5, h6, strong, [data-slot='title']),
+    &[data-variant='destructive'] > :is(h2, h3, h4, h5, h6, strong, [data-slot='title']) {
+      font-weight: 500;
+    }
+
+    &:has(> svg) > :is(h2, h3, h4, h5, h6, strong, [data-slot='title']) {
+      grid-column-start: 2;
+    }
+
+    > section {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      text-wrap: balance;
+      color: var(--muted-foreground);
+
+      @media (width >= 48rem) {
+        text-wrap: pretty;
+      }
+
+      & p:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    > [data-slot='description'] {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      text-wrap: balance;
+      color: var(--muted-foreground);
+
+      @media (width >= 48rem) {
+        text-wrap: pretty;
+      }
+    }
+
+    &[data-variant='destructive'] > section {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      text-wrap: balance;
+      color: color-mix(in oklab, var(--destructive) 90%, transparent);
+
+      @media (width >= 48rem) {
+        text-wrap: pretty;
+      }
+
+      & p:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+
+    &[data-variant='destructive'] > [data-slot='description'] {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      text-wrap: balance;
+      color: color-mix(in oklab, var(--destructive) 90%, transparent);
+
+      @media (width >= 48rem) {
+        text-wrap: pretty;
+      }
+    }
+
+    > footer,
+    &[data-variant='destructive'] > footer {
+      inset-inline-end: 0.5rem;
+      top: 0.5rem;
+    }
+  }
+}

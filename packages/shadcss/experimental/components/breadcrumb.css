@@ -1,0 +1,49 @@
+/* Breadcrumb */
+@layer shadcss.components {
+  .breadcrumb {
+    > ol {
+      margin: 0;
+      display: flex;
+      list-style-type: none;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0;
+      overflow-wrap: break-word;
+    }
+
+    li {
+      display: inline-flex;
+      align-items: center;
+
+      &[aria-hidden='true'] {
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      > span[aria-hidden='true'] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    a {
+      border-radius: var(--radius-sm);
+      outline-style: none;
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+      }
+    }
+
+    [aria-current='page'] {
+      cursor: default;
+    }
+
+    [data-rtl-flip] {
+      &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
+        rotate: 180deg;
+      }
+    }
+  }
+}

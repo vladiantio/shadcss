@@ -1,0 +1,55 @@
+/* Label */
+@layer shadcss.theme {
+  :is(.field > label, .field > section > label, label:has(> .field), .label) {
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    font-weight: 500;
+
+    &:has(> :disabled),
+    &:has(+ :disabled),
+    &:has(~ :disabled),
+    :where([aria-disabled='true']) & {
+      opacity: 50%;
+    }
+
+    &:has(*:is(:checked)) {
+      border-color: color-mix(in oklab, var(--primary) 30%, transparent);
+      background-color: color-mix(in oklab, var(--primary) 5%, transparent);
+    }
+
+    &:is(html.dark *) {
+      &:has(*:is(:checked)) {
+        border-color: color-mix(in oklab, var(--primary) 20%, transparent);
+        background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+      }
+    }
+  }
+
+  :is(.field > label, .field > section > label, label:has(> .field)) {
+    line-height: 1.375;
+  }
+
+  .label {
+    line-height: 1;
+  }
+
+  .field > label:has(.radio),
+  .field > label:has(.checkbox),
+  .field > label:has(.switch),
+  .field > label:has(> .field),
+  label:has(> .field) {
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .field > label:has(.radio),
+  .field > label:has(.checkbox),
+  .field > label:has(.switch) {
+    padding: 0.625rem;
+  }
+
+  :is(.field > label, label:has(> .field)) > .field {
+    padding: 0.625rem;
+  }
+}

@@ -4,9 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "pnpm --filter=web check",
-    "web:dev": "pnpm --filter=web dev",
-    "web:build": "pnpm --filter=web build"
+    "test": "pnpm --filter=shadcss check && pnpm --filter=web check",
+    "docs:css": "node packages/shadcss/scripts/generate-docs-css.mjs",
+    "web:dev": "pnpm docs:css && pnpm --filter=web dev",
+    "web:build": "pnpm docs:css && pnpm --filter=web build",
+    "cli:build": "pnpm --filter=shadcss build",
+    "registry:check": "pnpm --filter=shadcss validate",
+    "registry:examples": "pnpm --filter=shadcss examples"
   },
   "keywords": [],
   "author": "",

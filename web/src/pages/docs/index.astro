@@ -1,0 +1,63 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import InstallCommand from "../../components/InstallCommand.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Layout title="Documentation" description="Install, configure and theme shadcss.">
+  <div class="docs-content">
+    <p class="docs-eyebrow">Documentation</p>
+    <h1>Native CSS scaffolds, without the runtime.</h1>
+    <p class="docs-lead">
+      shadcss is a registry of component CSS and markup contracts. The CLI copies the files into
+      your project, so you own the code and can change anything.
+    </p>
+
+    <div class="docs-grid">
+      <a class="docs-card" href="/docs/installation">
+        <span class="docs-card-title">Installation</span>
+        <span class="docs-card-description">Initialize a project and add your first component.</span>
+      </a>
+      <a class="docs-card" href="/docs/theming">
+        <span class="docs-card-title">Theming</span>
+        <span class="docs-card-description">Tokens, dark mode, data attributes and the Nova style.</span>
+      </a>
+      <a class="docs-card" href="/docs/components">
+        <span class="docs-card-title">Components</span>
+        <span class="docs-card-description">Browse the 24 stable components in v1.</span>
+      </a>
+    </div>
+
+    <h2>How it works</h2>
+    <ol>
+      <li><strong>Initialize.</strong> The CLI creates the foundation files and a generated entrypoint.</li>
+      <li><strong>Add components.</strong> Each item installs its base CSS, its Nova theme file and any primitive dependency.</li>
+      <li><strong>Use the markup contract.</strong> Data attributes, ARIA and native elements carry the state.</li>
+    </ol>
+
+    <InstallCommand command="npx shadcss init" />
+    <InstallCommand command="npx shadcss add button card field" />
+
+    <h2>What gets installed</h2>
+    <CodeBlock
+      lang="text"
+      code={`shadcss.json
+.shadcss/manifest.json
+src/styles/shadcss/
+  tokens.css
+  reset.css
+  base.css
+  utilities.css
+  index.css
+  primitives/
+  components/
+  themes/nova/`}
+    />
+
+    <div class="docs-callout">
+      <strong>CSS only.</strong> Components that need interaction, such as dropdown menus and tabs,
+      document the required state contract but do not ship JavaScript. The docs demos use a small
+      demo-only script to keep the examples interactive.
+    </div>
+  </div>
+</Layout>

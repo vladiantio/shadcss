@@ -1,21 +1,14 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-
-import tailwindcss from '@tailwindcss/vite';
-
-import mdx from '@astrojs/mdx';
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()],
     server: {
       fs: {
-        // Allow serving files from one level up to the project root
-        allow: [".."],
-      },
-    },
-  },
-
-  integrations: [mdx()]
+        // Allow serving the registry CSS from the monorepo root.
+        allow: [".."]
+      }
+    }
+  }
 });

@@ -1,0 +1,201 @@
+/* Sidebar */
+@layer shadcss.theme {
+  .sidebar {
+    nav {
+      background-color: var(--sidebar);
+      color: var(--sidebar-foreground);
+
+      [role=separator] {
+        margin-inline: 0.5rem;
+        border-color: var(--sidebar-border);
+      }
+
+      h3 {
+        height: 2rem;
+        border-radius: var(--radius-md);
+        padding-inline: 0.5rem;
+        font-size: var(--text-xs);
+        line-height: var(--text-xs--line-height);
+        font-weight: 500;
+        color: color-mix(in oklab, var(--sidebar-foreground) 70%, transparent);
+        transition-property: margin, opacity;
+        transition-duration: 200ms;
+        transition-timing-function: linear;
+
+        &:focus-visible {
+          box-shadow: 0 0 0 2px currentcolor;
+        }
+
+        > svg {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      > header,
+      > footer {
+        gap: 0.5rem;
+        padding: 0.5rem;
+      }
+
+      > section {
+        gap: 0;
+
+        > [role=group] {
+          padding: 0.5rem;
+        }
+
+        > [role=group] > ul {
+          gap: 0;
+        }
+
+        > [role=group] {
+          font-size: var(--text-sm);
+          line-height: var(--text-sm--line-height);
+        }
+      }
+
+      ul {
+        li {
+          > :is(a, button),
+          > details > summary {
+            gap: 0.5rem;
+            border-radius: var(--radius-md);
+            padding: 0.5rem;
+            text-align: left;
+            font-size: var(--text-sm);
+            line-height: var(--text-sm--line-height);
+
+            &:hover {
+              background-color: var(--sidebar-accent);
+              color: var(--sidebar-accent-foreground);
+            }
+
+            &:focus-visible {
+              box-shadow: 0 0 0 2px currentcolor;
+              outline-style: none;
+
+              @media (forced-colors: active) {
+                outline: 2px solid transparent;
+                outline-offset: 2px;
+              }
+            }
+
+            &:active {
+              background-color: var(--sidebar-accent);
+              color: var(--sidebar-accent-foreground);
+            }
+
+            &[data-open]:hover {
+              background-color: var(--sidebar-accent);
+              color: var(--sidebar-accent-foreground);
+            }
+
+            > svg {
+              width: 1rem;
+              height: 1rem;
+              flex-shrink: 0;
+            }
+
+            &:is([aria-current=page], [data-active=true]) {
+              background-color: var(--sidebar-accent);
+              font-weight: 500;
+              color: var(--sidebar-accent-foreground);
+            }
+
+            &:not([data-variant]),
+            &[data-variant=default] {
+              &:hover {
+                background-color: var(--sidebar-accent);
+                color: var(--sidebar-accent-foreground);
+              }
+            }
+
+            &[data-variant=outline] {
+              background-color: var(--background);
+              box-shadow: 0 0 0 1px var(--sidebar-border);
+
+              &:hover {
+                background-color: var(--sidebar-accent);
+                color: var(--sidebar-accent-foreground);
+                box-shadow: 0 0 0 1px var(--sidebar-accent);
+              }
+            }
+
+            &:not([data-size]),
+            &[data-size=default] {
+              height: 2rem;
+              font-size: var(--text-sm);
+              line-height: var(--text-sm--line-height);
+            }
+
+            &[data-size=sm] {
+              height: 1.75rem;
+              font-size: var(--text-xs);
+              line-height: var(--text-xs--line-height);
+            }
+
+            &[data-size=lg] {
+              height: 3rem;
+              font-size: var(--text-sm);
+              line-height: var(--text-sm--line-height);
+            }
+          }
+
+          > details > summary::after {
+            width: 1rem;
+            height: 1rem;
+          }
+
+          > details::details-content {
+            padding-inline: 0.875rem;
+          }
+        }
+
+        ul {
+          translate: 1px;
+          gap: 0.25rem;
+          border-inline-start-style: solid;
+          border-inline-start-width: 1px;
+          border-color: var(--sidebar-border);
+          padding-inline: 0.625rem;
+          padding-block: 0.125rem;
+
+          &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
+            translate: -1px;
+          }
+
+          > li > :is(a, button),
+          > li > details > summary {
+            height: 1.75rem;
+            gap: 0.5rem;
+            border-radius: var(--radius-md);
+            padding-inline: 0.5rem;
+            font-size: var(--text-sm);
+            line-height: var(--text-sm--line-height);
+            color: var(--sidebar-foreground);
+
+            &:hover {
+              background-color: var(--sidebar-accent);
+              color: var(--sidebar-accent-foreground);
+            }
+
+            &:focus-visible {
+              box-shadow: 0 0 0 2px currentcolor;
+            }
+
+            &:active {
+              background-color: var(--sidebar-accent);
+              color: var(--sidebar-accent-foreground);
+            }
+
+            > svg {
+              width: 1rem;
+              height: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

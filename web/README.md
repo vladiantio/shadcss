@@ -1,40 +1,20 @@
-# shadcss
+# shadcss docs
 
-## 🚀 Project Structure
+Astro site for the shadcss component docs and playground. The site imports the
+registry CSS directly from `packages/shadcss/registry`, so the examples and the
+published files never drift.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Commands
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+pnpm dev          # start Astro
+pnpm build        # regenerate docs CSS + static build
+pnpm preview      # preview the build
+pnpm check        # astro check
+pnpm test:e2e     # build + Playwright + axe
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+From the repo root, use `pnpm web:dev` or `pnpm web:build`.
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The generated `web/src/styles/shadcss.css` is committed. Run `pnpm docs:css`
+after adding or removing a registry item.

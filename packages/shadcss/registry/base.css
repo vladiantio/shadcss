@@ -1,0 +1,20 @@
+/* Element defaults. Structural only: visual decisions live in the theme layer. */
+@layer shadcss.base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  * {
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--primary) 20%, transparent);
+  }
+}

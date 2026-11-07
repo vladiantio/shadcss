@@ -1,0 +1,81 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Example from "../../../components/Example.astro";
+import InstallCommand from "../../../components/InstallCommand.astro";
+import { components, type ComponentDoc } from "../../../data/components";
+
+export function getStaticPaths() {
+  return components.map((component) => ({
+    params: { id: component.id },
+    props: { component }
+  }));
+}
+
+interface Props {
+  component: ComponentDoc;
+}
+
+const { component } = Astro.props;
+---
+
+<Layout title={component.title} description={component.description}>
+  <div class="docs-content">
+    <p class="docs-eyebrow">Components / {component.group}</p>
+    <h1>{component.title}</h1>
+    <p class="docs-lead">{component.description}</p>
+
+    <div class="docs-meta">
+      <span class="docs-chip"><strong>Status</strong> {component.status}</span>
+      {
+        component.deps.length > 0 && (
+          <span class="docs-chip"><strong>Installs</strong> {component.deps.join(", ")}</span>
+        )
+      }
+      {
+        component.optional.length > 0 && (
+          <span class="docs-chip">
+            <strong>Works with</strong> {component.optional.join(", ")}
+          </span>
+        )
+      }
+    </div>
+
+    <InstallCommand command={`npx shadcss add ${component.id}`} />
+
+    {component.examples.map((example) => <Example title={example.title} html={example.html} />)}
+
+    {
+      component.notes.length > 0 && (
+        <>
+          <h2>Accessibility and behavior</h2>
+          <ul>
+            {component.notes.map((note) => (
+              <li>{note}</li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    <h2>Files</h2>
+    <div class="docs-file-list">
+      {
+        component.files.map((file) => (
+          <div>
+            <code>{file.path}</code>
+            <span class="docs-badge">{file.role}</span>
+          </div>
+        ))
+      }
+    </div>
+
+    <h2>Install contract</h2>
+    <p>
+      The CLI writes the base file under <code>components/</code>, the visual file under
+      <code>themes/nova/</code>, and any primitive dependency under <code>primitives/</code>. The
+      generated <code>index.css</code> imports them in the right layer order.
+    </p>
+
+    <p><a class="docs-header-link" href="/docs/components">← Back to components</a></p>
+  </div>
+</Layout>

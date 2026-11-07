@@ -25,8 +25,11 @@ pnpm-debug.log*
 .vscode/
 .zed/
 
-# Lock files
+# Lock files (pnpm-lock.yaml is committed for reproducible CI)
 bun.lockb
 package-lock.json
-pnpm-lock.yaml
 yarn.lock
+
+# Test output
+test-results/
+playwright-report/

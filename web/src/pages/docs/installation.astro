@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import InstallCommand from "../../components/InstallCommand.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+---
+
+<Layout title="Installation" description="Install shadcss in a native CSS project.">
+  <div class="docs-content">
+    <p class="docs-eyebrow">Getting started</p>
+    <h1>Installation</h1>
+    <p class="docs-lead">
+      shadcss copies CSS files into your project. You need Node 20+ and a CSS entrypoint.
+    </p>
+
+    <h2>1. Initialize</h2>
+    <p>The CLI detects a CSS entrypoint and creates the foundation files.</p>
+    <InstallCommand command="npx shadcss init" />
+    <p>
+      If you prefer to answer every question explicitly, omit <code>--yes</code>. The CLI asks for
+      the CSS directory, the theme and the entrypoint.
+    </p>
+
+    <h2>2. Add components</h2>
+    <p>Components install their structural CSS, the Nova theme file and any primitive dependency.</p>
+    <InstallCommand command="npx shadcss add button card field dialog" />
+    <p>To install every stable component:</p>
+    <InstallCommand command="npx shadcss add all" />
+
+    <h2>3. Import the generated entrypoint</h2>
+    <p>
+      <code>init</code> creates <code>shadcss/index.css</code> and can add a single import to your
+      CSS entrypoint. If you skipped that step, add it manually:
+    </p>
+    <CodeBlock lang="css" code={`@import "./styles/shadcss/index.css";`} />
+
+    <h2>Project files</h2>
+    <CodeBlock
+      lang="text"
+      code={`shadcss.json                 # cssDir, entrypoint and theme
+.shadcss/manifest.json       # installed items and file hashes
+src/styles/shadcss/
+  tokens.css                 # design tokens
+  reset.css                  # minimal reset
+  base.css                   # element defaults
+  utilities.css              # sr-only
+  index.css                  # generated @layer order + imports
+  primitives/                # shared popover/dialog shells
+  components/                # structural CSS per component
+  themes/nova/               # visual CSS per component`}
+    />
+
+    <h2>Commands</h2>
+    <CodeBlock
+      lang="bash"
+      code={`npx shadcss init              # set up the project
+npx shadcss add button card   # add components
+npx shadcss add all           # add every stable component
+npx shadcss list              # list components
+npx shadcss list --all        # include primitives and foundation
+npx shadcss add button --html # print the example markup`}
+    />
+
+    <h2>Coexistence</h2>
+    <p>
+      shadcss is a native CSS design system. It uses unprefixed classes such as
+      <code>.btn</code> and unprefixed tokens such as <code>--background</code>. If your project
+      already uses shadcn/ui or Tailwind, choose one token contract instead of loading both.
+    </p>
+
+    <div class="docs-callout">
+      <strong>No build step required.</strong> The CSS uses native nesting, <code>@layer</code>,
+      <code>:has()</code>, <code>color-mix()</code>, anchor positioning and <code>field-sizing</code>.
+      Target Chrome/Edge 125+, Safari 26+ and Firefox 147+ for full fidelity.
+    </div>
+  </div>
+</Layout>

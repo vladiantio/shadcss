@@ -1,5 +1,22 @@
 ---
-import "../styles/global.css";
+import "../styles/shadcss.css";
+import "../styles/docs.css";
+import { componentGroups, componentsInGroup } from "../data/components";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "shadcss",
+  description = "Native CSS component scaffolds with the shadcn feel."
+} = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffolds" : `${title} — shadcss`;
 ---
 
 <!doctype html>
@@ -9,26 +26,147 @@ import "../styles/global.css";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>shadcss</title>
-    <script>
-      const matchDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-      const updateTheme = () => {
-        const theme = localStorage.theme || "system";
-        document.documentElement.classList.toggle(
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      const root = document.documentElement;
+      const media = window.matchMedia("(prefers-color-scheme: dark)");
+      const apply = (theme) => {
+        root.classList.toggle(
           "dark",
-          theme === "dark" || (theme === "system" && matchDarkScheme.matches)
+          theme === "dark" || (theme === "system" && media.matches)
         );
       };
-      updateTheme();
-      matchDarkScheme.addEventListener("change", updateTheme);
-      window.addEventListener("storage", updateTheme);
+      apply(localStorage.getItem("theme") ?? "system");
+      media.addEventListener("change", () => {
+        if ((localStorage.getItem("theme") ?? "system") === "system") apply("system");
+      });
+      document.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-theme-toggle]");
+        if (!button) return;
+        const next = root.classList.contains("dark") ? "light" : "dark";
+        localStorage.setItem("theme", next);
+        apply(next);
+      });
     </script>
   </head>
   <body>
-    <div
-      class="flex flex-col gap-4 items-start justify-center min-h-dvh mx-auto max-w-5xl px-4 py-6"
-    >
-      <slot />
+    <header class="docs-header">
+      <a class="docs-brand" href="/">
+        <img src="/favicon.svg" alt="" width="24" height="24" />
+        shad<strong>css</strong>
+      </a>
+      <nav class="docs-header-nav" aria-label="Main">
+        <a class="docs-header-link" href="/docs">Docs</a>
+        <a
+          class="docs-header-link"
+          href="https://github.com/vladiantio/shadcss"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
+        <button class="docs-icon-button" type="button" data-theme-toggle aria-label="Toggle theme">
+          <svg
+            class="docs-theme-icon docs-theme-icon--sun"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg
+            class="docs-theme-icon docs-theme-icon--moon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <div class="docs-shell">
+      <aside class="docs-sidebar">
+        <nav class="docs-nav" aria-label="Documentation">
+          <div class="docs-nav-group">
+            <span class="docs-nav-title">Getting started</span>
+            <a
+              class="docs-nav-link"
+              href="/docs"
+              aria-current={pathname === "/docs" ? "page" : undefined}>Overview</a
+            >
+            <a
+              class="docs-nav-link"
+              href="/docs/installation"
+              aria-current={isActive("/docs/installation") ? "page" : undefined}
+              >Installation</a
+            >
+            <a
+              class="docs-nav-link"
+              href="/docs/theming"
+              aria-current={isActive("/docs/theming") ? "page" : undefined}>Theming</a
+            >
+            <a
+              class="docs-nav-link"
+              href="/docs/components"
+              aria-current={pathname === "/docs/components" ? "page" : undefined}
+              >Components</a
+            >
+          </div>
+          {
+            componentGroups.map((group) => (
+              <div class="docs-nav-group">
+                <span class="docs-nav-title">{group}</span>
+                {componentsInGroup(group).map((component) => (
+                  <a
+                    class="docs-nav-link"
+                    href={`/docs/components/${component.id}`}
+                    aria-current={
+                      pathname === `/docs/components/${component.id}` ? "page" : undefined
+                    }
+                  >
+                    {component.title}
+                  </a>
+                ))}
+              </div>
+            ))
+          }
+        </nav>
+      </aside>
+
+      <main class="docs-main" id="content">
+        <slot />
+        <footer class="docs-footer">
+          <p>
+            shadcss is MIT licensed. Built with native CSS, no runtime. Inspired by
+            <a href="https://ui.shadcn.com" target="_blank" rel="noreferrer">shadcn/ui</a>.
+          </p>
+        </footer>
+      </main>
     </div>
+
+    <script>
+      import "../demo/site.js";
+    </script>
   </body>
 </html>

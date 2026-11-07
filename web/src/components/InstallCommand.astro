@@ -1,0 +1,12 @@
+---
+interface Props {
+  command: string;
+}
+
+const { command } = Astro.props;
+---
+
+<div class="install-command">
+  <code tabindex="0">{command}</code>
+  <button class="copy-button" type="button" data-copy>Copy</button>
+</div>

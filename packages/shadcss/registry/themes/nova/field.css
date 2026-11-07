@@ -1,0 +1,116 @@
+/* Field */
+@layer shadcss.theme {
+  .fieldset {
+    gap: 1rem;
+
+    &:has(> [data-slot='checkbox-group']) {
+      gap: 0.75rem;
+    }
+
+    &:has(> [data-slot='radio-group']) {
+      gap: 0.75rem;
+    }
+  }
+
+  .fieldset > legend {
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+
+    &[data-variant='label'] {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    &[data-variant='legend'] {
+      font-size: var(--text-base);
+      line-height: 1.5;
+    }
+  }
+
+  .fieldset > :is([role='group'], [role='radiogroup']):not(.field),
+  .field > :is(fieldset, [role='group'], [role='radiogroup']):not(.field) {
+    gap: 1.25rem;
+
+    &[role='radiogroup'],
+    &:has(> .field > .checkbox),
+    &:has(> .field > .radio),
+    &[data-slot='checkbox-group'],
+    &[data-slot='radio-group'] {
+      gap: 0.75rem;
+    }
+  }
+
+  :is(.fieldset, .field) > :is([role='group'], [role='radiogroup']):not(.field) > :is([role='group'], [role='radiogroup']):not(.field),
+  .field > fieldset:not(.field) > :is([role='group'], [role='radiogroup']):not(.field) {
+    gap: 1rem;
+  }
+
+  .field {
+    gap: 0.5rem;
+
+    &[aria-invalid='true'],
+    &:has([aria-invalid='true']) {
+      color: var(--destructive);
+    }
+  }
+
+  .field > section {
+    gap: 0.125rem;
+  }
+
+  .field h2,
+  .field h3 {
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    line-height: 1.375;
+    font-weight: 500;
+
+    :where([aria-disabled='true']) & {
+      opacity: 50%;
+    }
+  }
+
+  .fieldset legend + p,
+  .field > p,
+  .field section > p {
+    text-align: start;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--muted-foreground);
+
+    [data-variant='legend'] + & {
+      margin-top: -0.375rem;
+    }
+  }
+
+  .fieldset > legend[data-variant='label'] {
+    margin-bottom: 0;
+  }
+
+  .fieldset > legend:not([data-variant]) + p,
+  .fieldset > legend[data-variant='legend'] + p {
+    margin-top: -0.375rem;
+  }
+
+  .field-separator {
+    margin-block: -0.5rem;
+    height: 1.25rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+
+    :where(*[data-variant='outline']) & {
+      margin-bottom: -0.5rem;
+    }
+  }
+
+  .field-separator > span {
+    padding-inline: 0.5rem;
+    color: var(--muted-foreground);
+  }
+
+  .field [role='alert']:not(.alert) {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--destructive);
+  }
+}
