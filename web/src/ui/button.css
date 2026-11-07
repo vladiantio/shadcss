@@ -39,123 +39,127 @@
       opacity: 0.5;
       pointer-events: none;
     }
-  }
 
-  /* Sizes */
+    /* Sizes */
 
-  .btn-sm {
-    gap: calc(var(--spacing) * 1.5);
-    height: calc(var(--spacing) * 8);
-    padding-inline: calc(var(--spacing) * 3);
-    &:has(> svg) {
-      padding-inline: calc(var(--spacing) * 2.5);
-    }
-  }
-
-  .btn-md {
-    gap: calc(var(--spacing) * 2);
-    height: calc(var(--spacing) * 9);
-    padding-inline: calc(var(--spacing) * 4);
-    &:has(> svg) {
-      padding-inline: calc(var(--spacing) * 3);
-    }
-  }
-
-  .btn-lg {
-    gap: calc(var(--spacing) * 2);
-    height: calc(var(--spacing) * 10);
-    padding-inline: calc(var(--spacing) * 6);
-    &:has(> svg) {
+    &[data-size="default"],
+    &[data-size=""],
+    &:not([data-size]) {
+      gap: calc(var(--spacing) * 2);
+      height: calc(var(--spacing) * 9);
       padding-inline: calc(var(--spacing) * 4);
-    }
-  }
-
-  .btn-icon {
-    width: calc(var(--spacing) * 9);
-    height: calc(var(--spacing) * 9);
-  }
-
-  .btn-icon-sm {
-    width: calc(var(--spacing) * 8);
-    height: calc(var(--spacing) * 8);
-  }
-
-  .btn-icon-lg {
-    width: calc(var(--spacing) * 10);
-    height: calc(var(--spacing) * 10);
-  }
-
-  /* Variants */
-
-  .btn-primary {
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    &:hover,
-    &[aria-pressed="true"] {
-      background-color: color-mix(in oklab, var(--primary) 90%, transparent);
-    }
-  }
-
-  .btn-secondary {
-    background-color: var(--secondary);
-    color: var(--secondary-foreground);
-    &:hover,
-    &[aria-pressed="true"] {
-      background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
-    }
-  }
-
-  .btn-outline {
-    border-width: 1px;
-    background-color: var(--background);
-    box-shadow:var(--shadow-xs);
-    &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--input) 30%, transparent);
-      border-color: var(--input);
-    }
-    &:hover,
-    &[aria-pressed="true"] {
-      background-color: var(--accent);
-      color: var(--accent-foreground);
-      &:is(.dark *) {
-        background-color: color-mix(in oklab, var(--accent) 50%, transparent);
+      &:has(> svg) {
+        padding-inline: calc(var(--spacing) * 3);
       }
     }
-  }
 
-  .btn-ghost {
-    &:hover,
-    &[aria-pressed="true"] {
-      background-color: var(--accent);
-      color: var(--accent-foreground);
-      &:is(.dark *) {
-        background-color: color-mix(in oklab, var(--accent) 50%, transparent);
+    &[data-size="sm"] {
+      gap: calc(var(--spacing) * 1.5);
+      height: calc(var(--spacing) * 8);
+      padding-inline: calc(var(--spacing) * 3);
+      &:has(> svg) {
+        padding-inline: calc(var(--spacing) * 2.5);
       }
     }
-  }
 
-  .btn-link {
-    color: var(--primary);
-    text-underline-offset: 4px;
-    &:hover,
-    &[aria-pressed="true"] {
-      text-decoration: underline;
+    &[data-size="lg"] {
+      gap: calc(var(--spacing) * 2);
+      height: calc(var(--spacing) * 10);
+      padding-inline: calc(var(--spacing) * 6);
+      &:has(> svg) {
+        padding-inline: calc(var(--spacing) * 4);
+      }
     }
-  }
 
-  .btn-destructive {
-    background-color: var(--destructive);
-    color: var(--color-white, #fff);
-    --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
-    &:is(.dark *) {
-      background-color: color-mix(in oklab, var(--destructive) 60%, transparent);
-      --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+    &[data-size="icon"] {
+      width: calc(var(--spacing) * 9);
+      height: calc(var(--spacing) * 9);
     }
-    &:hover,
-    &[aria-pressed="true"] {
-      background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
+
+    &[data-size="icon-sm"] {
+      width: calc(var(--spacing) * 8);
+      height: calc(var(--spacing) * 8);
+    }
+
+    &[data-size="icon-lg"] {
+      width: calc(var(--spacing) * 10);
+      height: calc(var(--spacing) * 10);
+    }
+
+    /* Variants */
+
+    &[data-variant="default"],
+    &[data-variant=""],
+    &:not([data-variant]) {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+      &:hover,
+      &[aria-pressed="true"] {
+        background-color: color-mix(in oklab, var(--primary) 90%, transparent);
+      }
+    }
+
+    &[data-variant="secondary"] {
+      background-color: var(--secondary);
+      color: var(--secondary-foreground);
+      &:hover,
+      &[aria-pressed="true"] {
+        background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
+      }
+    }
+
+    &[data-variant="outline"] {
+      border-width: 1px;
+      background-color: var(--background);
+      box-shadow:var(--shadow-xs);
       &:is(.dark *) {
-        background-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        background-color: color-mix(in oklab, var(--input) 30%, transparent);
+        border-color: var(--input);
+      }
+      &:hover,
+      &[aria-pressed="true"] {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+        &:is(.dark *) {
+          background-color: color-mix(in oklab, var(--accent) 50%, transparent);
+        }
+      }
+    }
+
+    &[data-variant="ghost"] {
+      &:hover,
+      &[aria-pressed="true"] {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+        &:is(.dark *) {
+          background-color: color-mix(in oklab, var(--accent) 50%, transparent);
+        }
+      }
+    }
+
+    &[data-variant="link"] {
+      color: var(--primary);
+      text-underline-offset: 4px;
+      &:hover,
+      &[aria-pressed="true"] {
+        text-decoration: underline;
+      }
+    }
+
+    &[data-variant="destructive"] {
+      background-color: var(--destructive);
+      color: #fff;
+      --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
+      &:is(.dark *) {
+        background-color: color-mix(in oklab, var(--destructive) 60%, transparent);
+        --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+      }
+      &:hover,
+      &[aria-pressed="true"] {
+        background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
+        &:is(.dark *) {
+          background-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        }
       }
     }
   }

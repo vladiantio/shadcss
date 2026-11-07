@@ -1,0 +1,98 @@
+/* Card */
+@layer components {
+  .card {
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background-color: var(--card);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--card-foreground);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+
+    &:has(>footer) {
+      padding-bottom: 0;
+    }
+
+    &:has(>img:first-child) {
+      padding-top: 0;
+    }
+
+    > img:first-child {
+      border-top-left-radius: var(--radius-xl);
+      border-top-right-radius: var(--radius-xl);
+    }
+
+    > img:last-child {
+      border-bottom-right-radius: var(--radius-xl);
+      border-bottom-left-radius: var(--radius-xl);
+    }
+
+    &:not([data-size]),
+    &[data-size='default'] {
+      gap: 1rem;
+      padding-block: 1rem;
+    }
+
+    [data-size='sm'] {
+      gap: 0.75rem;
+      padding-block: 0.75rem;
+    }
+
+    > header {
+      gap: 0.25rem;
+      border-top-left-radius: var(--radius-xl);
+      border-top-right-radius: var(--radius-xl);
+      padding-inline: 1rem;
+
+      &:is(.border-b) {
+        padding-bottom: 1rem;
+      }
+    }
+
+    [data-size='sm'] > header {
+      padding-inline: 0.75rem;
+
+      &:is(.border-b) {
+        padding-bottom: 0.75rem;
+      }
+    }
+
+    > header > :is(h2, h3, [data-title], .card-title) {
+      font-size: var(--text-base);
+      line-height: 1.375;
+      font-weight: 500;
+    }
+
+    [data-size='sm'] > header > :is(h2, h3, [data-title], .card-title) {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    > header > :is(p, [data-description], .card-description) {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      color: var(--muted-foreground);
+    }
+
+    > section {
+      padding-inline: 1rem;
+    }
+
+    [data-size='sm'] > section {
+      padding-inline: 0.75rem;
+    }
+
+    > footer {
+      border-bottom-right-radius: var(--radius-xl);
+      border-bottom-left-radius: var(--radius-xl);
+      border-top-style: solid;
+      border-top-width: 1px;
+      background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+      padding: 1rem;
+    }
+
+    [data-size='sm'] > footer {
+      padding: 0.75rem;
+    }
+  }
+}

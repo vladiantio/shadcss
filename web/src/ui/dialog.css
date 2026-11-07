@@ -1,0 +1,133 @@
+/*
+  dialog.css — Styled native <dialog> matching the Dialog design.
+
+  Root slot classes: .dialog, .dialog-header,
+  .dialog-footer, .dialog-title,
+  .dialog-description, .dialog-close.
+
+  Differences from dialog.css (radix-based):
+  - No separate overlay element: the backdrop is styled via
+    .dialog::backdrop instead of .dialog-overlay.
+  - Open-state animation uses the [open] attribute selector since
+    the native element has no data-open / data-closed attributes.
+  - UA dialog defaults (border, margin, max-width) are reset so the
+    panel matches .dialog-content sizing.
+*/
+
+@layer components {
+  .dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 50;
+    display: grid;
+    width: 100%;
+    max-width: calc(100% - 2rem);
+    max-height: calc(100% - 2rem);
+    overflow: auto;
+    margin: 0;
+    translate: -50% -50%;
+    gap: 1rem;
+    border: none;
+    border-radius: var(--rounded-xl);
+    background-color: var(--popover);
+    padding: 1rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--popover-foreground);
+    box-shadow: 0 0 0 1px var(--foreground);
+    outline-style: none;
+    transition-duration: 0.1s;
+
+    /* sm:max-w-sm */
+    @media (min-width: 40rem) {
+      max-width: var(--container-sm);
+    }
+
+    /* UA `dialog:not([open]) { display: none }` loses to author
+       `display: grid` above, so re-hide closed dialogs explicitly. */
+    &:not([open]) {
+      display: none;
+    }
+
+    /* enter animation while open (no exit: close() removes it) */
+    &[open] {
+      animation: enter var(--tw-animation-duration, 0.15s) var(--tw-ease, ease)
+        var(--tw-animation-delay, 0s) var(--tw-animation-iteration-count, 1)
+        var(--tw-animation-direction, normal)
+        var(--tw-animation-fill-mode, none);
+      --tw-enter-opacity: 0;
+      --tw-enter-scale: 0.95;
+    }
+
+    /* modal backdrop replaces .dialog-overlay */
+    &::backdrop {
+      background-color: #0000001a;
+    }
+  }
+  @supports (color: color-mix(in lab, red, red)) {
+    .dialog {
+      box-shadow: 0 0 0 1px
+        color-mix(in oklab, var(--foreground) 10%, transparent);
+    }
+  }
+
+  .dialog-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .dialog-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dialog-footer {
+    margin-inline: -1rem;
+    margin-bottom: -1rem;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+    border-bottom-right-radius: calc(var(--radius) * 1.4);
+    border-bottom-left-radius: calc(var(--radius) * 1.4);
+    border-top-width: 1px;
+    border-top-style: solid;
+    background-color: var(--muted);
+    padding: 1rem;
+
+    /* sm:flex-row + sm:justify-end */
+    @media (min-width: 40rem) {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+  @supports (color: color-mix(in lab, red, red)) {
+    .dialog-footer {
+      background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    }
+  }
+
+  .dialog-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  .dialog-description {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--muted-foreground);
+
+    /* *:[a]:underline + *:[a]:underline-offset-3 + *:[a]:hover:text-foreground */
+    > a {
+      text-decoration-line: underline;
+      text-underline-offset: 3px;
+    }
+    > a:hover {
+      color: var(--foreground);
+    }
+  }
+}

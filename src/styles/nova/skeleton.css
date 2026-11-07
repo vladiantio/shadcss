@@ -1,0 +1,7 @@
+/* Skeleton */
+@layer components {
+  .skeleton {
+    border-radius: var(--radius-md);
+    background-color: var(--muted);
+  }
+}

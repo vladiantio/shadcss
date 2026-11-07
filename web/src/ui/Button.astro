@@ -1,36 +1,21 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { cn } from "../utils/cn";
 import "./button.css";
 
-const variants = {
-  primary: "btn-primary",
-  secondary: "btn-secondary",
-  outline: "btn-outline",
-  ghost: "btn-ghost",
-  link: "btn-link",
-  destructive: "btn-destructive",
-};
+type Variant = "default" | "secondary" | "outline" | "ghost" | "link" | "destructive";
 
-const sizes = {
-  sm: "btn-sm",
-  md: "btn-md",
-  lg: "btn-lg",
-  icon: "btn-icon",
-  "icon-sm": "btn-icon-sm",
-  "icon-lg": "btn-icon-lg",
-};
+type Size = "default" | "sm" | "lg" | "icon" | "icon-sm" | "icon-lg";
 
 type Props = HTMLAttributes<"button"> &
   Omit<HTMLAttributes<"a">, "type"> & {
-    variant?: keyof typeof variants;
-    size?: keyof typeof sizes;
+    size?: Size;
+    variant?: Variant;
   };
 
 const {
-  variant = "primary",
-  size = "md",
   class: className,
+  size,
+  variant,
   ...rest
 } = Astro.props;
 
@@ -38,12 +23,9 @@ const Tag = Astro.props.href ? "a" : "button";
 ---
 
 <Tag
-  class={cn(
-    "btn",
-    variants[variant],
-    sizes[size],
-    className,
-  )}
+  class:list={["btn", className]}
+  data-size={size}
+  data-variant={variant}
   {...rest}
 >
   <slot />

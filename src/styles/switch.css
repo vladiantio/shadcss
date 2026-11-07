@@ -1,0 +1,28 @@
+/* Switch */
+@layer components {
+  .field > input[type='checkbox'][role='switch'],
+  .input[type='checkbox'][role='switch'] {
+    display: inline-flex;
+    flex-shrink: 0;
+    appearance: none;
+    align-items: center;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    outline-style: none;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 50%;
+    }
+    &::before {
+      pointer-events: none;
+      display: block;
+      box-shadow: 0 0 0 0 currentcolor;
+      transition-property: transform, translate, scale, rotate;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+      content: '';
+    }
+  }
+}

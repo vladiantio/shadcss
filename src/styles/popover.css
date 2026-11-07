@@ -1,0 +1,134 @@
+/* Popover */
+@layer components {
+  [data-popover] {
+    visibility: visible;
+    position: absolute;
+    z-index: 50;
+    width: max-content;
+    min-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    opacity: 100%;
+    outline-style: none;
+
+    @media (forced-colors: active) {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    &[aria-hidden='true'] {
+      visibility: hidden;
+      scale: 95% 95%;
+      opacity: 0%;
+
+      &:not([data-side]),
+      &[data-side='bottom'] {
+        translate: 0 -0.5rem;
+      }
+
+      &[data-side='top'] {
+        translate: 0 0.5rem;
+      }
+
+      &[data-side='left'] {
+        translate: 0.5rem;
+      }
+
+      &[data-side='right'] {
+        translate: -0.5rem;
+      }
+
+      &[data-side='inline-start'] {
+        translate: 0.5rem;
+      }
+
+      &[data-side='inline-start']:dir(rtl) {
+        translate: -0.5rem;
+      }
+
+      &[data-side='inline-end'] {
+        translate: -0.5rem;
+      }
+
+      &[data-side='inline-end']:dir(rtl) {
+        translate: 0.5rem;
+      }
+    }
+
+    &:not([data-side]),
+    &[data-side='bottom'] {
+      top: 100%;
+      margin-top: 0.25rem;
+    }
+
+    &[data-side='top'] {
+      bottom: 100%;
+      margin-bottom: 0.25rem;
+    }
+
+    &[data-side='left'] {
+      inset-inline-end: 100%;
+      margin-inline-end: 0.25rem;
+    }
+
+    &[data-side='right'] {
+      inset-inline-start: 100%;
+      margin-inline-start: 0.25rem;
+    }
+
+    &[data-side='inline-start'] {
+      inset-inline-end: 100%;
+      margin-inline-end: 0.25rem;
+    }
+
+    &[data-side='inline-end'] {
+      inset-inline-start: 100%;
+      margin-inline-start: 0.25rem;
+    }
+
+    &:not([data-side]),
+    &[data-side='bottom'],
+    &[data-side='top'] {
+      &:not([data-align]),
+      &[data-align='start'] {
+        inset-inline-start: 0;
+      }
+
+      &[data-align='end'] {
+        inset-inline-end: 0;
+      }
+
+      &[data-align='center'] {
+        inset-inline-start: calc(1/2 * 100%);
+        translate: -50%;
+      }
+    }
+
+    &[data-side='left'],
+    &[data-side='right'],
+    &[data-side='inline-start'],
+    &[data-side='inline-end'] {
+      &:not([data-align]),
+      &[data-align='start'] {
+        top: 0;
+      }
+
+      &[data-align='end'] {
+        bottom: 0;
+      }
+
+      &[data-align='center'] {
+        top: 50%;
+        translate: 0 -50%;
+      }
+    }
+  }
+
+  .popover {
+    position: relative;
+    display: inline-flex;
+  }
+}

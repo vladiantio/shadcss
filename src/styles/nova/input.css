@@ -1,0 +1,83 @@
+/* Input */
+@layer components {
+  .field > input[type='text']:not(:is(.command > header input, .dialog > * > header input)),
+  .field > input[type='email'],
+  .field > input[type='password'],
+  .field > input[type='number'],
+  .field > input[type='file'],
+  .field > input[type='tel'],
+  .field > input[type='url'],
+  .field > input[type='search']:not(:is(.command > header input, .dialog > * > header input)),
+  .field > input[type='date'],
+  .field > input[type='datetime-local'],
+  .field > input[type='month'],
+  .field > input[type='week'],
+  .field > input[type='time'],
+  .field > input:not([type]),
+  .input[type='text'],
+  .input[type='email'],
+  .input[type='password'],
+  .input[type='number'],
+  .input[type='file'],
+  .input[type='tel'],
+  .input[type='url'],
+  .input[type='search'],
+  .input[type='date'],
+  .input[type='datetime-local'],
+  .input[type='month'],
+  .input[type='week'],
+  .input[type='time'],
+  .input:not([type]) {
+    height: 2rem;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--input);
+    background-color: transparent;
+    padding-inline: 0.625rem;
+    padding-block: 0.25rem;
+    font-size: var(--text-base);
+    line-height: 1.5;
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    &::file-selector-button {
+      height: 1.5rem;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      font-weight: 500;
+    }
+
+    &:focus-visible {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &:disabled {
+      background-color: color-mix(in oklab, var(--input) 50%, transparent);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--destructive);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+    }
+
+    @media (width >= 48rem) {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    &:is(html.dark *) {
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+
+      &:disabled {
+        background-color: color-mix(in oklab, var(--input) 80%, transparent);
+      }
+
+      &[aria-invalid='true'] {
+        border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+      }
+    }
+  }
+}

@@ -1,0 +1,142 @@
+/* Select */
+@layer components {
+  .select:not(select) {
+    position: relative;
+    display: inline-flex;
+
+    > button {
+      display: flex;
+      width: fit-content;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 400;
+      white-space: nowrap;
+      outline-style: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+
+      &:disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 50%;
+      }
+
+      & svg {
+        pointer-events: none;
+        flex-shrink: 0;
+      }
+    }
+
+    > button > span {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-align: start;
+    }
+
+    > button > svg {
+      flex-shrink: 0;
+    }
+
+    [data-popover] {
+      isolation: isolate;
+      overflow-x: hidden;
+      min-width: max(100%, 9rem);
+    }
+
+    [role='listbox'] {
+      outline-style: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+    }
+
+    [role='listbox'] [role='group']:not(:has([role='option']:not([aria-hidden='true']))) {
+      display: none;
+    }
+
+    [role='listbox']:not(:has([data-value]:not([aria-hidden='true'])))::before {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    [role='listbox'][data-empty]:not(:has([data-value]:not([aria-hidden='true'])))::before {
+      content: attr(data-empty);
+    }
+
+    [role='listbox']:not([data-empty]):not(:has([data-value]:not([aria-hidden='true'])))::before {
+      content: 'No results found';
+    }
+
+    [role='option'] {
+      position: relative;
+      display: flex;
+      width: 100%;
+      cursor: default;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      outline-style: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+      -webkit-user-select: none;
+      user-select: none;
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 50%;
+      }
+
+      &[aria-disabled='true'] {
+        pointer-events: none;
+        opacity: 50%;
+      }
+
+      &[aria-hidden='true'] {
+        display: none;
+      }
+
+      & svg {
+        pointer-events: none;
+        flex-shrink: 0;
+      }
+    }
+
+    [role='option'][aria-selected='true'] {
+      background-image: var(--check-icon);
+      background-size: 0.875rem;
+      background-position: center right 0.5rem;
+      background-repeat: no-repeat;
+    }
+
+    [role='option'][aria-selected='true']:dir(rtl) {
+      background-position: center left 0.5rem;
+    }
+
+    [role='separator'] {
+      border-style: solid;
+      border-width: 0px;
+    }
+
+    &:not([data-select-initialized]) [role='option']:not([aria-disabled='true']):not(:disabled):hover,
+    [role='option'].active {
+      background-color: var(--accent);
+      color: var(--accent-foreground);
+    }
+  }
+}

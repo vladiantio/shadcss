@@ -1,0 +1,16 @@
+@layer components {
+  .form fieldset,
+  .field-set {
+    @apply flex flex-col gap-6;
+    @apply has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3;
+  }
+  .form legend,
+  .field-legend {
+    @apply mb-3 font-medium;
+    @apply data-[variant=legend]:text-base;
+    @apply data-[variant=label]:text-sm;
+  }
+  .field-group {
+    @apply group/field-group @container/field-group flex w-full flex-col gap-7 data-[slot=checkbox-group]:gap-3 [&>[data-slot=field-group]]:gap-4;
+  }
+}

@@ -1,0 +1,38 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border-width: 1px;
+  padding-inline: 0.5rem;
+  padding-block: 0.125rem;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm--line-height);
+  font-weight: var(--font-weight-medium);
+  width: fit-content;
+  white-space: nowrap;
+  flex-shrink: 0;
+  gap: calc(var(--spacing) * 1);
+  transition: color, box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
+  overflow: hidden;
+
+  > svg {
+    pointer-events: none;
+    width: calc(var(--spacing) * 3);
+    height: calc(var(--spacing) * 3);
+  }
+
+  &:focus-visible {
+    border-color: var(--ring);
+    --focus-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+    box-shadow: 0 0 0 3px var(--focus-ring-color);
+  }
+
+  &[aria-invalid="true"] {
+    border-color: var(--destructive);
+    --focus-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
+    &:is(.dark *) {
+      --focus-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+    }
+  }
+}
