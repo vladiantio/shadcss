@@ -20,7 +20,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  :focus-visible {
+  /* Docs chrome only: previews contain components that define their own
+     focus styles (border + ring), so a global outline would double up. */
+  :focus-visible:not(.docs-preview *) {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
