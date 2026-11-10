@@ -4,10 +4,6 @@
     position: relative;
     width: 100%;
 
-    &:has(> footer) {
-      padding-inline-end: 4.5rem;
-    }
-
     > :is(h2, h3, h4, h5, h6, strong, [data-slot='title']) {
       min-height: 1rem;
     }

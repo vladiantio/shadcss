@@ -2,7 +2,7 @@
 @layer shadcss.components {
   .button-group {
     isolation: isolate;
-    display: inline-flex;
+    display: flex;
     width: fit-content;
     align-items: stretch;
 

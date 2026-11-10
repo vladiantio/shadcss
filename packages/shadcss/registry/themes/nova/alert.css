@@ -8,11 +8,16 @@
     border-radius: var(--radius-lg);
     border-style: solid;
     border-width: 1px;
+    border-color: var(--border);
     padding-inline: 0.625rem;
     padding-block: 0.5rem;
     text-align: start;
     font-size: var(--text-sm);
     line-height: var(--text-sm--line-height);
+
+    &:has(> footer) {
+      padding-inline-end: 4.5rem;
+    }
 
     &:has(> svg) {
       grid-template-columns: auto 1fr;

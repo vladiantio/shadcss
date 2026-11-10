@@ -75,7 +75,7 @@
   .field section > p {
     text-align: start;
     font-size: var(--text-sm);
-    line-height: var(--text-sm--line-height);
+    line-height: 1.5;
     color: var(--muted-foreground);
 
     [data-variant='legend'] + & {
@@ -100,6 +100,10 @@
 
     :where(*[data-variant='outline']) & {
       margin-bottom: -0.5rem;
+    }
+
+    > hr[role='separator'] {
+      border-color: var(--border);
     }
   }
 

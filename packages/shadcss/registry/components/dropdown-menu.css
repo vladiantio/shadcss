@@ -4,10 +4,6 @@
     position: relative;
     display: inline-flex;
 
-    > [data-popover] {
-      min-width: anchor-size(width);
-    }
-
     [role='menu'] {
       outline-style: none;
 
@@ -23,9 +19,7 @@
       width: 100%;
       cursor: default;
       align-items: center;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      white-space: normal;
       outline-style: none;
 
       @media (forced-colors: active) {

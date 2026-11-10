@@ -3,6 +3,7 @@
   .dropdown-menu {
     > [data-popover] {
       gap: 0;
+      width: max(8rem, 100%);
       overflow-x: hidden;
       overflow-y: auto;
       border-radius: var(--radius-lg);
@@ -33,8 +34,8 @@
     }
 
     :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'])[data-highlighted] {
-      background-color: var(--muted);
-      color: var(--foreground);
+      background-color: var(--accent);
+      color: var(--accent-foreground);
     }
 
     :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio'])[data-variant='destructive'] {
@@ -90,7 +91,7 @@
     }
 
     :is([data-slot='shortcut'], kbd:last-child, .kbd:last-child) {
-      font-family: "Geist Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-family: inherit;
       font-size: var(--text-xs);
       line-height: var(--text-xs--line-height);
       letter-spacing: 0.1em;

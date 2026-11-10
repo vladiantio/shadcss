@@ -48,7 +48,7 @@ const notesBy: Record<string, string> = {
   tabs:
     "Requires JavaScript to switch aria-selected and the hidden attribute. CSS styles the visual states.",
   tooltip:
-    "CSS-only: visible on hover and focus-visible. Keep an aria-label or aria-describedby for screen readers.",
+    "CSS-only: visible on hover and focus-visible. Use data-arrow for the pointer arrow and data-side/data-align to place it. Keep an aria-label or aria-describedby for screen readers.",
   field: "Use aria-invalid=\"true\" on the control and role=\"alert\" for error messages.",
   table: "Use aria-selected=\"true\" on selectable rows.",
   input: "Use aria-invalid=\"true\" for the invalid state.",

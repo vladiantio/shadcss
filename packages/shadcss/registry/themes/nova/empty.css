@@ -4,6 +4,7 @@
     gap: 1rem;
     border-radius: var(--radius-xl);
     border-style: dashed;
+    border-color: var(--border);
     padding: 1.5rem;
 
     > header {

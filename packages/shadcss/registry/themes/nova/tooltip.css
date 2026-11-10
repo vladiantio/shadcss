@@ -15,11 +15,6 @@
     }
 
     &[data-arrow]::after {
-      position: absolute;
-      z-index: 60;
-      width: 0.625rem;
-      height: 0.625rem;
-      rotate: 45deg;
       border-radius: 2px;
       background-color: var(--foreground);
     }

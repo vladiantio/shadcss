@@ -28,6 +28,10 @@
         opacity: 100%;
       }
 
+      > * {
+        scale: 100% 100%;
+      }
+
       @starting-style {
         opacity: 0%;
 

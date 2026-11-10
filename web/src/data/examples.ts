@@ -439,7 +439,7 @@ export const examples: Record<string, Example[]> = {
   tooltip: [
     {
       title: "Default",
-      html: `<button type="button" class="btn tooltip" data-tooltip="Add to library">
+      html: `<button type="button" class="btn tooltip" data-tooltip="Add to library" data-arrow>
   Add to library
 </button>`
     }

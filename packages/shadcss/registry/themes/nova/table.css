@@ -24,6 +24,7 @@
     tfoot {
       border-top-style: solid;
       border-top-width: 1px;
+      border-top-color: var(--border);
       background-color: color-mix(in oklab, var(--muted) 50%, transparent);
       font-weight: 500;
 
@@ -38,6 +39,7 @@
     tr {
       border-bottom-style: solid;
       border-bottom-width: 1px;
+      border-bottom-color: var(--border);
       transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 150ms;
@@ -53,7 +55,7 @@
 
     th {
       height: 2.5rem;
-      padding-inline: 0.5rem;
+      padding: 0 0.5rem;
       text-align: start;
       vertical-align: middle;
       font-weight: 500;

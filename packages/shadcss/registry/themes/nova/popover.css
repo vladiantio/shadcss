@@ -1,5 +1,9 @@
 /* Popover */
 @layer shadcss.theme {
+  .popover > [data-popover] {
+    width: 18rem;
+  }
+
   .popover > [data-popover] > header,
   .popover > [data-popover] > [data-slot='header'] {
     display: flex;

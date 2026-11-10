@@ -23,6 +23,7 @@
       }
 
       > [role='tab'] {
+        height: calc(100% - 1px);
         gap: 0.375rem;
         border-radius: var(--radius-md);
         border-style: solid;
