@@ -31,22 +31,37 @@ const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffo
     <script is:inline>
       const root = document.documentElement;
       const media = window.matchMedia("(prefers-color-scheme: dark)");
+      const themes = ["system", "light", "dark"];
+
+      const getTheme = () => {
+        const stored = localStorage.getItem("theme");
+        return themes.includes(stored) ? stored : "system";
+      };
+
       const apply = (theme) => {
         root.classList.toggle(
           "dark",
           theme === "dark" || (theme === "system" && media.matches)
         );
+        root.dataset.theme = theme;
+        document.querySelectorAll("[data-theme-value]").forEach((button) => {
+          button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
+        });
       };
-      apply(localStorage.getItem("theme") ?? "system");
+
+      apply(getTheme());
+      document.addEventListener("DOMContentLoaded", () => apply(getTheme()));
       media.addEventListener("change", () => {
-        if ((localStorage.getItem("theme") ?? "system") === "system") apply("system");
+        if (getTheme() === "system") apply("system");
       });
       document.addEventListener("click", (event) => {
-        const button = event.target.closest("[data-theme-toggle]");
+        if (!(event.target instanceof Element)) return;
+        const button = event.target.closest("[data-theme-value]");
         if (!button) return;
-        const next = root.classList.contains("dark") ? "light" : "dark";
-        localStorage.setItem("theme", next);
-        apply(next);
+        const theme = button.dataset.themeValue;
+        if (!themes.includes(theme)) return;
+        localStorage.setItem("theme", theme);
+        apply(theme);
       });
     </script>
   </head>
@@ -66,42 +81,81 @@ const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffo
         >
           GitHub
         </a>
-        <button class="docs-icon-button" type="button" data-theme-toggle aria-label="Toggle theme">
-          <svg
-            class="docs-theme-icon docs-theme-icon--sun"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+        <div class="docs-theme-switch" role="group" aria-label="Color theme">
+          <button
+            class="docs-theme-button"
+            type="button"
+            data-theme-value="system"
+            aria-label="System theme"
+            title="System theme"
           >
-            <circle cx="12" cy="12" r="4"></circle>
-            <path d="M12 2v2"></path>
-            <path d="M12 20v2"></path>
-            <path d="m4.93 4.93 1.41 1.41"></path>
-            <path d="m17.66 17.66 1.41 1.41"></path>
-            <path d="M2 12h2"></path>
-            <path d="M20 12h2"></path>
-            <path d="m6.34 17.66-1.41 1.41"></path>
-            <path d="m19.07 4.93-1.41 1.41"></path>
-          </svg>
-          <svg
-            class="docs-theme-icon docs-theme-icon--moon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+            <svg
+              class="docs-theme-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="20" height="14" x="2" y="3" rx="2"></rect>
+              <line x1="8" x2="16" y1="21" y2="21"></line>
+              <line x1="12" x2="12" y1="17" y2="21"></line>
+            </svg>
+          </button>
+          <button
+            class="docs-theme-button"
+            type="button"
+            data-theme-value="light"
+            aria-label="Light theme"
+            title="Light theme"
           >
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-          </svg>
-        </button>
+            <svg
+              class="docs-theme-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+          </button>
+          <button
+            class="docs-theme-button"
+            type="button"
+            data-theme-value="dark"
+            aria-label="Dark theme"
+            title="Dark theme"
+          >
+            <svg
+              class="docs-theme-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+          </button>
+        </div>
       </nav>
     </header>
 

@@ -21,6 +21,35 @@ test("home renders", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Native CSS scaffolds");
 });
 
+test("theme switch supports system, light and dark", async ({ page }) => {
+  await page.goto("/");
+  const html = page.locator("html");
+  const system = page.getByRole("button", { name: "System theme" });
+  const light = page.getByRole("button", { name: "Light theme" });
+  const dark = page.getByRole("button", { name: "Dark theme" });
+
+  await expect(system).toHaveAttribute("aria-pressed", "true");
+
+  await light.click();
+  await expect(light).toHaveAttribute("aria-pressed", "true");
+  await expect(html).not.toHaveClass(/\bdark\b/);
+  expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe("light");
+
+  await dark.click();
+  await expect(dark).toHaveAttribute("aria-pressed", "true");
+  await expect(html).toHaveClass(/\bdark\b/);
+
+  await page.reload();
+  await expect(dark).toHaveAttribute("aria-pressed", "true");
+  await expect(html).toHaveClass(/\bdark\b/);
+
+  await system.click();
+  await page.emulateMedia({ colorScheme: "dark" });
+  await expect(html).toHaveClass(/\bdark\b/);
+  await page.emulateMedia({ colorScheme: "light" });
+  await expect(html).not.toHaveClass(/\bdark\b/);
+});
+
 for (const path of pages) {
   test(`axe: ${path}`, async ({ page }) => {
     await page.goto(path);
