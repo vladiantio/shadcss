@@ -1,6 +1,6 @@
 /* Button Group */
 @layer shadcss.components {
-  .button-group {
+  .btn-group {
     isolation: isolate;
     display: flex;
     width: fit-content;

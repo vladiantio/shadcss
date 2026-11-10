@@ -1,7 +1,7 @@
 /* Button Group */
 @layer shadcss.theme {
-  .button-group {
-    &:has(>.button-group) {
+  .btn-group {
+    &:has(>.btn-group) {
       gap: 0.5rem;
     }
 

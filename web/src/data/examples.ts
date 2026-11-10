@@ -94,7 +94,7 @@ export const examples: Record<string, Example[]> = {
   "button-group": [
     {
       title: "Horizontal",
-      html: `<div class="button-group">
+      html: `<div class="btn-group">
   <button class="btn" data-variant="outline">Left</button>
   <button class="btn" data-variant="outline">Center</button>
   <button class="btn" data-variant="outline">Right</button>
@@ -102,7 +102,7 @@ export const examples: Record<string, Example[]> = {
     },
     {
       title: "Vertical",
-      html: `<div class="button-group" data-orientation="vertical">
+      html: `<div class="btn-group" data-orientation="vertical">
   <button class="btn" data-variant="outline">Top</button>
   <button class="btn" data-variant="outline">Middle</button>
   <button class="btn" data-variant="outline">Bottom</button>

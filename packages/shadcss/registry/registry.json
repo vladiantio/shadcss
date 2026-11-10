@@ -248,7 +248,7 @@
       "description": "Groups related buttons and controls with shared borders.",
       "docs": "/docs/components/button-group",
       "root": [
-        ".button-group"
+        ".btn-group"
       ],
       "registryDependencies": [],
       "optionalDependencies": [
