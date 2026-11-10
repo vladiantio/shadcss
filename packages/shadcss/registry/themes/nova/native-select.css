@@ -59,7 +59,7 @@
         box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent);
       }
     }
-    background-image: var(--chevron-down-icon-50);
+    background-image: var(--chevron-down-icon);
     background-size: 1rem;
     background-position: center right 0.625rem;
     background-repeat: no-repeat;
