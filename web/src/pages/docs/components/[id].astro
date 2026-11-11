@@ -1,8 +1,8 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import Example from "../../../components/Example.astro";
-import InstallCommand from "../../../components/InstallCommand.astro";
-import { components, type ComponentDoc } from "../../../data/components";
+import Layout from "@/layouts/Layout.astro";
+import Example from "@/components/Example.astro";
+import InstallCommand from "@/components/InstallCommand.astro";
+import { components, type ComponentDoc } from "@/data/components";
 
 export function getStaticPaths() {
   return components.map((component) => ({

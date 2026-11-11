@@ -1,8 +1,8 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import InstallCommand from "../components/InstallCommand.astro";
-import CodeBlock from "../components/CodeBlock.astro";
-import { components } from "../data/components";
+import Layout from "@/layouts/Layout.astro";
+import InstallCommand from "@/components/InstallCommand.astro";
+import CodeBlock from "@/components/CodeBlock.astro";
+import { components } from "@/data/components";
 
 const featured = ["button", "card", "field", "dialog", "dropdown-menu", "table"]
   .map((id) => components.find((component) => component.id === id))

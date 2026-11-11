@@ -1,8 +1,8 @@
 ---
-import "../styles/shadcss.css";
-import "../styles/docs.css";
+import "@/styles/shadcss.css";
+import "@/styles/docs.css";
 import { MonitorIcon, MoonIcon, SunIcon } from "@lucide/astro";
-import { componentGroups, componentsInGroup } from "../data/components";
+import { componentGroups, componentsInGroup } from "@/data/components";
 
 interface Props {
   title?: string;
@@ -174,7 +174,7 @@ const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffo
     </div>
 
     <script>
-      import "../demo/site.js";
+      import "@/demo/site.js";
     </script>
   </body>
 </html>
