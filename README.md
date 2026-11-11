@@ -57,6 +57,7 @@ registry details.
 - [`GLOSSARY.md`](GLOSSARY.md) defines the project vocabulary.
 - [`DESIGN.md`](DESIGN.md) records the durable design baseline: tokens, component
   API, state contract, accessibility floor and change policy.
+- [`RELEASING.md`](RELEASING.md) documents the npm and GitHub release process.
 
 ## Development
 

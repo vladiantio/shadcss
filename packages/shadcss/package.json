@@ -6,7 +6,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vladiantio/shadcss"
+    "url": "git+https://github.com/vladiantio/shadcss.git",
+    "directory": "packages/shadcss"
   },
   "homepage": "https://github.com/vladiantio/shadcss",
   "bugs": {

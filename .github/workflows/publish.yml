@@ -1,0 +1,69 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 12.18.0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify release tag matches package version
+        run: |
+          package_version="$(node -p "require('./packages/shadcss/package.json').version")"
+          if [ "v$package_version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Release tag $GITHUB_REF_NAME does not match packages/shadcss version $package_version"
+            exit 1
+          fi
+
+      - name: Validate registry and build CLI
+        run: pnpm --filter shadcss check
+
+      - name: Check whether the version is already published
+        id: published
+        run: |
+          package_version="$(node -p "require('./packages/shadcss/package.json').version")"
+          if npm view "shadcss@$package_version" version --silent >/dev/null 2>&1; then
+            echo "already=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::shadcss@$package_version is already on npm; skipping publish."
+          else
+            echo "already=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to npm (trusted publishing)
+        if: steps.published.outputs.already != 'true' && env.NPM_TOKEN == ''
+        working-directory: packages/shadcss
+        run: npm publish --access public --provenance
+
+      - name: Publish to npm (bootstrap token)
+        if: steps.published.outputs.already != 'true' && env.NPM_TOKEN != ''
+        working-directory: packages/shadcss
+        run: npm publish --access public --provenance
+        env:
+          # Temporary: only needed for the very first publish. Configure the
+          # trusted publisher, then delete the NPM_TOKEN secret.
+          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
