@@ -29,7 +29,7 @@ npx shadcss add button --html # print the example markup
 ## What you get
 
 - **Native CSS**: nesting, `@layer`, `:has()`, `color-mix()`, logical
-  properties, anchor positioning and `field-sizing`.
+  properties, `@starting-style` and `field-sizing`.
 - **Copy-paste ownership**: the CLI writes plain CSS files into your project.
 - **Tokens and themes**: shadcn-compatible CSS variables, light/dark mode and
   the Nova visual style.
@@ -51,6 +51,12 @@ web/                Astro docs site and component playground
 
 See [`packages/shadcss/README.md`](packages/shadcss/README.md) for the CLI and
 registry details.
+
+## Project documents
+
+- [`GLOSSARY.md`](GLOSSARY.md) defines the project vocabulary.
+- [`DESIGN.md`](DESIGN.md) records the durable design baseline: tokens, component
+  API, state contract, accessibility floor and change policy.
 
 ## Development
 
