@@ -10,7 +10,7 @@ const registryPath = join(registryDir, "registry.json");
 
 mkdirSync(examplesDir, { recursive: true });
 
-const demoAttribute = /\sdata-(demo|demo-trigger|open-dialog|close-dialog)(?:="[^"]*")?/g;
+const demoAttribute = /\sdata-(demo-trigger|demo|open-dialog|close-dialog)(?:="[^"]*")?/g;
 
 for (const [name, list] of Object.entries(examples)) {
   const content = list
