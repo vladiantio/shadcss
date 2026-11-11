@@ -4,6 +4,24 @@
   "description": "Native CSS component scaffolds with the shadcn feel.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vladiantio/shadcss"
+  },
+  "homepage": "https://github.com/vladiantio/shadcss",
+  "bugs": {
+    "url": "https://github.com/vladiantio/shadcss/issues"
+  },
+  "keywords": [
+    "css",
+    "components",
+    "shadcn",
+    "scaffold",
+    "design-system"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "shadcss": "./bin/shadcss.js"
   },
@@ -13,6 +31,9 @@
     "registry",
     "NOTICE"
   ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/cli.ts",
@@ -23,23 +44,6 @@
     "prepack": "pnpm build",
     "prepublishOnly": "pnpm validate"
   },
-  "engines": {
-    "node": ">=20"
-  },
-  "keywords": [
-    "css",
-    "components",
-    "shadcn",
-    "scaffold",
-    "design-system"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vladiantio/shadcss"
-  },
-  "homepage": "https://github.com/vladiantio/shadcss",
-  "author": "",
-  "packageManager": "pnpm@11.9.0",
   "dependencies": {
     "@clack/prompts": "^1.8.1",
     "citty": "^0.2.2",
