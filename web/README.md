@@ -1,7 +1,7 @@
-# shadcss docs
+# loseta docs
 
-Astro site for the shadcss component docs and playground. The site imports the
-registry CSS directly from `packages/shadcss/registry`, so the examples and the
+Astro site for the loseta component docs and playground. The site imports the
+registry CSS directly from `packages/loseta/registry`, so the examples and the
 published files never drift.
 
 ## Commands
@@ -16,5 +16,5 @@ pnpm test:e2e     # build + Playwright + axe
 
 From the repo root, use `pnpm web:dev` or `pnpm web:build`.
 
-The generated `web/src/styles/shadcss.css` is committed. Run `pnpm docs:css`
+The generated `web/src/styles/loseta.css` is committed. Run `pnpm docs:css`
 after adding or removing a registry item.

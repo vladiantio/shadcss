@@ -1,13 +1,13 @@
-# shadcss design baseline
+# loseta design baseline
 
-This is the durable design contract for shadcss v1. It defines the visual
+This is the durable design contract for loseta v1. It defines the visual
 language, token roles, component API, state contract, accessibility floor and
 compatibility policy that the registry promises to consumers.
 
 It is not an implementation guide. The installed CSS is the reference
 implementation: if this document and the registry disagree,
-[`packages/shadcss/registry/tokens.css`](packages/shadcss/registry/tokens.css)
-and [`registry.json`](packages/shadcss/registry/registry.json) win, and this
+[`packages/loseta/registry/tokens.css`](packages/loseta/registry/tokens.css)
+and [`registry.json`](packages/loseta/registry/registry.json) win, and this
 document must be corrected. The baseline covers registry version `0.1.0`.
 
 Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
@@ -24,7 +24,7 @@ Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
 3. **Structure and style are separate.** Base files describe anatomy, layout
    and state hooks. Theme files supply the Nova visual treatment.
 4. **Semantic HTML and platform states come first.** Styling reads ARIA and
-   native pseudo-classes, not bespoke state classes. shadcss ships no
+   native pseudo-classes, not bespoke state classes. loseta ships no
    JavaScript behavior.
 5. **Tokens are the customization surface.** Visual decisions should be
    changeable through tokens before they require editing a component or theme
@@ -51,7 +51,7 @@ The v1 registry contains 30 stable items:
   automatically as dependencies and are not consumer-facing components.
 - **4 foundations**: tokens, reset, base and utilities.
 
-Experimental CSS lives in `packages/shadcss/experimental/`. It is neither
+Experimental CSS lives in `packages/loseta/experimental/`. It is neither
 published nor covered by this baseline. The one shipped utility is
 `.sr-only`.
 
@@ -64,17 +64,17 @@ Older engines may render a reduced experience where they lack `:has()`,
 Every generated `index.css` declares this order before importing any file:
 
 ```css
-@layer shadcss.tokens, shadcss.reset, shadcss.base, shadcss.components, shadcss.theme, shadcss.utilities;
+@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.theme, loseta.utilities;
 ```
 
 | Layer | Owner | Responsibility |
 | --- | --- | --- |
-| `shadcss.tokens` | foundation | Custom properties, light/dark token values, `color-scheme`. |
-| `shadcss.reset` | foundation | Minimal reset: box sizing, borders, margins, media defaults, form inheritance. Not a full preflight. |
-| `shadcss.base` | foundation | Global element defaults: page colors, button cursor, selection color, outline color. |
-| `shadcss.components` | base files and primitives | Anatomy, layout, behavior hooks and structural state rules. |
-| `shadcss.theme` | Nova theme files | Color, typography, spacing, radii, shadows, surfaces and animations. |
-| `shadcss.utilities` | foundation | Only `.sr-only` in v1. |
+| `loseta.tokens` | foundation | Custom properties, light/dark token values, `color-scheme`. |
+| `loseta.reset` | foundation | Minimal reset: box sizing, borders, margins, media defaults, form inheritance. Not a full preflight. |
+| `loseta.base` | foundation | Global element defaults: page colors, button cursor, selection color, outline color. |
+| `loseta.components` | base files and primitives | Anatomy, layout, behavior hooks and structural state rules. |
+| `loseta.theme` | Nova theme files | Color, typography, spacing, radii, shadows, surfaces and animations. |
+| `loseta.utilities` | foundation | Only `.sr-only` in v1. |
 
 Rules:
 
@@ -91,7 +91,7 @@ Rules:
 ## Tokens
 
 Tokens are the shadcn-compatible custom properties in
-`packages/shadcss/registry/tokens.css`. The token file is the source of truth
+`packages/loseta/registry/tokens.css`. The token file is the source of truth
 for values; this table defines intent.
 
 ### Color roles
@@ -143,7 +143,7 @@ fixed 4px radius. These caps are part of the Nova treatment.
 
 ### Typography
 
-- shadcss ships **no font family**. The reset makes form controls inherit and
+- loseta ships **no font family**. The reset makes form controls inherit and
   the system inherits the host document's typography.
 - UI text defaults to `--text-sm` (`0.875rem`), with its paired line height.
   Cards, alerts, items, tables, menus, tabs and dialog bodies follow it.
@@ -388,7 +388,7 @@ intentional exclusion.
   widgets that have no native equivalent (`tablist`, `tab`, `menu`,
   `menuitem`, `radiogroup`).
 - Every interactive component must be operable by keyboard and expose its
-  state through the contract above. shadcss provides styling only; the
+  state through the contract above. loseta provides styling only; the
   consumer provides behavior.
 - Dialogs must be labelled with `aria-labelledby` and, when the description is
   present, `aria-describedby`. Use `showModal()` and `close()`.
@@ -423,8 +423,8 @@ Install targets:
 | Component | `components/<name>.css` | `themes/nova/<name>.css` |
 
 The CLI writes these under the configured CSS directory (default
-`src/styles/shadcss`), records them in `.shadcss/manifest.json`, and regenerates
-`index.css` with the fixed layer declaration and imports. `shadcss.json` holds
+`src/styles/loseta`), records them in `.loseta/manifest.json`, and regenerates
+`index.css` with the fixed layer declaration and imports. `loseta.json` holds
 the CSS directory, entrypoint and theme. The default theme is Nova.
 
 Registry dependencies are hard: installing `dialog` or `alert-dialog` also

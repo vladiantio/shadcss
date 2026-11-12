@@ -1,7 +1,0 @@
-/* Popover */
-@layer shadcss.components {
-  .popover {
-    position: relative;
-    display: inline-flex;
-  }
-}

@@ -1,0 +1,174 @@
+/* Input Group */
+@layer loseta.theme {
+  .input-group {
+    height: 2rem;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--input);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    &:focus-within {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &:has(*:is([aria-invalid=true])) {
+      border-color: var(--destructive);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+    }
+
+    &:has(>textarea) {
+      height: auto;
+    }
+
+    &:is(html.dark *) {
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+    }
+
+    &:has(> :is(input, textarea, select, [data-control]):disabled) {
+      background-color: color-mix(in oklab, var(--input) 50%, transparent);
+      opacity: 50%;
+
+      &:is(html.dark *) {
+        background-color: color-mix(in oklab, var(--input) 80%, transparent);
+      }
+    }
+
+    > :is(input, select, [data-control]) {
+      padding-inline: 0.625rem;
+      padding-block: 0.25rem;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    &:not([data-orientation='vertical']):has(> :is([data-align='start'], [data-align='inline-start'])) > :is(input, select, [data-control]) {
+      padding-inline-start: 0.375rem;
+    }
+
+    &:not([data-orientation='vertical']):has(> :is([data-align='end'], [data-align='inline-end'])) > :is(input, select, [data-control]) {
+      padding-inline-end: 0.375rem;
+    }
+
+    > textarea {
+      padding-inline: 0.625rem;
+      padding-block: 0.5rem;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    > :is(span, [role='group'], header, footer),
+    > :is(svg, kbd, .popover, .dropdown-menu) {
+      gap: 0.5rem;
+      padding-block: 0.375rem;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      font-weight: 500;
+      color: var(--muted-foreground);
+      -webkit-user-select: none;
+      user-select: none;
+
+      > svg:not([class*='size-']) {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    > :is([data-align='start'], [data-align='inline-start']) {
+      padding-inline-start: 0.5rem;
+    }
+
+    > :is([data-align='end'], [data-align='inline-end']) {
+      padding-inline-end: 0.5rem;
+    }
+
+    > :is([data-align='start'], [data-align='inline-start']):has(> button) {
+      margin-inline-start: -0.25rem;
+    }
+
+    > :is([data-align='end'], [data-align='inline-end']):has(> button) {
+      margin-inline-end: -0.25rem;
+    }
+
+    > :is([data-align='start'], [data-align='inline-start']):has(> kbd) {
+      margin-inline-start: -0.125rem;
+    }
+
+    > :is([data-align='end'], [data-align='inline-end']):has(> kbd) {
+      margin-inline-end: -0.125rem;
+    }
+
+    > [data-align='block-start'] {
+      padding-inline: 0.625rem;
+      padding-top: 0.5rem;
+    }
+
+    > [data-align='block-end'] {
+      padding-inline: 0.625rem;
+      padding-bottom: 0.5rem;
+    }
+
+    > [data-align='block-start'].border-b {
+      padding-bottom: 0.5rem;
+    }
+
+    > [data-align='block-end'].border-t {
+      padding-top: 0.5rem;
+    }
+
+    &[data-orientation='vertical'] > :is(header, footer, [role='group'], [data-align]) {
+      padding-inline: 0.625rem;
+    }
+
+    &[data-orientation='vertical'] > :is(header[data-align='start'], [data-align='block-start']) {
+      padding-inline: 0.625rem;
+      padding-top: 0.5rem;
+    }
+
+    &[data-orientation='vertical'] > :is(footer[data-align='end'], [data-align='block-end']) {
+      padding-inline: 0.625rem;
+      padding-bottom: 0.5rem;
+    }
+
+    &[data-orientation='vertical']:has(> input) > :is(header[data-align='start'], [data-align='block-start']) {
+      padding-top: 0.5rem;
+    }
+
+    &[data-orientation='vertical']:has(> input) > :is(footer[data-align='end'], [data-align='block-end']) {
+      padding-bottom: 0.5rem;
+    }
+
+    &[data-orientation='vertical'] > :is(header[data-align='start'], [data-align='block-start']).border-b {
+      padding-bottom: 0.5rem;
+    }
+
+    &[data-orientation='vertical'] > :is(footer[data-align='end'], [data-align='block-end']).border-t {
+      padding-top: 0.5rem;
+    }
+
+    > :is(kbd, span > kbd, [role='group'] > kbd, header > kbd, footer > kbd) {
+      border-radius: calc(var(--radius) - 5px);
+    }
+
+    > :is(button, [role='group'] > button, header > button, footer > button) {
+      gap: 0.5rem;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      box-shadow: none;
+
+      > svg:not([class*='size-']) {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+    }
+
+    > :is(button, [role='group'] > button, header > button, footer > button):has(> svg):not(:has(> :not(svg))) {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: calc(var(--radius) - 3px);
+      padding: 0;
+    }
+  }
+}

@@ -4,12 +4,12 @@ import InstallCommand from "@/components/InstallCommand.astro";
 import CodeBlock from "@/components/CodeBlock.astro";
 ---
 
-<Layout title="Documentation" description="Install, configure and theme shadcss.">
+<Layout title="Documentation" description="Install, configure and theme loseta.">
   <div class="docs-content">
     <p class="docs-eyebrow">Documentation</p>
     <h1>Native CSS scaffolds, without the runtime.</h1>
     <p class="docs-lead">
-      shadcss is a registry of component CSS and markup contracts. The CLI copies the files into
+      loseta is a registry of component CSS and markup contracts. The CLI copies the files into
       your project, so you own the code and can change anything.
     </p>
 
@@ -35,15 +35,15 @@ import CodeBlock from "@/components/CodeBlock.astro";
       <li><strong>Use the markup contract.</strong> Data attributes, ARIA and native elements carry the state.</li>
     </ol>
 
-    <InstallCommand command="npx shadcss init" />
-    <InstallCommand command="npx shadcss add button card field" />
+    <InstallCommand command="npx loseta init" />
+    <InstallCommand command="npx loseta add button card field" />
 
     <h2>What gets installed</h2>
     <CodeBlock
       lang="text"
-      code={`shadcss.json
-.shadcss/manifest.json
-src/styles/shadcss/
+      code={`loseta.json
+.loseta/manifest.json
+src/styles/loseta/
   tokens.css
   reset.css
   base.css

@@ -4,13 +4,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "pnpm --filter=shadcss check && pnpm --filter=web check",
-    "docs:css": "node packages/shadcss/scripts/generate-docs-css.mjs",
+    "test": "pnpm --filter=loseta check && pnpm --filter=web check",
+    "docs:css": "node packages/loseta/scripts/generate-docs-css.mjs",
     "web:dev": "pnpm docs:css && pnpm --filter=web dev",
     "web:build": "pnpm docs:css && pnpm --filter=web build",
-    "cli:build": "pnpm --filter=shadcss build",
-    "registry:check": "pnpm --filter=shadcss validate",
-    "registry:examples": "pnpm --filter=shadcss examples"
+    "cli:build": "pnpm --filter=loseta build",
+    "registry:check": "pnpm --filter=loseta validate",
+    "registry:examples": "pnpm --filter=loseta examples"
   },
   "keywords": [],
   "author": "",

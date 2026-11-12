@@ -1,8 +1,8 @@
-# shadcss
+# loseta
 
 Native CSS component scaffolds with the shadcn feel.
 
-shadcss is a registry of component CSS and markup contracts. The CLI copies
+loseta is a registry of component CSS and markup contracts. The CLI copies
 readable, layered CSS files into your project, so you own the code and can edit
 anything. No Tailwind, no runtime, no framework lock-in.
 
@@ -11,8 +11,8 @@ anything. No Tailwind, no runtime, no framework lock-in.
 Requires Node 20+.
 
 ```bash
-npx shadcss init
-npx shadcss add button card field
+npx loseta init
+npx loseta add button card field
 ```
 
 `init` creates the foundation files (tokens, reset, base, utilities) and a
@@ -20,10 +20,10 @@ generated `index.css`. `add` copies the structural CSS, the Nova theme file and
 any primitive dependency.
 
 ```bash
-npx shadcss add all          # every stable component
-npx shadcss list             # available components
-npx shadcss list --all       # include primitives and foundation
-npx shadcss add button --html # print the example markup
+npx loseta add all           # every stable component
+npx loseta list              # available components
+npx loseta list --all        # include primitives and foundation
+npx loseta add button --html # print the example markup
 ```
 
 ## What you get
@@ -45,11 +45,11 @@ tabs, textarea and tooltip.
 ## Repository
 
 ```
-packages/shadcss/   CLI, registry, JSON schema and examples
+packages/loseta/    CLI, registry, JSON schema and examples
 web/                Astro docs site and component playground
 ```
 
-See [`packages/shadcss/README.md`](packages/shadcss/README.md) for the CLI and
+See [`packages/loseta/README.md`](packages/loseta/README.md) for the CLI and
 registry details.
 
 ## Project documents

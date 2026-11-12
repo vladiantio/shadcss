@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "node ../packages/shadcss/scripts/generate-docs-css.mjs && astro build",
+    "build": "node ../packages/loseta/scripts/generate-docs-css.mjs && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test:e2e": "pnpm build && playwright test",

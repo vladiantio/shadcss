@@ -1,0 +1,7 @@
+/* Popover */
+@layer loseta.components {
+  .popover {
+    position: relative;
+    display: inline-flex;
+  }
+}

@@ -1,9 +1,9 @@
 # Releasing
 
-`shadcss` is published to npm from the **Publish** workflow
+`loseta` is published to npm from the **Publish** workflow
 (`.github/workflows/publish.yml`) when a GitHub release is published. The
 workflow validates the registry, checks that the release tag matches the package
-version, and publishes `packages/shadcss` with provenance.
+version, and publishes `packages/loseta` with provenance.
 
 ## One-time bootstrap (0.1.0)
 
@@ -25,35 +25,35 @@ OIDC and need no secret.
 
    ```bash
    git push origin main
-   git tag -a v0.1.0 -m "shadcss 0.1.0"
+   git tag -a v0.1.0 -m "loseta 0.1.0"
    git push origin v0.1.0
    ```
 
 4. Create the GitHub release. The tag must be `v` plus the exact
-   `packages/shadcss/package.json` version:
+   `packages/loseta/package.json` version:
 
    ```bash
-   gh release create v0.1.0 --title "shadcss 0.1.0" \
+   gh release create v0.1.0 --title "loseta 0.1.0" \
      --notes-file CHANGELOG.md
    ```
 
 5. Watch the **Publish** workflow and verify the result:
 
    ```bash
-   npm view shadcss version
-   npx shadcss --help
+   npm view loseta version
+   npx loseta --help
    ```
 
 ## Switch to trusted publishing
 
-After `shadcss@0.1.0` exists on npm, bind the workflow to the package and remove
+After `loseta@0.1.0` exists on npm, bind the workflow to the package and remove
 the bootstrap token:
 
 ```bash
 npm login
-npm trust github shadcss \
+npm trust github loseta \
   --file publish.yml \
-  --repo vladiantio/shadcss \
+  --repo vladiantio/loseta \
   --allow-publish \
   --yes
 gh secret delete NPM_TOKEN
@@ -72,21 +72,21 @@ Once trusted publishing works, set the package's **Publishing access** to
 
 ## Subsequent releases
 
-1. Bump `packages/shadcss/package.json` and add a `CHANGELOG.md` section.
+1. Bump `packages/loseta/package.json` and add a `CHANGELOG.md` section.
 2. Run the full gate and regenerate artifacts if needed:
 
    ```bash
    pnpm test
    pnpm registry:examples
    pnpm docs:css
-   git diff --exit-code web/src/styles/shadcss.css packages/shadcss/registry
+   git diff --exit-code web/src/styles/loseta.css packages/loseta/registry
    ```
 
 3. Commit, tag and push:
 
    ```bash
    git commit -am "chore(release): 0.2.0"
-   git tag -a v0.2.0 -m "shadcss 0.2.0"
+   git tag -a v0.2.0 -m "loseta 0.2.0"
    git push origin main
    git push origin v0.2.0
    ```
@@ -94,7 +94,7 @@ Once trusted publishing works, set the package's **Publishing access** to
 4. Publish the GitHub release:
 
    ```bash
-   gh release create v0.2.0 --title "shadcss 0.2.0" --generate-notes
+   gh release create v0.2.0 --title "loseta 0.2.0" --generate-notes
    ```
 
 The workflow skips publishing when the version already exists, so a re-run after

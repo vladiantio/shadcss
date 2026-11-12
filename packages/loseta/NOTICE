@@ -1,0 +1,12 @@
+loseta
+Copyright (c) 2026 loseta contributors
+
+This project includes CSS, design tokens and component patterns derived from:
+
+- shadcn/ui (https://ui.shadcn.com)
+  MIT License, Copyright (c) 2023 shadcn
+
+- Tailwind CSS (https://tailwindcss.com)
+  MIT License, Copyright (c) Tailwind Labs, Inc.
+
+The original loseta code is licensed under the MIT License; see LICENSE.

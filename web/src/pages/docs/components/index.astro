@@ -4,7 +4,7 @@ import InstallCommand from "@/components/InstallCommand.astro";
 import { componentGroups, components, componentsInGroup } from "@/data/components";
 ---
 
-<Layout title="Components" description="Browse the shadcss component registry.">
+<Layout title="Components" description="Browse the loseta component registry.">
   <div class="docs-content">
     <p class="docs-eyebrow">Registry</p>
     <h1>Components</h1>
@@ -12,7 +12,7 @@ import { componentGroups, components, componentsInGroup } from "@/data/component
       {components.length} stable components. Each page includes markup, the public style contract and the
       files the CLI installs.
     </p>
-    <InstallCommand command="npx shadcss add all" />
+    <InstallCommand command="npx loseta add all" />
 
     {
       componentGroups.map((group) => {

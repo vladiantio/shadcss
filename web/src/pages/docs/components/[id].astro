@@ -40,7 +40,7 @@ const { component } = Astro.props;
       }
     </div>
 
-    <InstallCommand command={`npx shadcss add ${component.id}`} />
+    <InstallCommand command={`npx loseta add ${component.id}`} />
 
     {component.examples.map((example) => <Example title={example.title} html={example.html} />)}
 

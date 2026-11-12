@@ -1,5 +1,5 @@
 ---
-import "@/styles/shadcss.css";
+import "@/styles/loseta.css";
 import "@/styles/docs.css";
 import { MonitorIcon, MoonIcon, SunIcon } from "@lucide/astro";
 import { componentGroups, componentsInGroup } from "@/data/components";
@@ -10,14 +10,14 @@ interface Props {
 }
 
 const {
-  title = "shadcss",
+  title = "loseta",
   description = "Native CSS component scaffolds with the shadcn feel."
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
-const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffolds" : `${title} — shadcss`;
+const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffolds" : `${title} — loseta`;
 ---
 
 <!doctype html>
@@ -69,13 +69,13 @@ const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffo
     <header class="docs-header">
       <a class="docs-brand" href="/">
         <img src="/favicon.svg" alt="" width="24" height="24" />
-        <span>shad<strong>css</strong></span>
+        <span><strong>loseta</strong></span>
       </a>
       <nav class="docs-header-nav" aria-label="Main">
         <a class="docs-header-link" href="/docs">Docs</a>
         <a
           class="docs-header-link"
-          href="https://github.com/vladiantio/shadcss"
+          href="https://github.com/vladiantio/loseta"
           target="_blank"
           rel="noreferrer"
         >
@@ -166,7 +166,7 @@ const pageTitle = title === "shadcss" ? "shadcss — Native CSS component scaffo
         <slot />
         <footer class="docs-footer">
           <p>
-            shadcss is MIT licensed. Built with native CSS, no runtime. Inspired by
+            loseta is MIT licensed. Built with native CSS, no runtime. Inspired by
             <a href="https://ui.shadcn.com" target="_blank" rel="noreferrer">shadcn/ui</a>.
           </p>
         </footer>

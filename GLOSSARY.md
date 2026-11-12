@@ -1,6 +1,6 @@
-# shadcss
+# loseta
 
-shadcss is a copy-paste registry of native CSS component styles with a documented markup contract. This glossary fixes the vocabulary used across the registry, the CLI, the documentation and the CSS itself.
+loseta is a copy-paste registry of native CSS component styles with a documented markup contract. This glossary fixes the vocabulary used across the registry, the CLI, the documentation and the CSS itself.
 
 ## Distribution
 
@@ -51,7 +51,7 @@ The visual interpretation of the system; Nova is the only theme shipped in v1.
 _Avoid_: skin, preset
 
 **Nova**:
-The default and reference visual theme of shadcss.
+The default and reference visual theme of loseta.
 _Avoid_: default style, skin
 
 ## Architecture

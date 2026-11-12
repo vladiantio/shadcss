@@ -4,17 +4,17 @@ import InstallCommand from "@/components/InstallCommand.astro";
 import CodeBlock from "@/components/CodeBlock.astro";
 ---
 
-<Layout title="Installation" description="Install shadcss in a native CSS project.">
+<Layout title="Installation" description="Install loseta in a native CSS project.">
   <div class="docs-content">
     <p class="docs-eyebrow">Getting started</p>
     <h1>Installation</h1>
     <p class="docs-lead">
-      shadcss copies CSS files into your project. You need Node 20+ and a CSS entrypoint.
+      loseta copies CSS files into your project. You need Node 20+ and a CSS entrypoint.
     </p>
 
     <h2>1. Initialize</h2>
     <p>The CLI detects a CSS entrypoint and creates the foundation files.</p>
-    <InstallCommand command="npx shadcss init" />
+    <InstallCommand command="npx loseta init" />
     <p>
       If you prefer to answer every question explicitly, omit <code>--yes</code>. The CLI asks for
       the CSS directory, the theme and the entrypoint.
@@ -22,23 +22,23 @@ import CodeBlock from "@/components/CodeBlock.astro";
 
     <h2>2. Add components</h2>
     <p>Components install their structural CSS, the Nova theme file and any primitive dependency.</p>
-    <InstallCommand command="npx shadcss add button card field dialog" />
+    <InstallCommand command="npx loseta add button card field dialog" />
     <p>To install every stable component:</p>
-    <InstallCommand command="npx shadcss add all" />
+    <InstallCommand command="npx loseta add all" />
 
     <h2>3. Import the generated entrypoint</h2>
     <p>
-      <code>init</code> creates <code>shadcss/index.css</code> and can add a single import to your
+      <code>init</code> creates <code>loseta/index.css</code> and can add a single import to your
       CSS entrypoint. If you skipped that step, add it manually:
     </p>
-    <CodeBlock lang="css" code={`@import "./styles/shadcss/index.css";`} />
+    <CodeBlock lang="css" code={`@import "./styles/loseta/index.css";`} />
 
     <h2>Project files</h2>
     <CodeBlock
       lang="text"
-      code={`shadcss.json                 # cssDir, entrypoint and theme
-.shadcss/manifest.json       # installed items and file hashes
-src/styles/shadcss/
+      code={`loseta.json                 # cssDir, entrypoint and theme
+.loseta/manifest.json       # installed items and file hashes
+src/styles/loseta/
   tokens.css                 # design tokens
   reset.css                  # minimal reset
   base.css                   # element defaults
@@ -52,17 +52,17 @@ src/styles/shadcss/
     <h2>Commands</h2>
     <CodeBlock
       lang="bash"
-      code={`npx shadcss init              # set up the project
-npx shadcss add button card   # add components
-npx shadcss add all           # add every stable component
-npx shadcss list              # list components
-npx shadcss list --all        # include primitives and foundation
-npx shadcss add button --html # print the example markup`}
+      code={`npx loseta init               # set up the project
+npx loseta add button card    # add components
+npx loseta add all            # add every stable component
+npx loseta list               # list components
+npx loseta list --all         # include primitives and foundation
+npx loseta add button --html  # print the example markup`}
     />
 
     <h2>Coexistence</h2>
     <p>
-      shadcss is a native CSS design system. It uses unprefixed classes such as
+      loseta is a native CSS design system. It uses unprefixed classes such as
       <code>.btn</code> and unprefixed tokens such as <code>--background</code>. If your project
       already uses shadcn/ui or Tailwind, choose one token contract instead of loading both.
     </p>

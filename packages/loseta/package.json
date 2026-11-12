@@ -1,0 +1,60 @@
+{
+  "name": "loseta",
+  "version": "0.1.0",
+  "description": "Native CSS component scaffolds with the shadcn feel.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladiantio/loseta.git",
+    "directory": "packages/loseta"
+  },
+  "homepage": "https://github.com/vladiantio/loseta",
+  "bugs": {
+    "url": "https://github.com/vladiantio/loseta/issues"
+  },
+  "keywords": [
+    "css",
+    "components",
+    "shadcn",
+    "scaffold",
+    "design-system"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "loseta": "./bin/loseta.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "registry",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "validate": "node scripts/validate-registry.mjs",
+    "examples": "tsx scripts/generate-examples.ts",
+    "check": "pnpm build && pnpm validate",
+    "test": "pnpm validate",
+    "prepack": "pnpm build",
+    "prepublishOnly": "pnpm validate"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.8.1",
+    "citty": "^0.2.2",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "ajv": "^8.20.0",
+    "lightningcss": "^1.33.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  }
+}

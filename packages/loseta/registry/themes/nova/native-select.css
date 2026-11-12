@@ -1,0 +1,71 @@
+/* Native Select */
+@layer loseta.theme {
+  .native-select {
+    height: 2rem;
+    width: fit-content;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--input);
+    background-color: transparent;
+    padding-block: 0.25rem;
+    padding-inline-start: 0.625rem;
+    padding-inline-end: 2rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    & *::selection {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    &::selection {
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    &::placeholder {
+      color: var(--muted-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--destructive);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+    }
+
+    &[data-size='sm'] {
+      height: 1.75rem;
+      border-radius: min(var(--radius-md), 10px);
+      padding-block: 0.125rem;
+    }
+
+    &:is(html.dark *) {
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+
+      &:hover {
+        background-color: color-mix(in oklab, var(--input) 50%, transparent);
+      }
+
+      &[aria-invalid='true'] {
+        border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent);
+      }
+    }
+    background-image: var(--chevron-down-icon);
+    background-size: 1rem;
+    background-position: center right 0.625rem;
+    background-repeat: no-repeat;
+  }
+
+  .native-select:dir(rtl) {
+    background-position: center left 0.625rem;
+  }
+}

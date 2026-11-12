@@ -1,4 +1,4 @@
-import registry from "../../../packages/shadcss/registry/registry.json" with { type: "json" };
+import registry from "../../../packages/loseta/registry/registry.json" with { type: "json" };
 import { examples } from "./examples";
 
 export type ComponentGroup = "Forms" | "Surfaces" | "Overlays" | "Disclosure";

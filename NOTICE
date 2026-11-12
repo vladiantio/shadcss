@@ -1,5 +1,5 @@
-shadcss
-Copyright (c) 2026 shadcss contributors
+loseta
+Copyright (c) 2026 loseta contributors
 
 This project includes CSS, design tokens and component patterns derived from:
 
@@ -9,4 +9,4 @@ This project includes CSS, design tokens and component patterns derived from:
 - Tailwind CSS (https://tailwindcss.com)
   MIT License, Copyright (c) Tailwind Labs, Inc.
 
-The original shadcss code is licensed under the MIT License; see LICENSE.
+The original loseta code is licensed under the MIT License; see LICENSE.

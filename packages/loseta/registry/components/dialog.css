@@ -1,0 +1,64 @@
+/* Dialog */
+@layer loseta.components {
+  .dialog {
+    > * > header {
+      display: flex;
+      flex-direction: column;
+    }
+
+    > * > section {
+      flex: 1;
+    }
+
+    > * > footer {
+      display: flex;
+      flex-direction: column-reverse;
+
+      @media (width >= 40rem) {
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+    }
+
+    > * > :is(button, form[method='dialog']) {
+      position: absolute;
+    }
+
+    > * > :is(button, form[method='dialog'] > button) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 70%;
+      transition-property: opacity;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+
+      &:hover {
+        opacity: 100%;
+      }
+
+      &:focus-visible {
+        outline-style: none;
+
+        @media (forced-colors: active) {
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+        }
+      }
+
+      &:disabled {
+        pointer-events: none;
+      }
+
+      & svg {
+        pointer-events: none;
+        flex-shrink: 0;
+      }
+    }
+
+    > * > :is(button, form[method='dialog'] > button) > svg {
+      width: var(--icon-size, 1rem);
+      height: var(--icon-size, 1rem);
+    }
+  }
+}

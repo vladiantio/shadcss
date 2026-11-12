@@ -166,7 +166,7 @@ importers:
 
   .: {}
 
-  packages/shadcss:
+  packages/loseta:
     dependencies:
       '@clack/prompts':
         specifier: ^1.8.1

@@ -1,0 +1,25 @@
+/* Popover */
+@layer loseta.theme {
+  .popover > [data-popover] {
+    width: 18rem;
+  }
+
+  .popover > [data-popover] > header,
+  .popover > [data-popover] > [data-slot='header'] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+
+  .popover > [data-popover] > header > :is(h1, h2, h3, h4, h5, h6),
+  .popover > [data-popover] > :is(h1, h2, h3, h4, h5, h6, [data-slot='title']) {
+    font-weight: 500;
+  }
+
+  .popover > [data-popover] > header > p,
+  .popover > [data-popover] > [data-slot='description'] {
+    color: var(--muted-foreground);
+  }
+}

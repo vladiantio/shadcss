@@ -1,0 +1,131 @@
+/* Avatar */
+@layer loseta.components {
+  .avatar {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    appearance: none;
+    border-style: solid;
+    border-width: 0px;
+    background-color: transparent;
+    padding: 0;
+    vertical-align: middle;
+    outline-style: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+    &::after {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border-style: solid;
+      border-width: 1px;
+      border-color: var(--border);
+      content: '';
+      mix-blend-mode: darken;
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &:is(html.dark *) {
+      &::after {
+        content: '';
+        mix-blend-mode: lighten;
+      }
+    }
+
+    > img {
+      position: absolute;
+      inset: 0;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      object-fit: cover;
+    }
+
+    > span:not(.avatar-badge) {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      border-radius: inherit;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    &[data-size='sm'] > span:not(.avatar-badge) {
+      font-size: var(--text-xs);
+      line-height: var(--text-xs--line-height);
+    }
+
+    > .avatar-badge {
+      position: absolute;
+      inset-inline-end: 0;
+      bottom: 0;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-full);
+      background-blend-mode: color;
+      box-shadow: 0 0 0 2px currentcolor;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    &[data-size='sm'] > .avatar-badge {
+      width: 0.5rem;
+      height: 0.5rem;
+
+      > svg {
+        display: none;
+      }
+    }
+
+    > .avatar-badge {
+      width: 0.625rem;
+      height: 0.625rem;
+
+      > svg {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+    }
+
+    &[data-size='lg'] > .avatar-badge {
+      width: 0.75rem;
+      height: 0.75rem;
+
+      > svg {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
+    }
+  }
+
+  .avatar-group {
+    display: flex;
+
+    :where(& > :not(:last-child)) {
+      margin-inline-start: 0;
+      margin-inline-end: -0.5rem;
+    }
+
+    > .avatar,
+    > [data-count] {
+      box-shadow: 0 0 0 2px var(--background);
+    }
+
+    > [data-count] {
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

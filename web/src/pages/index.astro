@@ -15,7 +15,7 @@ const featured = ["button", "card", "field", "dialog", "dropdown-menu", "table"]
       <span class="docs-badge">Native CSS · copy-paste · MIT</span>
       <h1>Native CSS scaffolds with the shadcn feel.</h1>
       <p>
-        shadcss gives you the component CSS and the markup contract. No Tailwind, no runtime, no
+        loseta gives you the component CSS and the markup contract. No Tailwind, no runtime, no
         framework lock-in. Run the CLI, copy the files, own the code.
       </p>
       <div class="docs-hero-actions">
@@ -24,7 +24,7 @@ const featured = ["button", "card", "field", "dialog", "dropdown-menu", "table"]
       </div>
     </section>
 
-    <InstallCommand command="npx shadcss init" />
+    <InstallCommand command="npx loseta init" />
 
     <div class="docs-grid">
       <div class="docs-card">
@@ -60,9 +60,9 @@ const featured = ["button", "card", "field", "dialog", "dropdown-menu", "table"]
       </div>
       <CodeBlock
         lang="css"
-        code={`@layer shadcss.tokens, shadcss.reset, shadcss.base, shadcss.components, shadcss.theme, shadcss.utilities;
+        code={`@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.theme, loseta.utilities;
 
-@import "./shadcss/index.css";
+@import "./loseta/index.css";
 
 .my-button {
   --icon-size: 1.25rem;

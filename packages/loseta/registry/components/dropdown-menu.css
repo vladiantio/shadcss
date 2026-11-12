@@ -1,0 +1,97 @@
+/* Dropdown Menu */
+@layer loseta.components {
+  .dropdown-menu {
+    position: relative;
+    display: inline-flex;
+
+    [role='menu'] {
+      outline-style: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+    }
+
+    :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio']) {
+      position: relative;
+      display: flex;
+      width: 100%;
+      cursor: default;
+      align-items: center;
+      white-space: normal;
+      outline-style: none;
+
+      @media (forced-colors: active) {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+      -webkit-user-select: none;
+      user-select: none;
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 50%;
+      }
+
+      &[aria-disabled='true'] {
+        pointer-events: none;
+        opacity: 50%;
+      }
+
+      &[aria-hidden='true'] {
+        display: none;
+      }
+
+      & svg {
+        pointer-events: none;
+        flex-shrink: 0;
+      }
+    }
+
+    [role='menu'] [role='heading'] {
+      display: flex;
+    }
+
+    [role='separator'] {
+      border-style: solid;
+      border-width: 0px;
+    }
+
+    :is([data-slot='shortcut'], kbd:last-child, .kbd:last-child) {
+      margin-inline-start: auto;
+      flex-shrink: 0;
+      text-align: end;
+    }
+
+    [data-slot='shortcut'] {
+      padding-inline-start: 2rem;
+    }
+
+    :is(kbd:last-child, .kbd:last-child):not([data-slot='shortcut']) {
+      padding-inline-start: 2rem;
+    }
+
+    [data-slot='indicator'] {
+      pointer-events: none;
+      visibility: hidden;
+    }
+
+    :is([role='menuitemcheckbox'], [role='menuitemradio'])[aria-checked='true'] [data-slot='indicator'] {
+      visibility: visible;
+    }
+
+    [data-rtl-flip] {
+      &:where(:dir(rtl), [dir='rtl'], [dir='rtl'] *) {
+        rotate: 180deg;
+      }
+    }
+
+    &:not([data-dropdown-menu-initialized]) :is([role='menuitem'], [role='menuitemcheckbox'], [role='menuitemradio']) {
+      &:not([aria-disabled='true']):not(:disabled):hover {
+        background-color: var(--accent);
+        color: var(--accent-foreground);
+      }
+    }
+  }
+}

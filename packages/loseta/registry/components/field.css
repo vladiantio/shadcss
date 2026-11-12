@@ -1,0 +1,164 @@
+/* Field */
+@layer loseta.components {
+  .fieldset {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fieldset > :is([role='group'], [role='radiogroup']):not(.field),
+  .field > :is(fieldset, [role='group'], [role='radiogroup']):not(.field) {
+    container-type: inline-size;
+    container-name: field-group;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .field {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    &[aria-invalid='true'],
+    &:has([aria-invalid='true']) {
+      color: var(--destructive);
+    }
+
+    > * {
+      width: 100%;
+    }
+
+    > .sr-only {
+      width: auto;
+    }
+
+    &[data-orientation='horizontal'] {
+      flex-direction: row;
+      align-items: center;
+
+      &:has(> section) {
+        align-items: flex-start;
+
+        > .checkbox,
+        > .radio,
+        > .switch {
+          margin-top: 1px;
+        }
+
+        > section {
+          flex: 1;
+        }
+      }
+
+      & p {
+        text-wrap: balance;
+      }
+
+      > * {
+        width: auto;
+      }
+
+      > label {
+        flex: auto;
+      }
+    }
+
+    &[data-orientation='responsive'] {
+      flex-direction: column;
+
+      @container field-group (width >= 28rem) {
+        flex-direction: row;
+        align-items: center;
+
+        &:has(> section) {
+          align-items: flex-start;
+
+          > .checkbox,
+          > .radio,
+          > .switch {
+            margin-top: 1px;
+          }
+        }
+
+        > * {
+          width: auto;
+        }
+
+        > label {
+          flex: auto;
+        }
+      }
+    }
+
+    section {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      line-height: 1.375;
+    }
+
+    h2,
+    h3 {
+      display: flex;
+      width: fit-content;
+      align-items: center;
+    }
+
+    [role='alert'] {
+      font-weight: 400;
+
+      ul {
+        margin-inline-start: 1rem;
+        display: flex;
+        list-style-type: disc;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    }
+  }
+
+  .fieldset legend + p,
+  .field > p,
+  .field section > p {
+    line-height: 1.5;
+    font-weight: 400;
+
+    > a {
+      text-decoration-line: underline;
+      text-underline-offset: 4px;
+    }
+
+    > a:hover {
+      color: var(--primary);
+    }
+  }
+
+  .field > p,
+  .field section > p {
+    &:last-child {
+      margin-top: 0;
+    }
+
+    &:nth-last-child(2) {
+      margin-top: -0.25rem;
+    }
+  }
+
+  .field-separator {
+    position: relative;
+  }
+
+  .field-separator > hr[role='separator'] {
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+  }
+
+  .field-separator > span {
+    position: relative;
+    margin-inline: auto;
+    display: block;
+    width: fit-content;
+    background-color: var(--background);
+  }
+}

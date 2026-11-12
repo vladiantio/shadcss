@@ -1,0 +1,102 @@
+/* Item */
+@layer loseta.components {
+  .item-group {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+    > hr {
+      width: 100%;
+      flex-shrink: 0;
+      border-style: solid;
+      border-width: 0px;
+      border-top-style: solid;
+      border-top-width: 1px;
+    }
+  }
+
+  .item {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 100ms;
+    outline-style: none;
+
+    > figure {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+
+      & svg {
+        pointer-events: none;
+      }
+    }
+
+    > figure:has(> img) {
+      overflow: hidden;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    > section {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    > section + section {
+      flex: none;
+    }
+
+    > aside {
+      display: flex;
+      align-items: center;
+    }
+
+    > :is(header, footer) {
+      display: flex;
+      flex-basis: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    :is(h2, h3, h4) {
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      display: flex;
+      width: fit-content;
+      align-items: center;
+    }
+
+    p {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      text-align: start;
+      font-weight: 400;
+      color: var(--muted-foreground);
+
+      > a {
+        text-decoration-line: underline;
+        text-underline-offset: 4px;
+      }
+
+      > a:hover {
+        color: var(--primary);
+      }
+    }
+  }
+
+}
