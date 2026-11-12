@@ -15,8 +15,6 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-24.04
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v7
 
@@ -54,16 +52,8 @@ jobs:
             echo "already=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Publish to npm (trusted publishing)
-        if: steps.published.outputs.already != 'true' && env.NPM_TOKEN == ''
+      # Uses the npm trusted publisher bound to this workflow through OIDC.
+      - name: Publish to npm
+        if: steps.published.outputs.already != 'true'
         working-directory: packages/loseta
         run: npm publish --access public --provenance
-
-      - name: Publish to npm (bootstrap token)
-        if: steps.published.outputs.already != 'true' && env.NPM_TOKEN != ''
-        working-directory: packages/loseta
-        run: npm publish --access public --provenance
-        env:
-          # Temporary: only needed for the very first publish. Configure the
-          # trusted publisher, then delete the NPM_TOKEN secret.
-          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}

@@ -3,51 +3,17 @@
 `loseta` is published to npm from the **Publish** workflow
 (`.github/workflows/publish.yml`) when a GitHub release is published. The
 workflow validates the registry, checks that the release tag matches the package
-version, and publishes `packages/loseta` with provenance.
+version, and publishes `packages/loseta` with provenance through npm trusted
+publishing.
 
-## One-time bootstrap (0.1.0)
+## Trusted publishing
 
-npm trusted publishing can only be configured after a package exists, so the
-first version uses a temporary `NPM_TOKEN` repository secret. Later releases use
-OIDC and need no secret.
+`loseta` is bound to `.github/workflows/publish.yml` in `vladiantio/loseta` with
+**Allow npm publish** enabled. GitHub Actions obtains a short-lived OIDC token
+and npm verifies the workflow and repository before accepting the publish; no
+npm token secret is required.
 
-1. Create a granular access token on npmjs.com. The package does not exist yet,
-   so grant it **All packages** read and write access, enable **Bypass 2FA**,
-   and set a short expiry. Direct publishing with bypass-2FA tokens is
-   deprecated in January 2027; this token is only for the 0.1.0 bootstrap.
-2. Add it as the `NPM_TOKEN` Actions secret:
-
-   ```bash
-   gh secret set NPM_TOKEN
-   ```
-
-3. Push the release commit and tag:
-
-   ```bash
-   git push origin main
-   git tag -a v0.1.0 -m "loseta 0.1.0"
-   git push origin v0.1.0
-   ```
-
-4. Create the GitHub release. The tag must be `v` plus the exact
-   `packages/loseta/package.json` version:
-
-   ```bash
-   gh release create v0.1.0 --title "loseta 0.1.0" \
-     --notes-file CHANGELOG.md
-   ```
-
-5. Watch the **Publish** workflow and verify the result:
-
-   ```bash
-   npm view loseta version
-   npx loseta --help
-   ```
-
-## Switch to trusted publishing
-
-After `loseta@0.1.0` exists on npm, bind the workflow to the package and remove
-the bootstrap token:
+If the binding has to be recreated:
 
 ```bash
 npm login
@@ -56,19 +22,19 @@ npm trust github loseta \
   --repo vladiantio/loseta \
   --allow-publish \
   --yes
-gh secret delete NPM_TOKEN
 ```
 
 `npm trust` requires npm 11.15 or later and an account with 2FA enabled. You can
-also configure the trusted publisher in the package settings on npmjs.com.
-Select **Allow npm publish** as an allowed action.
+also configure it in the package settings on npmjs.com and select **Allow npm
+publish**.
 
 A new trusted publisher must complete its first successful publish within two
 days, or it expires and must be recreated. Configure it when you are ready to
 ship the next version, not months in advance.
 
-Once trusted publishing works, set the package's **Publishing access** to
-**Require two-factor authentication and disallow tokens**.
+Keep the package's **Publishing access** set to **Require two-factor
+authentication and disallow tokens**. The workflow authenticates through OIDC,
+not through a repository secret.
 
 ## Subsequent releases
 
@@ -95,6 +61,13 @@ Once trusted publishing works, set the package's **Publishing access** to
 
    ```bash
    gh release create v0.2.0 --title "loseta 0.2.0" --generate-notes
+   ```
+
+5. Watch the **Publish** workflow and verify the result:
+
+   ```bash
+   npm view loseta version
+   npx loseta --help
    ```
 
 The workflow skips publishing when the version already exists, so a re-run after
