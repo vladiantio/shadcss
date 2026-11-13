@@ -50,6 +50,70 @@ test("theme switch supports system, light and dark", async ({ page }) => {
   await expect(html).not.toHaveClass(/\bdark\b/);
 });
 
+test("install command switches between pnpm and npm", async ({ page }) => {
+  await page.goto("/docs/installation");
+  const commands = page.locator(".install-command");
+  const command = commands.first();
+  const pnpm = command.locator("[data-package-manager-value='pnpm']");
+  const npm = command.locator("[data-package-manager-value='npm']");
+  const pnpmPanel = command.locator("[data-package-manager-panel='pnpm']");
+  const npmPanel = command.locator("[data-package-manager-panel='npm']");
+
+  await expect(pnpm).toHaveAttribute("aria-pressed", "true");
+  await expect(npm).toHaveAttribute("aria-pressed", "false");
+  await expect(pnpmPanel).toBeVisible();
+  await expect(pnpmPanel.locator("code")).toContainText("pnpm dlx loseta init");
+  await expect(npmPanel).toBeHidden();
+
+  await npm.click();
+  await expect(npm).toHaveAttribute("aria-pressed", "true");
+  await expect(pnpm).toHaveAttribute("aria-pressed", "false");
+  await expect(pnpmPanel).toBeHidden();
+  await expect(npmPanel.locator("code")).toContainText("npx loseta init");
+
+  const count = await commands.count();
+  expect(count).toBeGreaterThan(1);
+  for (let index = 0; index < count; index += 1) {
+    const item = commands.nth(index);
+    await expect(item.locator("[data-package-manager-value='pnpm']")).toHaveAttribute(
+      "aria-pressed",
+      "false"
+    );
+    await expect(item.locator("[data-package-manager-value='npm']")).toHaveAttribute(
+      "aria-pressed",
+      "true"
+    );
+    await expect(item.locator("[data-package-manager-panel='pnpm']")).toBeHidden();
+    await expect(item.locator("[data-package-manager-panel='npm']")).toBeVisible();
+  }
+});
+
+test("install command remembers the package manager", async ({ page }) => {
+  await page.goto("/docs/installation");
+  const first = page.locator(".install-command").first();
+  await first.locator("[data-package-manager-value='npm']").click();
+
+  await page.reload();
+  await expect(first.locator("[data-package-manager-value='pnpm']")).toHaveAttribute(
+    "aria-pressed",
+    "false"
+  );
+  await expect(first.locator("[data-package-manager-value='npm']")).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+  await expect(first.locator("[data-package-manager-panel='npm']")).toBeVisible();
+
+  await page.goto("/docs/components");
+  const command = page.locator(".install-command").first();
+  await expect(command.locator("[data-package-manager-value='npm']")).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+  await expect(command.locator("[data-package-manager-panel='npm']")).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("package-manager"))).toBe("npm");
+});
+
 for (const path of pages) {
   test(`axe: ${path}`, async ({ page }) => {
     await page.goto(path);

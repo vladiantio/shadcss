@@ -1,3 +1,18 @@
+const packageManagers = ["pnpm", "npm"];
+
+const applyPackageManager = (value) => {
+  const manager = packageManagers.includes(value) ? value : "pnpm";
+  document.documentElement.dataset.packageManager = manager;
+  document.querySelectorAll("[data-package-manager-value]").forEach((button) => {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.getAttribute("data-package-manager-value") === manager)
+    );
+  });
+};
+
+applyPackageManager(document.documentElement.dataset.packageManager);
+
 const closeAllPopovers = (except) => {
   document.querySelectorAll("[data-demo] [data-popover]").forEach((popover) => {
     if (popover === except) return;
@@ -14,17 +29,46 @@ document.addEventListener("click", async (event) => {
   const copy = target.closest("[data-copy]");
   if (copy) {
     const block = copy.closest(".code-block, .install-command");
-    const code = block?.querySelector("code");
+    const manager = document.documentElement.dataset.packageManager ?? "pnpm";
+    const code =
+      block?.querySelector(`[data-package-manager-panel="${manager}"] code`) ??
+      block?.querySelector("code");
     if (code) {
       try {
         await navigator.clipboard.writeText(code.textContent ?? "");
-        const previous = copy.textContent;
-        copy.textContent = "Copied";
+        const iconCopy = copy.hasAttribute("data-copy-icon");
+        const previousText = copy.textContent;
+        const previousLabel = copy.getAttribute("aria-label");
+        if (iconCopy) {
+          copy.setAttribute("data-copied", "true");
+          copy.setAttribute("aria-label", "Copied");
+        } else {
+          copy.textContent = "Copied";
+        }
         setTimeout(() => {
-          copy.textContent = previous;
+          if (iconCopy) {
+            copy.removeAttribute("data-copied");
+            if (previousLabel) copy.setAttribute("aria-label", previousLabel);
+          } else {
+            copy.textContent = previousText;
+          }
         }, 1500);
       } catch {
         // Clipboard access can be blocked; leaving the label untouched is fine.
+      }
+    }
+    return;
+  }
+
+  const packageManager = target.closest("[data-package-manager-value]");
+  if (packageManager) {
+    const value = packageManager.getAttribute("data-package-manager-value");
+    if (packageManagers.includes(value)) {
+      applyPackageManager(value);
+      try {
+        localStorage.setItem("package-manager", value);
+      } catch {
+        // Storage can be unavailable; the switch still works for this page.
       }
     }
     return;

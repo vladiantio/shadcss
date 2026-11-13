@@ -14,7 +14,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
 
     <h2>1. Initialize</h2>
     <p>The CLI detects a CSS entrypoint and creates the foundation files.</p>
-    <InstallCommand command="npx loseta init" />
+    <InstallCommand command="loseta init" />
     <p>
       If you prefer to answer every question explicitly, omit <code>--yes</code>. The CLI asks for
       the CSS directory, the theme and the entrypoint.
@@ -22,9 +22,9 @@ import CodeBlock from "@/components/CodeBlock.astro";
 
     <h2>2. Add components</h2>
     <p>Components install their structural CSS, the Nova theme file and any primitive dependency.</p>
-    <InstallCommand command="npx loseta add button card field dialog" />
+    <InstallCommand command="loseta add button card field dialog" />
     <p>To install every stable component:</p>
-    <InstallCommand command="npx loseta add all" />
+    <InstallCommand command="loseta add all" />
 
     <h2>3. Import the generated entrypoint</h2>
     <p>
@@ -50,14 +50,15 @@ src/styles/loseta/
     />
 
     <h2>Commands</h2>
+    <p>The CLI works with pnpm and npm. The examples use pnpm.</p>
     <CodeBlock
       lang="bash"
-      code={`npx loseta init               # set up the project
-npx loseta add button card    # add components
-npx loseta add all            # add every stable component
-npx loseta list               # list components
-npx loseta list --all         # include primitives and foundation
-npx loseta add button --html  # print the example markup`}
+      code={`pnpm dlx loseta init               # set up the project
+pnpm dlx loseta add button card    # add components
+pnpm dlx loseta add all            # add every stable component
+pnpm dlx loseta list               # list components
+pnpm dlx loseta list --all         # include primitives and foundation
+pnpm dlx loseta add button --html  # print the example markup`}
     />
 
     <h2>Coexistence</h2>

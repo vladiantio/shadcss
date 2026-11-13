@@ -21,7 +21,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-package-manager="pnpm">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -63,6 +63,19 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
         localStorage.setItem("theme", theme);
         apply(theme);
       });
+    </script>
+    <script is:inline>
+      (() => {
+        const managers = ["pnpm", "npm"];
+        try {
+          const stored = localStorage.getItem("package-manager");
+          if (managers.includes(stored)) {
+            document.documentElement.dataset.packageManager = stored;
+          }
+        } catch {
+          // Storage can be unavailable; keep the pnpm default.
+        }
+      })();
     </script>
   </head>
   <body>

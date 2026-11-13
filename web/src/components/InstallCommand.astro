@@ -1,22 +1,70 @@
 ---
 import { Code } from "astro:components";
+import { CheckIcon, CopyIcon, TerminalIcon } from "@lucide/astro";
 import { shikiThemes } from "@/lib/shiki";
 
 interface Props {
+  /** CLI command without a package-manager runner, for example "loseta init". */
   command: string;
 }
 
 const { command } = Astro.props;
+
+const managers = [
+  { id: "pnpm", label: "pnpm", command: `pnpm dlx ${command}` },
+  { id: "npm", label: "npm", command: `npx ${command}` }
+];
+
+const defaultManager = "pnpm";
 ---
 
 <div class="install-command">
-  <Code
-    code={command}
-    lang="bash"
-    themes={shikiThemes}
-    defaultColor={false}
-    inline
-    tabindex="0"
-  />
-  <button class="copy-button" type="button" data-copy>Copy</button>
+  <div class="install-command-header">
+    <span class="install-command-icon" aria-hidden="true">
+      <TerminalIcon />
+    </span>
+    <div class="install-command-tabs" role="group" aria-label="Package manager">
+      {
+        managers.map((manager) => (
+          <button
+            class="install-command-tab"
+            type="button"
+            data-package-manager-value={manager.id}
+            aria-pressed={manager.id === defaultManager ? "true" : "false"}
+          >
+            {manager.label}
+          </button>
+        ))
+      }
+    </div>
+    <button
+      class="install-command-copy"
+      type="button"
+      data-copy
+      data-copy-icon
+      aria-label="Copy command"
+    >
+      <CopyIcon class="install-command-copy-glyph" aria-hidden="true" />
+      <CheckIcon
+        class="install-command-copy-glyph install-command-copy-check"
+        aria-hidden="true"
+      />
+    </button>
+  </div>
+  <div class="install-command-code">
+    {
+      managers.map((manager) => (
+        <div data-package-manager-panel={manager.id}>
+          <Code
+            code={manager.command}
+            lang="bash"
+            themes={shikiThemes}
+            defaultColor={false}
+            inline
+            tabindex="0"
+          />
+        </div>
+      ))
+    }
+  </div>
 </div>
