@@ -1,21 +1,16 @@
 ---
+import CodeBlock from "@/components/CodeBlock.astro";
+
 interface Props {
   title: string;
   html: string;
 }
 
 const { title, html } = Astro.props;
-const code = html.trim();
 ---
 
 <section class="example">
   <h3 class="example-title">{title}</h3>
   <div class="docs-preview" set:html={html} />
-  <div class="code-block">
-    <div class="code-block-header">
-      <span>HTML</span>
-      <button class="copy-button" type="button" data-copy>Copy</button>
-    </div>
-    <pre tabindex="0"><code>{code}</code></pre>
-  </div>
+  <CodeBlock code={html.trim()} lang="html" label="HTML" />
 </section>

@@ -1,4 +1,7 @@
 ---
+import { Code } from "astro:components";
+import { shikiThemes } from "@/lib/shiki";
+
 interface Props {
   command: string;
 }
@@ -7,6 +10,13 @@ const { command } = Astro.props;
 ---
 
 <div class="install-command">
-  <code tabindex="0">{command}</code>
+  <Code
+    code={command}
+    lang="bash"
+    themes={shikiThemes}
+    defaultColor={false}
+    inline
+    tabindex="0"
+  />
   <button class="copy-button" type="button" data-copy>Copy</button>
 </div>

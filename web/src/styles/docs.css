@@ -404,7 +404,6 @@
 
   .install-command code {
     overflow-x: auto;
-    color: var(--foreground);
     white-space: nowrap;
   }
 
@@ -481,12 +480,32 @@
     padding: 1rem;
     font-size: 0.8rem;
     line-height: 1.65;
-    color: var(--foreground);
+    background-color: transparent;
   }
 
   .code-block code {
     font-size: inherit;
     white-space: pre;
+  }
+
+  .code-block pre,
+  .install-command code {
+    color: var(--shiki-light, var(--foreground));
+  }
+
+  .code-block pre span,
+  .install-command code span {
+    color: var(--shiki-light, inherit);
+  }
+
+  .dark .code-block pre,
+  .dark .install-command code {
+    color: var(--shiki-dark, var(--foreground));
+  }
+
+  .dark .code-block pre span,
+  .dark .install-command code span {
+    color: var(--shiki-dark, inherit);
   }
 
   .docs-prose {
