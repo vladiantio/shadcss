@@ -5,6 +5,11 @@
     --docs-header-height: 3.5rem;
     --docs-sidebar-width: 16rem;
     --docs-content-width: 56rem;
+    --docs-code-surface: color-mix(in oklab, var(--muted) 72%, var(--background));
+  }
+
+  html.dark {
+    --docs-code-surface: color-mix(in oklab, var(--muted) 30%, var(--background));
   }
 
   html {
@@ -393,7 +398,7 @@
   .install-command {
     overflow: hidden;
     border-radius: var(--radius-2xl);
-    background-color: color-mix(in oklab, var(--muted) 70%, var(--background));
+    background-color: var(--docs-code-surface);
     font-size: var(--text-sm);
   }
 
@@ -402,7 +407,7 @@
     min-height: 2.25rem;
     align-items: center;
     gap: 0.5rem;
-    border-block-end: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+    border-block-end: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
     padding-inline: 0.75rem;
     padding-block: 0.25rem;
   }
@@ -510,10 +515,6 @@
     white-space: nowrap;
   }
 
-  .dark .install-command {
-    background-color: color-mix(in oklab, var(--muted) 30%, var(--background));
-  }
-
   html.dark[data-package-manager="pnpm"] .install-command-tab[data-package-manager-value="pnpm"],
   html.dark[data-package-manager="npm"] .install-command-tab[data-package-manager-value="npm"] {
     background-color: color-mix(in oklab, var(--input) 30%, transparent);
@@ -552,51 +553,73 @@
 
   .code-block {
     overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    background-color: color-mix(in oklab, var(--muted) 35%, var(--background));
+    border-radius: var(--radius-xl);
+    background-color: var(--docs-code-surface);
   }
 
   .code-block-header {
     display: flex;
+    min-height: 2.25rem;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    padding-inline: 0.75rem;
-    padding-block: 0.4rem;
-    font-size: var(--text-xs);
-    color: var(--muted-foreground);
+    gap: 0.5rem;
+    border-bottom: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+    padding-inline: 1rem;
+    padding-block: 0.25rem;
+    font-family: var(--docs-font-mono);
+    font-size: var(--text-sm);
+    color: var(--foreground);
   }
 
   .copy-button {
     display: inline-flex;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
     align-items: center;
+    justify-content: center;
     border: 0;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     background-color: transparent;
-    padding-inline: 0.4rem;
-    padding-block: 0.15rem;
-    font-size: var(--text-xs);
     color: var(--muted-foreground);
     cursor: pointer;
     transition: background-color 150ms, color 150ms;
   }
 
   .copy-button:hover {
-    background-color: var(--muted);
+    background-color: color-mix(in oklab, var(--accent) 60%, transparent);
     color: var(--foreground);
+  }
+
+  .copy-button-glyph {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .copy-button-check {
+    display: none;
+  }
+
+  .copy-button[data-copied] .copy-button-glyph {
+    display: none;
+  }
+
+  .copy-button[data-copied] .copy-button-check {
+    display: inline;
   }
 
   .code-block pre {
     overflow-x: auto;
-    padding: 1rem;
-    font-size: 0.8rem;
-    line-height: 1.65;
+    padding-inline: 1rem;
+    padding-block: 0.875rem;
+    font-size: var(--text-sm);
+    line-height: 1.6;
     background-color: transparent;
   }
 
   .code-block code {
     font-size: inherit;
+    font-variant-ligatures: none;
     white-space: pre;
   }
 
