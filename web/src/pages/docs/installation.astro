@@ -13,8 +13,13 @@ import CodeBlock from "@/components/CodeBlock.astro";
     </p>
 
     <h2>1. Initialize</h2>
-    <p>The CLI detects a CSS entrypoint and creates the foundation files.</p>
+    <p>
+      The CLI detects a CSS entrypoint and creates the foundation files. Choose a visual style
+      with <code>--style</code>; the default is <code>nova</code>.
+    </p>
     <InstallCommand command="loseta init" />
+    <p>To start with the classic shadcn/ui geometry:</p>
+    <InstallCommand command="loseta init --style vega" />
     <p>
       If you prefer to answer every question explicitly, omit <code>--yes</code>. The CLI asks for
       the CSS directory, the style and the entrypoint.
@@ -26,7 +31,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
     </div>
 
     <h2>2. Add components</h2>
-    <p>Components install their structural CSS, the Nova style file and any primitive dependency.</p>
+    <p>Components install their structural CSS, the selected style file and any primitive dependency.</p>
     <InstallCommand command="loseta add button card field dialog" />
     <p>To install every stable component:</p>
     <InstallCommand command="loseta add all" />
@@ -51,7 +56,7 @@ src/styles/loseta/
   index.css                  # generated @layer order + imports
   primitives/                # shared popover/dialog shells
   components/                # structural CSS per component
-  styles/nova/               # visual CSS per component`}
+  styles/nova/               # visual CSS for the selected style`}
     />
 
     <h2>Commands</h2>
@@ -59,8 +64,10 @@ src/styles/loseta/
     <CodeBlock
       lang="bash"
       code={`pnpm dlx loseta init               # set up the project
+pnpm dlx loseta init --style vega  # start with the Vega style
 pnpm dlx loseta add button card    # add components
 pnpm dlx loseta add all            # add every stable component
+pnpm dlx loseta style vega         # switch an installed project
 pnpm dlx loseta list               # list components
 pnpm dlx loseta list --all         # include primitives and foundation
 pnpm dlx loseta add button --html  # print the example markup`}

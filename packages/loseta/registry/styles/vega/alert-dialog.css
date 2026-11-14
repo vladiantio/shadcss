@@ -1,0 +1,74 @@
+/* Alert Dialog */
+@layer loseta.style {
+  .alert-dialog > * {
+    display: grid;
+    max-width: 20rem;
+    gap: 1.5rem;
+    border-radius: var(--radius-xl);
+    background-color: var(--popover);
+    padding: 1.5rem;
+    color: var(--popover-foreground);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+    transition-duration: 100ms;
+
+    @media (width >= 40rem) {
+      max-width: 32rem;
+    }
+  }
+
+  .alert-dialog:is([data-size='sm']) > *,
+  .alert-dialog > [data-size='sm'] {
+    @media (width >= 40rem) {
+      max-width: 20rem;
+    }
+  }
+
+  .alert-dialog > * > header {
+    column-gap: 1.5rem;
+    row-gap: 0.375rem;
+  }
+
+  .alert-dialog > * > header > figure {
+    margin-bottom: 0.5rem;
+    display: inline-flex;
+    width: 4rem;
+    height: 4rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    background-color: var(--muted);
+
+    > svg {
+      width: var(--icon-size, 2rem);
+      height: var(--icon-size, 2rem);
+    }
+  }
+
+  .alert-dialog > * > header > h2,
+  .alert-dialog > * > [data-slot='title'] {
+    font-size: var(--text-lg);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .alert-dialog > * > header > p,
+  .alert-dialog > * > [data-slot='description'] {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    text-wrap: balance;
+    color: var(--muted-foreground);
+
+    @media (width >= 48rem) {
+      text-wrap: pretty;
+    }
+
+    & a {
+      text-decoration-line: underline;
+      text-underline-offset: 3px;
+    }
+
+    & a:hover {
+      color: var(--foreground);
+    }
+  }
+}

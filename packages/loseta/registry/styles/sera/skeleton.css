@@ -1,0 +1,7 @@
+/* Skeleton */
+@layer loseta.style {
+  .skeleton {
+    border-radius: 0;
+    background-color: var(--muted);
+  }
+}

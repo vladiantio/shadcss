@@ -12,6 +12,26 @@ export function loadRegistry(): Registry {
   return JSON.parse(readFileSync(join(registryDir, "registry.json"), "utf8")) as Registry;
 }
 
+/** Names of the styles declared by the registry. */
+export function availableStyles(registry: Registry): string[] {
+  return registry.styles.map((style) => style.name);
+}
+
+/** Returns true when the value names a declared style. */
+export function isStyleName(
+  registry: Registry,
+  value: string | null | undefined
+): value is string {
+  return (
+    value !== null && value !== undefined && availableStyles(registry).includes(value)
+  );
+}
+
+/** Install target prefix for a style. */
+export function stylePrefix(name: string): string {
+  return `styles/${name}/`;
+}
+
 /** Returns a name -> item map for the whole registry. */
 export function itemMap(registry: Registry): Map<string, RegistryItem> {
   return new Map(registry.items.map((item) => [item.name, item]));

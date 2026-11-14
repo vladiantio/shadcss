@@ -47,12 +47,16 @@ A public UI element with its own root class, structural file and style file.
 _Avoid_: widget, block, element
 
 **Style**:
-The visual interpretation of the system; Nova is the only style shipped in v1.
+The visual interpretation of the system. The shipped styles are Nova (default), Vega, Maia, Lyra, Mira, Luma, Sera and Rhea.
 _Avoid_: theme, skin, preset
 
 **Nova**:
-The default and reference visual style of loseta.
+The default and reference visual style: reduced padding and tighter margins.
 _Avoid_: theme, skin
+
+**Vega**:
+The classic shadcn/ui visual style: medium radii and balanced spacing.
+_Avoid_: classic theme, default style
 
 ## Architecture
 

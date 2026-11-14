@@ -1,0 +1,99 @@
+/* Card */
+@layer loseta.style {
+  .card {
+    overflow: hidden;
+    border-radius: 0;
+    background-color: var(--card);
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    color: var(--card-foreground);
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+
+    > img:first-child {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    > img:last-child {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:not([data-size]),
+    &[data-size='default'] {
+      gap: 0.75rem;
+      padding-block: 0.75rem;
+    }
+
+    &[data-size='sm'] {
+      gap: 0.75rem;
+      padding-block: 0.75rem;
+    }
+
+    &:is(:not([data-size]), [data-size]):has(> footer) {
+      padding-bottom: 0;
+    }
+
+    &:is(:not([data-size]), [data-size]):has(> img:first-child) {
+      padding-top: 0;
+    }
+
+    > header {
+      gap: 0.25rem;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      padding-inline: 1rem;
+
+      &[data-separator='bottom'] {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: var(--border);
+        padding-bottom: 1rem;
+      }
+    }
+
+    &[data-size='sm'] > header {
+      padding-inline: 0.75rem;
+
+      &[data-separator='bottom'] {
+        padding-bottom: 0.75rem;
+      }
+    }
+
+    > header > :is(h2, h3, [data-slot='title'], .card-title) {
+      font-size: var(--text-sm);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    &[data-size='sm'] > header > :is(h2, h3, [data-slot='title'], .card-title) {
+      font-size: var(--text-sm);
+      line-height: var(--text-xs--line-height);
+    }
+
+    > header > :is(p, [data-slot='description'], .card-description) {
+      font-size: var(--text-xs);
+      line-height: var(--text-xs--line-height);
+      color: var(--muted-foreground);
+    }
+
+    > section {
+      padding-inline: 1rem;
+    }
+
+    &[data-size='sm'] > section {
+      padding-inline: 0.75rem;
+    }
+
+    > footer {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      padding: 1rem;
+    }
+
+    &[data-size='sm'] > footer {
+      padding: 0.75rem;
+    }
+  }
+}

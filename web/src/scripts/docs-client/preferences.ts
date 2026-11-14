@@ -6,16 +6,19 @@ export type PackageManager = (typeof PACKAGE_MANAGERS)[number];
 
 export interface Preferences {
   scheme: ColorScheme;
+  style: string;
   packageManager: PackageManager;
 }
 
 const STORAGE_KEYS: Record<keyof Preferences, string> = {
   scheme: "scheme",
+  style: "style",
   packageManager: "package-manager"
 };
 
 const DEFAULT_PREFERENCES: Preferences = {
   scheme: "system",
+  style: "nova",
   packageManager: "pnpm"
 };
 
@@ -26,6 +29,12 @@ export function isColorScheme(
     value !== null &&
     value !== undefined &&
     (COLOR_SCHEMES as readonly string[]).includes(value)
+  );
+}
+
+export function isStyleName(value: string | null | undefined): value is string {
+  return (
+    value !== null && value !== undefined && /^[a-z][a-z0-9-]*$/.test(value)
   );
 }
 
@@ -42,9 +51,11 @@ export function isPackageManager(
 export function readPreferences(): Preferences {
   try {
     const scheme = localStorage.getItem(STORAGE_KEYS.scheme);
+    const style = localStorage.getItem(STORAGE_KEYS.style);
     const packageManager = localStorage.getItem(STORAGE_KEYS.packageManager);
     return {
       scheme: isColorScheme(scheme) ? scheme : DEFAULT_PREFERENCES.scheme,
+      style: isStyleName(style) ? style : DEFAULT_PREFERENCES.style,
       packageManager: isPackageManager(packageManager)
         ? packageManager
         : DEFAULT_PREFERENCES.packageManager
@@ -79,5 +90,19 @@ export function applyPreferences(
   root.classList.toggle("dark", dark);
   root.dataset.js = "true";
   root.dataset.scheme = preferences.scheme;
+  root.dataset.style = preferences.style;
   root.dataset.packageManager = preferences.packageManager;
+
+  const link = document.querySelector<HTMLLinkElement>("[data-style-link]");
+  if (link) {
+    const href = `/styles/${preferences.style}.css`;
+    if (link.getAttribute("href") !== href) {
+      link.setAttribute("href", href);
+    }
+  }
+
+  const select = document.querySelector<HTMLSelectElement>("[data-style-select]");
+  if (select && select.value !== preferences.style) {
+    select.value = preferences.style;
+  }
 }

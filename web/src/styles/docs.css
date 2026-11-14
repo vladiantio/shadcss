@@ -206,6 +206,74 @@
     height: 1rem;
   }
 
+  .docs-style-picker {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .docs-style-select {
+    height: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--background);
+    padding-inline: 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--foreground);
+    cursor: pointer;
+  }
+
+  .docs-style-select:hover {
+    background-color: var(--muted);
+  }
+
+  .docs-style-select:focus-visible {
+    border-color: var(--ring);
+    outline: 2px solid color-mix(in oklab, var(--ring) 50%, transparent);
+    outline-offset: 1px;
+  }
+
+  .docs-style-card {
+    align-items: flex-start;
+    font: inherit;
+    color: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  .docs-style-card[aria-pressed="true"] {
+    border-color: var(--ring);
+    box-shadow: 0 0 0 1px var(--ring);
+  }
+
+  .docs-style-command {
+    margin-top: 0.375rem;
+    font-size: var(--text-xs);
+    color: var(--muted-foreground);
+  }
+
+  .docs-style-specimen {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .docs-style-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .docs-style-specimen .card {
+    max-width: 26rem;
+  }
+
+  .docs-style-specimen .input {
+    max-width: 18rem;
+  }
+
   .docs-shell {
     display: grid;
     grid-template-columns: var(--docs-sidebar-width) minmax(0, 1fr);

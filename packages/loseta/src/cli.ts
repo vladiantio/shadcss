@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { addCommand } from "./commands/add.js";
 import { initCommand } from "./commands/init.js";
 import { listCommand } from "./commands/list.js";
+import { styleCommand } from "./commands/style.js";
 
 process.stdout.on("error", (error: NodeJS.ErrnoException) => {
   if (error.code === "EPIPE") {
@@ -24,6 +25,7 @@ const main = defineCommand({
   subCommands: {
     init: initCommand,
     add: addCommand,
+    style: styleCommand,
     list: listCommand
   }
 });

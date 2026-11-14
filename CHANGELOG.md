@@ -2,8 +2,31 @@
 
 ## Unreleased
 
+## 0.3.0 - 2026-11-14
+
 ### Added
 
+- Maia, Lyra, Mira, Luma, Sera and Rhea styles. The registry now ships all
+  eight shadcn/ui styles: Nova (default), Vega, Maia, Lyra, Mira, Luma, Sera
+  and Rhea.
+- Each style covers every component and primitive, and the docs style switcher
+  previews all eight across the site.
+
+## 0.2.0 - 2026-11-14
+
+### Added
+
+- Vega style: the classic shadcn/ui look with medium control radii, taller
+  controls, roomier spacing and a regular type scale.
+- Multi-style registry: `registry.json` declares the available styles and every
+  component and primitive ships one style file per declared style. The CLI
+  installs only the files for the selected style.
+- `loseta style <name>` switches the visual style of an installed project,
+  rewrites the style files, updates `loseta.json` and regenerates `index.css`.
+- `/docs/styles` catalog and a docs-only style switcher that loads the
+  generated stylesheet for each style.
+- `loseta init --style` and `loseta add --style` select the style
+  (default: `nova`).
 - Code Block component with an optional header, actions, line numbers, diff and
   highlighted lines, wrap and size variants, and a destructive variant.
 - Docs code snippets now use the registry Code Block anatomy.
@@ -23,6 +46,12 @@
 - `loseta add` now records the registry version on the install manifest.
 - Re-running `loseta init` warns that installed items stay on disk but are no
   longer tracked, and names `loseta add all` as the restore command.
+
+### Notes
+
+- Nova remains the default style. Styles change geometry, spacing, control
+  sizes, radii and type scale; anatomy, markup, tokens and the state contract
+  are shared.
 
 ## 0.1.0 - 2026-11-12
 

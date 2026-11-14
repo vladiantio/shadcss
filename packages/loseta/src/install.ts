@@ -53,6 +53,7 @@ export async function installItems({
     items: [...currentManifest.items]
   };
   const cssDirAbs = resolve(projectRoot, config.cssDir);
+  const stylePrefix = `styles/${config.style}/`;
   const written: string[] = [];
   const skipped: string[] = [];
 
@@ -60,6 +61,7 @@ export async function installItems({
     const files: ManifestFile[] = [];
 
     for (const file of item.files) {
+      if (file.role === "style" && !file.path.startsWith(stylePrefix)) continue;
       const source = join(sourceRoot, file.path);
       const target = join(cssDirAbs, file.target);
       const sourceHash = hashFile(source);

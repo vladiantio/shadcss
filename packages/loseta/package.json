@@ -1,6 +1,6 @@
 {
   "name": "loseta",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Native CSS component scaffolds with the shadcn feel.",
   "type": "module",
   "license": "MIT",

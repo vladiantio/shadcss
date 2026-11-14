@@ -3,41 +3,114 @@ import Layout from "@/layouts/Layout.astro";
 import CodeBlock from "@/components/CodeBlock.astro";
 ---
 
-<Layout title="Theming" description="Tokens, layers, color scheme and the public style contract.">
+<Layout
+  title="Theming"
+  description="Tokens, layers, the color scheme and the public style contract."
+>
   <div class="docs-content">
     <p class="docs-eyebrow">Getting started</p>
     <h1>Theming</h1>
     <p class="docs-lead">
-      Colors, radius, shadows and typography are CSS custom properties. The visual style lives in
-      <code>styles/nova</code>; the structure lives in <code>components</code>.
+      Components read semantic CSS custom properties. Override tokens to change the look
+      without editing component CSS. Geometry and spacing come from a style; see
+      <a href="/docs/styles">Styles</a>.
     </p>
 
     <h2>Layers</h2>
     <p>
-      The generated <code>index.css</code> declares the layer order. Keep it before your own layers
-      so component styles can be overridden deliberately.
+      The generated <code>index.css</code> declares the layer order. Keep it before your own
+      layers so component styles can be overridden deliberately.
     </p>
     <CodeBlock
       lang="css"
       code={`@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.style, loseta.utilities;`}
     />
 
-    <h2>Tokens</h2>
+    <h2>Token convention</h2>
     <p>
-      Tokens use the same names as shadcn/ui: <code>--background</code>, <code>--foreground</code>,
-      <code>--primary</code>, <code>--muted</code>, <code>--border</code>, <code>--ring</code>,
-      <code>--radius</code>, and so on.
+      Most tokens come in pairs: a surface and the foreground that sits on it. The surface
+      token has no suffix; its text and icon color adds <code>-foreground</code>.
     </p>
     <CodeBlock
       lang="css"
       code={`:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
   --primary-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --radius: 0.625rem;
+}`}
+    />
+    <p>
+      A component that sets <code>background-color: var(--primary)</code> pairs it with
+      <code>color: var(--primary-foreground)</code>.
+    </p>
+
+    <h2>Color roles</h2>
+    <ul>
+      <li>
+        <code>--background</code> / <code>--foreground</code> — page surface and primary text.
+      </li>
+      <li><code>--card</code> / <code>--card-foreground</code> — cards and alerts.</li>
+      <li>
+        <code>--popover</code> / <code>--popover-foreground</code> — dialogs, popovers, menus
+        and tooltips.
+      </li>
+      <li>
+        <code>--primary</code> / <code>--primary-foreground</code> — primary actions and
+        checked controls.
+      </li>
+      <li>
+        <code>--secondary</code> / <code>--secondary-foreground</code> — secondary actions and
+        badges.
+      </li>
+      <li>
+        <code>--muted</code> / <code>--muted-foreground</code> — subdued surfaces,
+        descriptions and secondary text.
+      </li>
+      <li>
+        <code>--accent</code> / <code>--accent-foreground</code> — highlighted and focused
+        menu items.
+      </li>
+      <li><code>--destructive</code> — destructive actions, invalid borders and invalid text.</li>
+      <li><code>--border</code> — separators, outlines and outline-variant borders.</li>
+      <li><code>--input</code> — form-control borders and subtle control fills in dark mode.</li>
+      <li><code>--ring</code> — focus border and focus shadow.</li>
+    </ul>
+    <p>
+      <code>--chart-*</code>, <code>--sidebar-*</code> and <code>--scrollbar-*</code> are
+      reserved families shipped with the style; v1 components do not consume them.
+    </p>
+
+    <h2>Radius</h2>
+    <p>
+      <code>--radius</code> is the base value; the scale multiplies it. Styles may cap the
+      radius of small controls so they stay visually consistent.
+    </p>
+    <ul>
+      <li><code>--radius-sm</code>: <code>0.6 × --radius</code>.</li>
+      <li><code>--radius-md</code>: <code>0.8 × --radius</code>.</li>
+      <li><code>--radius-lg</code>: <code>--radius</code>.</li>
+      <li><code>--radius-xl</code>: <code>1.4 × --radius</code>.</li>
+      <li>
+        <code>--radius-2xl</code> to <code>--radius-4xl</code>: <code>1.8 ×</code> to
+        <code>2.6 × --radius</code>.
+      </li>
+      <li><code>--radius-full</code>: fully rounded.</li>
+    </ul>
+
+    <h2>Adding tokens</h2>
+    <p>
+      Define a new token under <code>:root</code> and <code>.dark</code>, then use it from the
+      files you own.
+    </p>
+    <CodeBlock
+      lang="css"
+      code={`:root {
+  --warning: oklch(0.84 0.16 84);
+  --warning-foreground: oklch(0.28 0.07 46);
+}
+
+.dark {
+  --warning: oklch(0.41 0.11 46);
+  --warning-foreground: oklch(0.99 0.02 95);
 }`}
     />
 
@@ -48,10 +121,17 @@ import CodeBlock from "@/components/CodeBlock.astro";
     </p>
     <CodeBlock lang="js" code={`document.documentElement.classList.toggle("dark", isDark);`} />
 
+    <h2>Styles</h2>
+    <p>
+      Nova is the default style. A style changes geometry, spacing, control sizes, radii and
+      the type scale; it does not change tokens or markup. <a href="/docs/styles">Styles</a>
+      lists every shipped style and how to switch.
+    </p>
+
     <h2>Public style contract</h2>
     <p>
-      Components expose variants, sizes and states through data attributes and ARIA. The most common
-      hooks are:
+      Components expose variants, sizes and states through data attributes and ARIA. The most
+      common hooks are:
     </p>
     <ul>
       <li><code>data-variant</code> and <code>data-size</code> for visual variants.</li>
@@ -63,20 +143,10 @@ import CodeBlock from "@/components/CodeBlock.astro";
       <li><code>:disabled</code> and <code>aria-disabled="true"</code> for disabled states.</li>
     </ul>
 
-    <h2>Styles</h2>
-    <p>
-      <code>styles/nova</code> is the default visual style. To create a new style, copy that folder,
-      edit its files and point <code>loseta.json</code> at the new style when you initialize a
-      project. v1 ships Nova only.
-    </p>
-    <p>
-      Tokens are the primary customization surface. If a change cannot be expressed with tokens,
-      edit the component or style file you own.
-    </p>
-
     <div class="docs-callout">
       <strong>No prefixes.</strong> Classes and tokens are intentionally unprefixed to match
-      shadcn/ui and the source nomenclature. Use one design system per project to avoid collisions.
+      shadcn/ui and the source nomenclature. Use one design system per project to avoid
+      collisions.
     </div>
   </div>
 </Layout>

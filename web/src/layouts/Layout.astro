@@ -6,6 +6,7 @@ import { MonitorIcon, MoonIcon, SunIcon } from "@lucide/astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import { componentGroups, componentsInGroup } from "@/data/components";
 import { addHeadingAnchors } from "@/lib/toc";
+import registry from "../../../packages/loseta/registry/registry.json" with { type: "json" };
 
 interface Props {
   title?: string;
@@ -26,6 +27,7 @@ const pathname = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffolds" : `${title} — loseta`;
+const defaultStyle = registry.styles[0]?.name ?? "nova";
 ---
 
 <!doctype html>
@@ -37,17 +39,23 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
     <ClientRouter fallback="swap" />
+    <link rel="stylesheet" href={`/styles/${defaultStyle}.css`} data-style-link />
     <script is:inline>
       (() => {
         const root = document.documentElement;
         const media = window.matchMedia("(prefers-color-scheme: dark)");
         let scheme = "system";
+        let style = "nova";
         let packageManager = "pnpm";
 
         try {
           const storedScheme = localStorage.getItem("scheme");
           if (storedScheme === "system" || storedScheme === "light" || storedScheme === "dark") {
             scheme = storedScheme;
+          }
+          const storedStyle = localStorage.getItem("style");
+          if (storedStyle && /^[a-z][a-z0-9-]*$/.test(storedStyle)) {
+            style = storedStyle;
           }
           const storedManager = localStorage.getItem("package-manager");
           if (storedManager === "pnpm" || storedManager === "npm") {
@@ -56,6 +64,10 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
         } catch {
           // Storage can be unavailable; keep the defaults.
         }
+
+        document
+          .querySelector("[data-style-link]")
+          ?.setAttribute("href", `/styles/${style}.css`);
 
         root.classList.toggle(
           "dark",
@@ -90,6 +102,16 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
         >
           GitHub
         </a>
+        <label class="docs-style-picker">
+          <span class="sr-only">Style</span>
+          <select class="docs-style-select" data-style-select>
+            {
+              registry.styles.map((style) => (
+                <option value={style.name}>{style.title}</option>
+              ))
+            }
+          </select>
+        </label>
         <div class="docs-scheme-switch" role="group" aria-label="Color scheme">
           <button
             class="docs-scheme-button"
@@ -142,6 +164,11 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
               class="docs-nav-link"
               href="/docs/theming"
               aria-current={isActive("/docs/theming") ? "page" : undefined}>Theming</a
+            >
+            <a
+              class="docs-nav-link"
+              href="/docs/styles"
+              aria-current={isActive("/docs/styles") ? "page" : undefined}>Styles</a
             >
             <a
               class="docs-nav-link"

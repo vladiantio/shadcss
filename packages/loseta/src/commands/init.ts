@@ -3,19 +3,24 @@ import { cancel, confirm, intro, isCancel, log, outro, text } from "@clack/promp
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import {
-  AVAILABLE_STYLES,
   ConfigError,
   DEFAULT_CSS_DIR,
   DEFAULT_STYLE,
   detectEntrypoint,
-  isStyle,
   readConfig,
   writeConfig
 } from "../config.js";
 import { addEntrypointImport } from "../imports.js";
 import { installItems } from "../install.js";
 import { readManifest } from "../manifest.js";
-import { loadRegistry, registryDir, resolveItems, stableFoundation } from "../registry.js";
+import {
+  availableStyles,
+  isStyleName,
+  loadRegistry,
+  registryDir,
+  resolveItems,
+  stableFoundation
+} from "../registry.js";
 import type { LosetaConfig } from "../types.js";
 
 export const initCommand = defineCommand({
@@ -127,8 +132,10 @@ export const initCommand = defineCommand({
       entrypoint = String(entrypointAnswer);
     }
 
-    if (!isStyle(style)) {
-      log.error(`Unknown style: ${style}. Available styles: ${AVAILABLE_STYLES.join(", ")}.`);
+    if (!isStyleName(registry, style)) {
+      log.error(
+        `Unknown style: ${style}. Available styles: ${availableStyles(registry).join(", ")}.`
+      );
       process.exitCode = 1;
       return;
     }

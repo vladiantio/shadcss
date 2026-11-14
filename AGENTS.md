@@ -48,14 +48,15 @@ Every component and primitive ships two files:
 
 Base files may use tokens for structural state semantics (for example invalid
 text or a selected row), but prefer the style file for visual treatment.
-Dark-mode adjustments (`html.dark`) belong in style files. Nova is the only
-style in v1.
+Dark-mode adjustments (`html.dark`) belong in style files. Nova is the default
+style; Vega, Maia, Lyra, Mira, Luma, Sera and Rhea ship alongside it.
 
 ## Registry workflow
 
 1. Edit the base and/or style file under `packages/loseta/registry/`.
-2. Update the item in `registry.json`: `title`, `description`, `root`, `files`,
-   dependencies, `status`, `docs` and `examples` as applicable.
+2. Update the item in `registry.json`: `title`, `description`, `root`, `files`
+   (one style file per declared style), dependencies, `status`, `docs` and
+   `examples` as applicable.
 3. Edit example markup in `web/src/data/examples.ts`. Use the demo hooks
    (`data-demo`, `data-demo-trigger`, `data-open-dialog`, `data-close-dialog`)
    only for docs behavior; the generator strips them.
@@ -68,6 +69,11 @@ When adding a component, also add its group and any contract note in
 `web/src/data/components.ts`. Keep experimental CSS in
 `packages/loseta/experimental/` until the component has base/style files,
 registry metadata, an example and docs coverage.
+
+When adding a style, mirror the `styles/nova/` tree under `styles/<name>/`
+(including `primitives/`), declare it in the registry `styles` list, and add
+its file to every component and primitive item. The validator requires every
+declared style to be complete.
 
 ## CSS rules
 
@@ -94,6 +100,8 @@ Regenerate these; do not edit them by hand:
   `web/src/data/examples.ts` (`pnpm registry:examples`).
 - `web/src/styles/loseta.css` from the stable registry items
   (`pnpm docs:css`, also run by `pnpm web:dev` and `pnpm web:build`).
+- `web/public/styles/<name>.css` from the stable style files
+  (`pnpm docs:css`).
 
 CI fails when either generated artifact differs from the committed files.
 `packages/loseta/dist/` and `web/.astro/` are build output and ignored.

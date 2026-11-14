@@ -1,12 +1,14 @@
 import { defineCommand } from "citty";
 import { cancel, confirm, intro, isCancel, log, outro } from "@clack/prompts";
 import { join } from "node:path";
-import { AVAILABLE_STYLES, ConfigError, isStyle, readConfig } from "../config.js";
+import { ConfigError, readConfig } from "../config.js";
 import { readTextIfExists } from "../fs.js";
 import { installItems } from "../install.js";
 import { installedNames, readManifest } from "../manifest.js";
 import {
+  availableStyles,
   findItem,
+  isStyleName,
   itemMap,
   loadRegistry,
   missingFoundation,
@@ -113,14 +115,16 @@ export const addCommand = defineCommand({
     }
 
     const style = args.style ?? config.style;
-    if (!isStyle(style)) {
-      log.error(`Unknown style: ${style}. Available styles: ${AVAILABLE_STYLES.join(", ")}.`);
+    if (!isStyleName(registry, style)) {
+      log.error(
+        `Unknown style: ${style}. Available styles: ${availableStyles(registry).join(", ")}.`
+      );
       process.exitCode = 1;
       return;
     }
     if (args.style && args.style !== config.style) {
       log.error(
-        `This project uses the "${config.style}" style. --style can only match loseta.json.`
+        `This project uses the "${config.style}" style. Run \`loseta style ${args.style}\` to switch styles.`
       );
       process.exitCode = 1;
       return;

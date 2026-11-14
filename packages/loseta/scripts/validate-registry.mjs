@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
@@ -57,6 +57,43 @@ for (const item of registry.items ?? []) {
   items.set(item.name, item);
 }
 
+const stylesRoot = join(registryDir, "styles");
+const styleNames = new Set();
+for (const style of registry.styles ?? []) {
+  if (styleNames.has(style.name)) {
+    fail(`duplicate style: ${style.name}`);
+  }
+  styleNames.add(style.name);
+  if (!existsSync(join(stylesRoot, style.name))) {
+    fail(`style ${style.name}: expected directory styles/${style.name}`);
+  }
+}
+
+if (!styleNames.has("nova")) {
+  fail('styles: the default "nova" style is not declared');
+}
+
+if (existsSync(stylesRoot)) {
+  for (const entry of readdirSync(stylesRoot, { withFileTypes: true })) {
+    if (entry.isDirectory() && !styleNames.has(entry.name)) {
+      fail(`undeclared style directory: styles/${entry.name}`);
+    }
+  }
+}
+
+function walk(dir, base = "") {
+  const files = [];
+  for (const entry of readdirSync(join(dir, base), { withFileTypes: true })) {
+    const relative = base ? `${base}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      files.push(...walk(dir, relative));
+    } else if (entry.name.endsWith(".css")) {
+      files.push(relative);
+    }
+  }
+  return files;
+}
+
 for (const item of registry.items ?? []) {
   for (const dependency of item.registryDependencies ?? []) {
     if (!items.has(dependency)) {
@@ -73,6 +110,7 @@ for (const item of registry.items ?? []) {
   }
 
   const roles = new Set();
+  const styleFiles = [];
   for (const file of item.files ?? []) {
     const absolute = join(registryDir, file.path);
     if (!existsSync(absolute)) {
@@ -82,6 +120,23 @@ for (const item of registry.items ?? []) {
 
     roles.add(file.role);
     const css = readFileSync(absolute, "utf8");
+
+    if (file.role === "style") {
+      const match = /^styles\/([^/]+)\//.exec(file.path);
+      if (!match) {
+        fail(`${item.name}: style file must live under styles/<style>/: ${file.path}`);
+      } else {
+        if (!styleNames.has(match[1])) {
+          fail(`${item.name}: undeclared style ${match[1]}: ${file.path}`);
+        }
+        if (!file.target.startsWith(`styles/${match[1]}/`)) {
+          fail(`${item.name}: style target does not match ${match[1]}: ${file.target}`);
+        }
+        styleFiles.push(match[1]);
+      }
+    } else if (file.path.startsWith("styles/")) {
+      fail(`${item.name}: base file must not live under styles/: ${file.path}`);
+    }
 
     if (!css.includes(`@layer ${file.layer} {`)) {
       fail(`${item.name}: ${file.path} is not wrapped in @layer ${file.layer}`);
@@ -106,14 +161,43 @@ for (const item of registry.items ?? []) {
   }
 
   if (item.type === "component" || item.type === "primitive") {
-    if (!roles.has("base") || !roles.has("style")) {
-      fail(`${item.name}: expected both base and style files`);
+    if (!roles.has("base")) {
+      fail(`${item.name}: expected a base file`);
     }
+    if (styleFiles.length !== styleNames.size) {
+      fail(
+        `${item.name}: expected ${styleNames.size} style files, found ${styleFiles.length}`
+      );
+    }
+    for (const style of styleNames) {
+      const count = styleFiles.filter((name) => name === style).length;
+      if (count !== 1) {
+        fail(`${item.name}: expected exactly one ${style} style file, found ${count}`);
+      }
+    }
+  }
+
+  if (item.type === "foundation" && styleFiles.length > 0) {
+    fail(`${item.name}: foundation items do not have style files`);
   }
 
   for (const example of item.examples ?? []) {
     if (!existsSync(join(registryDir, example))) {
       fail(`${item.name}: example not found: ${example}`);
+    }
+  }
+}
+
+const referenced = new Set(
+  (registry.items ?? []).flatMap((item) => (item.files ?? []).map((file) => file.path))
+);
+for (const style of styleNames) {
+  const dir = join(stylesRoot, style);
+  if (!existsSync(dir)) continue;
+  for (const relative of walk(dir)) {
+    const path = `styles/${style}/${relative}`;
+    if (!referenced.has(path)) {
+      fail(`unreferenced style file: ${path}`);
     }
   }
 }
@@ -144,5 +228,5 @@ if (errors.length > 0) {
 }
 
 console.log(
-  `loseta registry OK: ${items.size} items, ${registry.items.filter((item) => item.type === "component").length} components.`
+  `loseta registry OK: ${items.size} items, ${registry.items.filter((item) => item.type === "component").length} components, ${styleNames.size} styles.`
 );

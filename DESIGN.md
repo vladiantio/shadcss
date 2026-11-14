@@ -8,7 +8,7 @@ It is not an implementation guide. The installed CSS is the reference
 implementation: if this document and the registry disagree,
 [`packages/loseta/registry/tokens.css`](packages/loseta/registry/tokens.css)
 and [`registry.json`](packages/loseta/registry/registry.json) win, and this
-document must be corrected. The baseline covers registry version `0.1.0`.
+document must be corrected. The baseline covers registry version `0.3.0`.
 
 Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
 
@@ -22,7 +22,7 @@ Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
    Unmodified installed files are the contract; edited files are the
    consumer's own divergence.
 3. **Structure and style are separate.** Base files describe anatomy, layout
-   and state hooks. Style files supply the Nova visual treatment.
+   and state hooks. Style files supply the visual treatment.
 4. **Semantic HTML and platform states come first.** Styling reads ARIA and
    native pseudo-classes, not bespoke state classes. loseta ships no
    JavaScript behavior.
@@ -55,6 +55,18 @@ Experimental CSS lives in `packages/loseta/experimental/`. It is neither
 published nor covered by this baseline. The one shipped utility is
 `.sr-only`.
 
+## Styles
+
+The registry declares its styles in `registry.json`. Nova is the default. The
+complete set is Vega, Nova, Maia, Lyra, Mira, Luma, Sera and Rhea. A style owns
+geometry, spacing, control sizes, radii and the type scale. Anatomy, markup,
+tokens, layers and the state contract are shared, so switching styles never
+requires markup changes.
+
+`loseta.json` selects one style per project. `loseta init --style` chooses it,
+`loseta style <name>` switches it, and the CLI copies only the style files for
+the selected style. A style-only change does not rewrite base files.
+
 The browser fidelity target is Chrome/Edge 125+, Safari 26+ and Firefox 147+.
 Older engines may render a reduced experience where they lack `:has()`,
 `@starting-style` or `field-sizing`.
@@ -73,7 +85,7 @@ Every generated `index.css` declares this order before importing any file:
 | `loseta.reset` | foundation | Minimal reset: box sizing, borders, margins, media defaults, form inheritance. Not a full preflight. |
 | `loseta.base` | foundation | Global element defaults: page colors, button cursor, selection color, outline color. |
 | `loseta.components` | base files and primitives | Anatomy, layout, behavior hooks and structural state rules. |
-| `loseta.style` | Nova style files | Color, typography, spacing, radii, shadows, surfaces and animations. |
+| `loseta.style` | style files | Color, typography, spacing, radii, shadows, surfaces and animations. |
 | `loseta.utilities` | foundation | Only `.sr-only` in v1. |
 
 Rules:
@@ -120,7 +132,7 @@ for embedded SVG data URIs and the dialog backdrop.
 - Light is the default in `:root`. Dark values are applied by `.dark` on the
   `<html>` element; the token file also sets `color-scheme` so native controls
   follow the color scheme.
-- Components reference role tokens. Nova may add `html.dark` adjustments for
+- Components reference role tokens. A style may add `html.dark` adjustments for
   contrast, but a component must not invent a separate dark palette.
 - Every documented page is exercised in light and dark mode in CI.
 
@@ -140,7 +152,8 @@ for embedded SVG data URIs and the dialog backdrop.
 Small controls cap their radius with `min(var(--radius-md), 10px or 12px)` so
 they do not become visually rounder than their surface. Checkboxes use a
 fixed 4px radius. Code Block uses `--radius-xl`; its `sm` size uses
-`--radius-lg`. These caps are part of the Nova treatment.
+`--radius-lg`. These caps are part of the Nova style; Vega uses
+`--radius-md` for controls and caps them at smaller values.
 
 ### Typography
 
@@ -163,9 +176,9 @@ fixed 4px radius. Code Block uses `--radius-xl`; its `sm` size uses
 
 ### Shadows and icons
 
-- Shadow tokens `--shadow-2xs` through `--shadow-2xl` are available. Nova uses
-  a 1px foreground ring shadow for cards and dialogs, and that ring plus
-  `--shadow-md` for popovers and menus.
+- Shadow tokens `--shadow-2xs` through `--shadow-2xl` are available. The
+  default style uses a 1px foreground ring shadow for cards and dialogs, and
+  that ring plus `--shadow-md` for popovers and menus.
 - Icons inherit `currentColor`; components disable pointer events on the
   decorative SVG that sits inside their interaction targets.
 - `--icon-size` is a local component variable, not a global token. The
@@ -231,6 +244,13 @@ visible.
 | Tablist | `2rem` high | Vertical tablists use content height |
 | Kbd | `1.25rem` high, `1.25rem` minimum width | — |
 | Code Block | No fixed height; the `pre` scrolls | `sm`: `--text-xs`, `0.75rem` padding and `--radius-lg` |
+
+The table describes the default Nova style. Vega raises control heights by
+`0.25rem` (input and native select `2.25rem`, buttons `2.25rem`, `lg`
+`2.5rem`), uses `--radius-md` for controls, adds `--shadow-xs` to bordered
+controls and cards, and gives dialogs `1.5rem` padding. Maia and Luma round
+controls further; Lyra and Sera square them; Mira is the densest; Rhea pairs
+Luma's soft surfaces with compact controls.
 
 Breakpoints:
 
@@ -380,9 +400,8 @@ Notes:
 - Standard easing is `cubic-bezier(0.4, 0, 0.2, 1)`.
 - Controls, hover states, tabs, table rows and tooltips transition in `150ms`.
 - Code Block's floating actions fade in `150ms` on hover and focus-within.
-- Nova overlays (popover, dropdown, dialog, alert dialog) transition in
-  `100ms`; the underlying shell defaults to `150ms` when a style does not
-  override it.
+- Overlays (popover, dropdown, dialog, alert dialog) transition in `100ms`;
+  the underlying shell defaults to `150ms` when a style does not override it.
 - Item hover and state transitions use `100ms`; the skeleton pulses on a `2s`
   loop with `cubic-bezier(0.4, 0, 0.6, 1)`.
 - Dialog entry uses `@starting-style` and `allow-discrete`: the backdrop fades,
@@ -425,7 +444,7 @@ intentional exclusion.
   `aria-label` or `aria-describedby`.
 - Components that suppress the native outline provide a visible replacement
   in the documented markup; the dialog close button must carry `.btn` (or an
-  equivalent focus style). The Nova focus ring is a 1px `--ring` border plus a
+  equivalent focus style). The default focus ring is a 1px `--ring` border plus a
   3px 50% ring shadow; forced-colors mode restores a transparent 2px outline
   for system focus rendering.
 - CI runs axe with `wcag2a`, `wcag2aa`, `wcag21a` and `wcag21aa` on every docs
@@ -440,8 +459,8 @@ Install targets:
 | Item kind | Base file | Style file |
 | --- | --- | --- |
 | Foundation | `tokens.css`, `reset.css`, `base.css`, `utilities.css` | — |
-| Primitive | `primitives/<name>.css` | `styles/nova/primitives/<name>.css` |
-| Component | `components/<name>.css` | `styles/nova/<name>.css` |
+| Primitive | `primitives/<name>.css` | `styles/<style>/primitives/<name>.css` |
+| Component | `components/<name>.css` | `styles/<style>/<name>.css` |
 
 The CLI writes these under the configured CSS directory (default
 `src/styles/loseta`), records them in `.loseta/manifest.json`, and regenerates
@@ -465,6 +484,7 @@ The following are public API and require a breaking-change note when changed:
 - variant, size, orientation and placement attribute names and values;
 - the state contract;
 - token names and their semantic roles;
+- the declared style names and their install targets;
 - the fixed layer order and the meaning of each layer;
 - documented anatomy requirements and optional/required children.
 
@@ -486,7 +506,8 @@ semantic versioning.
 - No `prefers-reduced-motion` guard.
 - Tooltip entry only fades; the pseudo-element remains at 95% scale instead of
   animating to 100%.
-- Nova is the only shipped style; style switching is not part of v1.
+- Nova, Vega, Maia, Lyra, Mira, Luma, Sera and Rhea are the only shipped
+  styles; style-specific visual regression snapshots are not part of CI.
 - No JavaScript behavior is shipped. Dialogs, popovers, dropdown menus, tabs
   and Code Block copy/wrap controls require consumer code.
 - Code Block does not ship syntax highlighting, ANSI rendering, streaming or a

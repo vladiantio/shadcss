@@ -1,0 +1,100 @@
+/* Card */
+@layer loseta.style {
+  .card {
+    overflow: hidden;
+    border-radius: var(--radius-4xl);
+    background-color: var(--card);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--card-foreground);
+    box-shadow:
+      var(--shadow-md),
+      0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+
+    > img:first-child {
+      border-top-left-radius: var(--radius-4xl);
+      border-top-right-radius: var(--radius-4xl);
+    }
+
+    > img:last-child {
+      border-bottom-right-radius: var(--radius-4xl);
+      border-bottom-left-radius: var(--radius-4xl);
+    }
+
+    &:not([data-size]),
+    &[data-size='default'] {
+      gap: 1.5rem;
+      padding-block: 1.5rem;
+    }
+
+    &[data-size='sm'] {
+      gap: 1rem;
+      padding-block: 1rem;
+    }
+
+    &:is(:not([data-size]), [data-size]):has(> footer) {
+      padding-bottom: 0;
+    }
+
+    &:is(:not([data-size]), [data-size]):has(> img:first-child) {
+      padding-top: 0;
+    }
+
+    > header {
+      gap: 0.25rem;
+      border-top-left-radius: var(--radius-4xl);
+      border-top-right-radius: var(--radius-4xl);
+      padding-inline: 1.5rem;
+
+      &[data-separator='bottom'] {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-bottom-color: var(--border);
+        padding-bottom: 1.5rem;
+      }
+    }
+
+    &[data-size='sm'] > header {
+      padding-inline: 1rem;
+
+      &[data-separator='bottom'] {
+        padding-bottom: 1rem;
+      }
+    }
+
+    > header > :is(h2, h3, [data-slot='title'], .card-title) {
+      font-size: var(--text-base);
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    &[data-size='sm'] > header > :is(h2, h3, [data-slot='title'], .card-title) {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+    }
+
+    > header > :is(p, [data-slot='description'], .card-description) {
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      color: var(--muted-foreground);
+    }
+
+    > section {
+      padding-inline: 1.5rem;
+    }
+
+    &[data-size='sm'] > section {
+      padding-inline: 1rem;
+    }
+
+    > footer {
+      border-bottom-right-radius: var(--radius-4xl);
+      border-bottom-left-radius: var(--radius-4xl);
+      padding: 1.5rem;
+    }
+
+    &[data-size='sm'] > footer {
+      padding: 1rem;
+    }
+  }
+}
