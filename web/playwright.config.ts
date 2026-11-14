@@ -22,7 +22,9 @@ export default defineConfig({
     }
   ],
   webServer: {
-    command: "pnpm exec astro preview --port 4323",
+    // Astro auto-backgrounds preview when it detects an agent; --ignore-lock keeps
+    // it in the foreground so Playwright can manage the process.
+    command: "pnpm exec astro preview --port 4323 --ignore-lock",
     url: "http://localhost:4323",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000
