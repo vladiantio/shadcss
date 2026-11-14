@@ -33,3 +33,6 @@ yarn.lock
 # Test output
 test-results/
 playwright-report/
+
+# CodeGraph index
+.codegraph/
