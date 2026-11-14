@@ -132,6 +132,45 @@ test("code block wrap toggle updates the pre", async ({ page }) => {
   await expect(pre).toHaveAttribute("data-wrap", "");
 });
 
+test("every page has a table of contents with valid anchors", async ({ page }) => {
+  for (const path of pages) {
+    await page.goto(path);
+    const toc = page.getByRole("navigation", { name: "Table of contents" });
+    await expect(toc, path).toBeVisible();
+    await expect(toc.locator("a").first(), path).toBeVisible();
+
+    const broken = await toc.locator("a").evaluateAll((links) =>
+      (links as HTMLAnchorElement[])
+        .map((link) => link.hash)
+        .filter((hash) => !document.getElementById(decodeURIComponent(hash.slice(1))))
+    );
+    expect(broken, path).toEqual([]);
+  }
+});
+
+test("table of contents tracks the active heading", async ({ page }) => {
+  await page.goto("/docs/theming");
+  const toc = page.getByRole("navigation", { name: "Table of contents" });
+  const layers = toc.getByRole("link", { name: "Layers" });
+  const darkMode = toc.getByRole("link", { name: "Dark mode" });
+
+  await expect(layers).toHaveAttribute("aria-current", "location");
+  await expect(page.locator("#layers")).toHaveText("Layers");
+
+  await darkMode.click();
+  await expect(darkMode).toHaveAttribute("aria-current", "location");
+  await expect(page).toHaveURL(/#dark-mode$/);
+});
+
+test("table of contents skips demo preview headings", async ({ page }) => {
+  await page.goto("/docs/components/alert");
+  const toc = page.getByRole("navigation", { name: "Table of contents" });
+
+  await expect(toc.getByRole("link", { name: "Default" })).toBeVisible();
+  await expect(toc.getByRole("link", { name: "Heads up!" })).toHaveCount(0);
+  await expect(page.locator(".docs-preview h3").filter({ hasText: "Heads up!" })).toHaveCount(1);
+});
+
 for (const path of pages) {
   test(`axe: ${path}`, async ({ page }) => {
     await page.goto(path);

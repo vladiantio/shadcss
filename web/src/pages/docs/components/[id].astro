@@ -42,7 +42,16 @@ const { component } = Astro.props;
 
     <InstallCommand command={`loseta add ${component.id}`} />
 
-    {component.examples.map((example) => <Example title={example.title} html={example.html} />)}
+    {
+      component.examples.length > 0 && (
+        <>
+          <h2>Examples</h2>
+          {component.examples.map((example) => (
+            <Example title={example.title} html={example.html} />
+          ))}
+        </>
+      )
+    }
 
     {
       component.notes.length > 0 && (

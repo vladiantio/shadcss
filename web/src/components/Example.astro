@@ -11,6 +11,6 @@ const { title, html } = Astro.props;
 
 <section class="example">
   <h3 class="example-title">{title}</h3>
-  <div class="docs-preview" set:html={html} />
+  <div class="docs-preview" data-toc-ignore set:html={html} />
   <CodeBlock code={html.trim()} lang="html" label="HTML" />
 </section>

@@ -2,7 +2,9 @@
 import "@/styles/loseta.css";
 import "@/styles/docs.css";
 import { MonitorIcon, MoonIcon, SunIcon } from "@lucide/astro";
+import TableOfContents from "@/components/TableOfContents.astro";
 import { componentGroups, componentsInGroup } from "@/data/components";
+import { addHeadingAnchors } from "@/lib/toc";
 
 interface Props {
   title?: string;
@@ -13,6 +15,11 @@ const {
   title = "loseta",
   description = "Native CSS component scaffolds with the shadcn feel."
 } = Astro.props;
+
+const slotHtml = await Astro.slots.render("default");
+// Render once so heading anchors and the table of contents share the same ids.
+const { html: pageHtml, headings } = addHeadingAnchors(slotHtml);
+const hasToc = headings.length > 0;
 
 const pathname = Astro.url.pathname;
 const isActive = (href: string) =>
@@ -126,7 +133,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
       </nav>
     </header>
 
-    <div class="docs-shell">
+    <div class:list={["docs-shell", { "docs-shell-toc": hasToc }]}>
       <aside class="docs-sidebar">
         <nav class="docs-nav" aria-label="Documentation">
           <div class="docs-nav-group">
@@ -176,7 +183,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
       </aside>
 
       <main class="docs-main" id="content">
-        <slot />
+        <Fragment set:html={pageHtml} />
         <footer class="docs-footer">
           <p>
             loseta is MIT licensed. Built with native CSS, no runtime. Inspired by
@@ -184,6 +191,8 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
           </p>
         </footer>
       </main>
+
+      {hasToc && <TableOfContents headings={headings} />}
     </div>
 
     <script>
