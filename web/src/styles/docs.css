@@ -700,7 +700,6 @@
   }
 
   .install-command-code {
-    overflow-x: auto;
     padding: 0.5rem 1rem 1rem;
     line-height: 1.6;
   }
@@ -712,7 +711,8 @@
 
   .install-command code {
     display: block;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
   }
 
   html.dark .install-command-tab:not([aria-pressed="true"]):hover {

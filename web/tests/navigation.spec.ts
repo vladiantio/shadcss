@@ -174,15 +174,19 @@ test("pages remain fully rendered HTML for crawlers", async ({ request }) => {
   expect(html).toContain('data-astro-transition-persist="docs-sidebar"');
 });
 
-test("skip link moves focus to the main content", async ({ page }) => {
+test("skip link moves keyboard navigation into the main content", async ({ page }) => {
   await page.goto("/docs");
   await page.keyboard.press("Tab");
 
   const skip = page.getByRole("link", { name: "Skip to content" });
   await expect(skip).toBeFocused();
+  await expect(page.locator("#content")).not.toHaveAttribute("tabindex");
 
   await skip.press("Enter");
-  await expect(page.locator("#content")).toBeFocused();
+  await expect(page).toHaveURL(/#content$/);
+
+  await page.keyboard.press("Tab");
+  await expect(page.locator("#content :focus")).toHaveCount(1);
 });
 
 test("axe: client navigation", async ({ page }) => {

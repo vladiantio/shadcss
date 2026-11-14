@@ -63,6 +63,7 @@ test("install command switches between pnpm and npm", async ({ page }) => {
   await expect(npm).toHaveAttribute("aria-pressed", "false");
   await expect(pnpmPanel).toBeVisible();
   await expect(pnpmPanel.locator("code")).toContainText("pnpm dlx loseta init");
+  await expect(pnpmPanel.locator("code")).not.toHaveAttribute("tabindex");
   await expect(npmPanel).toBeHidden();
 
   await npm.click();

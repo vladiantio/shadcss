@@ -61,7 +61,16 @@ const defaultManager = "pnpm";
             themes={shikiThemes}
             defaultColor={false}
             inline
-            tabindex="0"
+            wrap={null}
+            transformers={[
+              {
+                // Shiki marks every block with tabindex="0"; inline commands wrap instead.
+                name: "loseta:inline-code-no-tabindex",
+                pre(node) {
+                  delete node.properties.tabindex;
+                }
+              }
+            ]}
           />
         </div>
       ))
