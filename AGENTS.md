@@ -35,6 +35,8 @@ files consumers install.
 - `packages/loseta/registry/` — published catalog: foundations, primitives,
   components, Nova style, examples and `registry.json`.
 - `packages/loseta/src/` — CLI (`init`, `add`, `list`).
+- `packages/loseta/test/` — CLI tests (`node:test`); keep flag and config
+  resolution in testable modules rather than prompt handlers.
 - `packages/loseta/experimental/` — unpublished work outside the v1 contract.
 - `web/` — Astro docs site; it imports the registry CSS directly.
 
@@ -115,6 +117,7 @@ runs `astro check`.
 pnpm install
 pnpm test
 pnpm registry:check      # fast registry and CSS validation
+pnpm cli:smoke           # interactive init prompt smoke test
 pnpm web:dev             # docs at http://localhost:4321
 pnpm --filter web test:e2e
 ```

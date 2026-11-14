@@ -1,11 +1,10 @@
 import { defineCommand } from "citty";
-import { cancel, confirm, intro, isCancel, log, outro, text } from "@clack/prompts";
+import { cancel, confirm, intro, isCancel, log, outro, select, text } from "@clack/prompts";
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import {
   ConfigError,
   DEFAULT_CSS_DIR,
-  DEFAULT_STYLE,
   detectEntrypoint,
   readConfig,
   writeConfig
@@ -21,6 +20,7 @@ import {
   resolveItems,
   stableFoundation
 } from "../registry.js";
+import { resolveInitStyle, styleOptions } from "../style-selection.js";
 import type { LosetaConfig } from "../types.js";
 
 export const initCommand = defineCommand({
@@ -81,6 +81,15 @@ export const initCommand = defineCommand({
       }
       throw error;
     }
+    const styleResolution = resolveInitStyle(registry, args.style, existingConfig?.style);
+    if ("error" in styleResolution) {
+      log.error(styleResolution.error);
+      process.exitCode = 1;
+      return;
+    }
+    if (styleResolution.warning) {
+      log.warn(styleResolution.warning);
+    }
     if (existingConfig && !args.yes) {
       log.warn("loseta.json already exists.");
       const proceed = await confirm({
@@ -94,7 +103,7 @@ export const initCommand = defineCommand({
     }
 
     let cssDir = args.cssDir ?? existingConfig?.cssDir ?? DEFAULT_CSS_DIR;
-    let style = args.style ?? existingConfig?.style ?? DEFAULT_STYLE;
+    let style = styleResolution.style;
     let entrypoint = args.entrypoint ?? existingConfig?.entrypoint ?? detectEntrypoint(projectRoot) ?? "";
 
     if (!args.yes) {
@@ -109,16 +118,16 @@ export const initCommand = defineCommand({
       }
       cssDir = String(cssDirAnswer);
 
-      const styleAnswer = await text({
+      const styleAnswer = await select({
         message: "Style",
-        placeholder: DEFAULT_STYLE,
-        defaultValue: style
+        options: styleOptions(registry),
+        initialValue: style
       });
       if (isCancel(styleAnswer)) {
         cancel("Cancelled.");
         return;
       }
-      style = String(styleAnswer);
+      style = styleAnswer;
 
       const entrypointAnswer = await text({
         message: "CSS entrypoint (leave empty to skip)",

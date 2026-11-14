@@ -38,6 +38,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/cli.ts",
+    "smoke": "bash scripts/smoke-init.sh",
     "validate": "node scripts/validate-registry.mjs",
     "examples": "tsx scripts/generate-examples.ts",
     "check": "pnpm build && pnpm validate",

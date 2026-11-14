@@ -9,6 +9,7 @@
     "web:dev": "pnpm docs:css && pnpm --filter=web dev",
     "web:build": "pnpm docs:css && pnpm --filter=web build",
     "cli:build": "pnpm --filter=loseta build",
+    "cli:smoke": "pnpm --filter=loseta smoke",
     "registry:check": "pnpm --filter=loseta validate",
     "registry:examples": "pnpm --filter=loseta examples"
   },
