@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "pnpm --filter=loseta check && pnpm --filter=web check",
+    "test": "pnpm --filter=loseta test && pnpm --filter=loseta check && pnpm --filter=web check",
     "docs:css": "node packages/loseta/scripts/generate-docs-css.mjs",
     "web:dev": "pnpm docs:css && pnpm --filter=web dev",
     "web:build": "pnpm docs:css && pnpm --filter=web build",

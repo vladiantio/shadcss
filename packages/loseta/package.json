@@ -41,7 +41,7 @@
     "validate": "node scripts/validate-registry.mjs",
     "examples": "tsx scripts/generate-examples.ts",
     "check": "pnpm build && pnpm validate",
-    "test": "pnpm validate",
+    "test": "tsx --test test/*.test.ts",
     "prepack": "pnpm build",
     "prepublishOnly": "pnpm validate"
   },

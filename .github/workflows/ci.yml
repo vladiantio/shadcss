@@ -24,6 +24,7 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter loseta test
       - run: pnpm --filter loseta check
       - run: pnpm docs:css
       - run: pnpm registry:examples
