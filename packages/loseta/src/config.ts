@@ -4,17 +4,7 @@ import type { LosetaConfig } from "./types.js";
 
 export const CONFIG_FILE = "loseta.json";
 export const DEFAULT_CSS_DIR = "src/styles/loseta";
-export const AVAILABLE_STYLES = ["nova"] as const;
-export type Style = (typeof AVAILABLE_STYLES)[number];
-export const DEFAULT_STYLE: Style = "nova";
-
-export function isStyle(value: string | null | undefined): value is Style {
-  return (
-    value !== null &&
-    value !== undefined &&
-    (AVAILABLE_STYLES as readonly string[]).includes(value)
-  );
-}
+export const DEFAULT_STYLE = "nova";
 
 /** Raised when loseta.json cannot be used as written. */
 export class ConfigError extends Error {}

@@ -37,9 +37,12 @@ test("client navigation keeps the shell mounted", async ({ page }) => {
   );
 });
 
-test("client navigation preserves color scheme and package manager", async ({ page }) => {
+test("client navigation preserves color scheme, style and package manager", async ({
+  page
+}) => {
   await page.goto("/docs/installation");
   await page.getByRole("button", { name: "Dark color scheme" }).click();
+  await page.locator("[data-style-select]").selectOption("vega");
 
   const firstCommand = page.locator(".install-command").first();
   await firstCommand.locator("[data-package-manager-value='npm']").click();
@@ -52,6 +55,11 @@ test("client navigation preserves color scheme and package manager", async ({ pa
   await expect(page.getByRole("button", { name: "Dark color scheme" })).toHaveAttribute(
     "aria-pressed",
     "true"
+  );
+  await expect(page.locator("[data-style-select]")).toHaveValue("vega");
+  await expect(page.locator("[data-style-link]")).toHaveAttribute(
+    "href",
+    "/styles/vega.css"
   );
 
   await sidebar.getByRole("link", { name: "Installation" }).click();

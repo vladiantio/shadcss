@@ -31,10 +31,17 @@ export interface RegistryItem {
   examples?: string[];
 }
 
+export interface StyleDefinition {
+  name: string;
+  title: string;
+  description: string;
+}
+
 export interface Registry {
   $schema?: string;
   name: string;
   version: string;
+  styles: StyleDefinition[];
   items: RegistryItem[];
 }
 

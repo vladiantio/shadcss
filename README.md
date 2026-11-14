@@ -16,14 +16,16 @@ npx loseta add button card field
 ```
 
 `init` creates the foundation files (tokens, reset, base, utilities) and a
-generated `index.css`. `add` copies the structural CSS, the Nova style file and
-any primitive dependency.
+generated `index.css`. `add` copies the structural CSS, the selected style file
+and any primitive dependency.
 
 ```bash
-npx loseta add all           # every stable component
-npx loseta list              # available components
-npx loseta list --all        # include primitives and foundation
-npx loseta add button --html # print the example markup
+npx loseta init --style vega  # choose a style (default: nova)
+npx loseta style vega         # switch an installed project
+npx loseta add all            # every stable component
+npx loseta list               # available components
+npx loseta list --all         # include primitives and foundation
+npx loseta add button --html  # print the example markup
 ```
 
 ## What you get
@@ -32,7 +34,7 @@ npx loseta add button --html # print the example markup
   properties, `@starting-style` and `field-sizing`.
 - **Copy-paste ownership**: the CLI writes plain CSS files into your project.
 - **Tokens and styles**: shadcn-compatible CSS variables, light/dark mode and
-  the Nova visual style.
+  the Nova and Vega visual styles.
 - **CSS-only**: behavior stays yours. Components document the required ARIA and
   data-attribute contract; the docs use a small demo-only script to keep the
   examples interactive.

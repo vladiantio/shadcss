@@ -2,7 +2,14 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { components } from "../src/data/components";
 
-const staticPages = ["/", "/docs", "/docs/installation", "/docs/theming", "/docs/components"];
+const staticPages = [
+  "/",
+  "/docs",
+  "/docs/installation",
+  "/docs/theming",
+  "/docs/styles",
+  "/docs/components"
+];
 const pages = [
   ...staticPages,
   ...components.map((component) => `/docs/components/${component.id}`)
@@ -48,6 +55,51 @@ test("color scheme switch supports system, light and dark", async ({ page }) => 
   await expect(html).toHaveClass(/\bdark\b/);
   await page.emulateMedia({ colorScheme: "light" });
   await expect(html).not.toHaveClass(/\bdark\b/);
+});
+
+test("style switch loads the selected stylesheet", async ({ page }) => {
+  await page.goto("/docs/styles");
+  const select = page.locator("[data-style-select]");
+  const link = page.locator("[data-style-link]");
+
+  await expect(select).toHaveValue("nova");
+  await expect(link).toHaveAttribute("href", "/styles/nova.css");
+  await expect(page.locator("html")).toHaveAttribute("data-style", "nova");
+
+  await select.selectOption("vega");
+  await expect(link).toHaveAttribute("href", "/styles/vega.css");
+  await expect(page.locator("html")).toHaveAttribute("data-style", "vega");
+  expect(await page.evaluate(() => localStorage.getItem("style"))).toBe("vega");
+
+  await page.reload();
+  await expect(select).toHaveValue("vega");
+  await expect(link).toHaveAttribute("href", "/styles/vega.css");
+});
+
+test("style cards select the previewed style", async ({ page }) => {
+  await page.goto("/docs/styles");
+  const vega = page.locator('[data-style-option="vega"]');
+
+  await expect(vega).toHaveAttribute("aria-pressed", "false");
+  await vega.click();
+
+  await expect(vega).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("[data-style-link]")).toHaveAttribute(
+    "href",
+    "/styles/vega.css"
+  );
+});
+
+test("styles change control geometry", async ({ page }) => {
+  await page.goto("/docs/styles");
+  const button = page.locator(".docs-style-specimen .btn").first();
+
+  await expect(button).toHaveCSS("height", "32px");
+
+  await page.locator("[data-style-select]").selectOption("vega");
+
+  await expect(button).toHaveCSS("height", "36px");
+  await expect(button).toHaveCSS("border-top-left-radius", "8px");
 });
 
 test("install command switches between pnpm and npm", async ({ page }) => {

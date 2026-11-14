@@ -14,16 +14,21 @@ function importLine(target: string): string {
   return `@import "./${toPosix(target)}";`;
 }
 
-/** Generates the managed index.css for the installed item set. */
-export function generateIndex(registry: Registry, installed: Set<string>): string {
+/** Generates the managed index.css for the installed item set and style. */
+export function generateIndex(
+  registry: Registry,
+  installed: Set<string>,
+  style: string
+): string {
   const selected = registry.items.filter((item) => installed.has(item.name));
+  const stylePrefix = `styles/${style}/`;
   const baseFiles = selected
     .flatMap((item) => item.files)
     .filter((file) => file.role === "base")
     .map((file) => importLine(file.target));
   const styleFiles = selected
     .flatMap((item) => item.files)
-    .filter((file) => file.role === "style")
+    .filter((file) => file.role === "style" && file.path.startsWith(stylePrefix))
     .map((file) => importLine(file.target));
 
   return [
@@ -44,7 +49,7 @@ export function writeIndex(
   registry: Registry,
   installed: Set<string>
 ): void {
-  writeText(indexCssPath(projectRoot, config), generateIndex(registry, installed));
+  writeText(indexCssPath(projectRoot, config), generateIndex(registry, installed, config.style));
 }
 
 /**

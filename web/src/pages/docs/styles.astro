@@ -1,0 +1,93 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import CodeBlock from "@/components/CodeBlock.astro";
+import registry from "../../../../packages/loseta/registry/registry.json" with {
+  type: "json"
+};
+---
+
+<Layout title="Styles" description="The visual styles shipped with loseta.">
+  <div class="docs-content">
+    <p class="docs-eyebrow">Getting started</p>
+    <h1>Styles</h1>
+    <p class="docs-lead">
+      A style is the visual half of every component: geometry, spacing, control sizes, radii
+      and type scale. Structure stays in <code>components/</code>; the active style lives in
+      {" "}<code>styles/&lt;name&gt;/</code>.
+    </p>
+
+    <h2>Choose a style</h2>
+    <p>
+      Pick one style per project. Use the Style control in the header to preview each style
+      across this site; pass the name to the CLI to install it.
+    </p>
+    <div class="docs-grid">
+      {
+        registry.styles.map((style) => (
+          <button
+            class="docs-card docs-style-card"
+            type="button"
+            data-style-option={style.name}
+            aria-pressed="false"
+          >
+            <span class="docs-card-title">{style.title}</span>
+            <span class="docs-card-description">{style.description}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <h2>Install a style</h2>
+    <p>
+      Choose the style when you initialize the project, or switch an existing project at any
+      time.
+    </p>
+    <CodeBlock
+      lang="bash"
+      code={`npx loseta init --style vega
+npx loseta style vega`}
+    />
+    <p>
+      <code>loseta style</code> rewrites the style file for every installed component and
+      primitive, updates <code>loseta.json</code> and regenerates <code>index.css</code>. The
+      previous style folder stays on disk but is no longer imported.
+    </p>
+
+    <h2>Preview</h2>
+    <p>The controls below use the selected style.</p>
+    <div class="component-preview">
+      <div class="docs-preview docs-style-specimen">
+        <div class="docs-style-row">
+          <button class="btn" type="button">Primary</button>
+          <button class="btn" data-variant="secondary" type="button">Secondary</button>
+          <button class="btn" data-variant="outline" type="button">Outline</button>
+          <span class="badge">Badge</span>
+        </div>
+        <div class="docs-style-row">
+          <input class="input" type="email" placeholder="you@example.com" />
+          <label class="label">
+            <input class="checkbox" type="checkbox" checked />
+            Checkbox
+          </label>
+        </div>
+        <div class="card">
+          <header>
+            <span data-slot="title">Card title</span>
+            <p>Style geometry applies to every installed component.</p>
+          </header>
+          <section>
+            <p>Swap the style without touching your markup.</p>
+          </section>
+          <footer>
+            <button class="btn" data-size="sm" type="button">Action</button>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <div class="docs-callout">
+      <strong>Docs-only preview.</strong> The header switcher loads a different stylesheet for
+      this site. Your project installs exactly one style.
+    </div>
+  </div>
+</Layout>

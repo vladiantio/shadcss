@@ -1,0 +1,64 @@
+/* Dialog */
+@layer loseta.style {
+  .dialog > * {
+    max-width: calc(100% - 2rem);
+    gap: 1.5rem;
+    border-radius: var(--radius-xl);
+    background-color: var(--popover);
+    padding: 1.5rem;
+    display: grid;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--popover-foreground);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+    transition-duration: 100ms;
+
+    @media (width >= 40rem) {
+      max-width: 28rem;
+    }
+  }
+
+  .dialog > * > :is(button, form[method='dialog']) {
+    inset-inline-end: 1rem;
+    top: 1rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: min(var(--radius-md), 12px);
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent;
+    opacity: 100%;
+
+    &:hover {
+      background-color: var(--muted);
+      color: var(--foreground);
+    }
+  }
+
+  .dialog > * > header {
+    gap: 0.5rem;
+  }
+
+  .dialog > * > header > h2,
+  .dialog > * > [data-slot='title'] {
+    font-size: var(--text-sm);
+    line-height: 1;
+    font-weight: 500;
+  }
+
+  .dialog > * > header > p,
+  .dialog > * > [data-slot='description'] {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--muted-foreground);
+
+    & a {
+      text-decoration-line: underline;
+      text-underline-offset: 3px;
+    }
+
+    & a:hover {
+      color: var(--foreground);
+    }
+  }
+}

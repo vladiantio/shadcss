@@ -1,14 +1,17 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { AVAILABLE_STYLES, DEFAULT_STYLE, isStyle } from "../src/config.js";
+import { DEFAULT_STYLE } from "../src/config.js";
+import { availableStyles, isStyleName, loadRegistry } from "../src/registry.js";
 
-test("the default style is one of the available styles", () => {
-  assert.ok((AVAILABLE_STYLES as readonly string[]).includes(DEFAULT_STYLE));
+test("the default style is declared by the registry", () => {
+  assert.ok(availableStyles(loadRegistry()).includes(DEFAULT_STYLE));
 });
 
-test("isStyle narrows known style names", () => {
-  assert.equal(isStyle("nova"), true);
-  assert.equal(isStyle("other"), false);
-  assert.equal(isStyle(null), false);
-  assert.equal(isStyle(undefined), false);
+test("isStyleName narrows declared style names", () => {
+  const registry = loadRegistry();
+  assert.equal(isStyleName(registry, "nova"), true);
+  assert.equal(isStyleName(registry, "vega"), true);
+  assert.equal(isStyleName(registry, "other"), false);
+  assert.equal(isStyleName(registry, null), false);
+  assert.equal(isStyleName(registry, undefined), false);
 });

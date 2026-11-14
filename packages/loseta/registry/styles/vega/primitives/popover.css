@@ -1,0 +1,16 @@
+/* Popover primitive */
+@layer loseta.style {
+  [data-popover] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: var(--radius-md);
+    background-color: var(--popover);
+    padding: 1rem;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    color: var(--popover-foreground);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent), var(--shadow-md);
+    transition-duration: 100ms;
+  }
+}

@@ -28,6 +28,10 @@ function readIndex(projectRoot: string): string {
   return readFileSync(join(projectRoot, config.cssDir, "index.css"), "utf8");
 }
 
+function readIndexFor(projectRoot: string, cssDir: string): string {
+  return readFileSync(join(projectRoot, cssDir, "index.css"), "utf8");
+}
+
 function resolve(registry: Registry, names: string[]) {
   return resolveItems(registry, names);
 }
@@ -71,6 +75,38 @@ test("installs base and style files, manifest and index", async (t) => {
     /@layer loseta\.tokens, loseta\.reset, loseta\.base, loseta\.components, loseta\.style, loseta\.utilities;/
   );
   assert.ok(index.indexOf("./components/dialog.css") < index.indexOf("./styles/nova/dialog.css"));
+});
+
+test("installs the selected style only", async (t) => {
+  const projectRoot = project();
+  t.after(() => rmSync(projectRoot, { recursive: true, force: true }));
+
+  const registry = loadRegistry();
+  const vegaConfig: LosetaConfig = { ...config, style: "vega" };
+  const result = await installItems({
+    projectRoot,
+    config: vegaConfig,
+    registry,
+    sourceRoot: registryDir,
+    manifest: emptyManifest(),
+    items: resolve(registry, ["button"]),
+    onConflict: () => "keep"
+  });
+
+  assert.ok(result.written.includes("components/button.css"));
+  assert.ok(result.written.includes("styles/vega/button.css"));
+  assert.ok(!result.written.includes("styles/nova/button.css"));
+
+  const index = readIndexFor(projectRoot, vegaConfig.cssDir);
+  assert.match(index, /\.\/styles\/vega\/button\.css/);
+  assert.doesNotMatch(index, /\.\/styles\/nova\/button\.css/);
+
+  const manifest = readManifest(projectRoot);
+  const button = manifest.items.find((item) => item.name === "button");
+  assert.deepEqual(
+    button?.files.map((file) => file.path).sort(),
+    ["components/button.css", "styles/vega/button.css"]
+  );
 });
 
 test("reinstalling identical files skips without consulting onConflict", async (t) => {
