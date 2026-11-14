@@ -1,6 +1,7 @@
 ---
 import "@/styles/loseta.css";
 import "@/styles/docs.css";
+import { ClientRouter } from "astro:transitions";
 import { MonitorIcon, MoonIcon, SunIcon } from "@lucide/astro";
 import TableOfContents from "@/components/TableOfContents.astro";
 import { componentGroups, componentsInGroup } from "@/data/components";
@@ -35,41 +36,52 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content={description} />
     <title>{pageTitle}</title>
+    <ClientRouter fallback="swap" />
     <script is:inline>
-      const root = document.documentElement;
-      const media = window.matchMedia("(prefers-color-scheme: dark)");
-      const themes = ["system", "light", "dark"];
+      (() => {
+        const root = document.documentElement;
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        const themes = ["system", "light", "dark"];
 
-      const getTheme = () => {
-        const stored = localStorage.getItem("theme");
-        return themes.includes(stored) ? stored : "system";
-      };
+        const getTheme = () => {
+          try {
+            const stored = localStorage.getItem("theme");
+            return themes.includes(stored) ? stored : "system";
+          } catch {
+            return "system";
+          }
+        };
 
-      const apply = (theme) => {
-        root.classList.toggle(
-          "dark",
-          theme === "dark" || (theme === "system" && media.matches)
-        );
-        root.dataset.theme = theme;
-        document.querySelectorAll("[data-theme-value]").forEach((button) => {
-          button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
+        const apply = (theme) => {
+          root.classList.toggle(
+            "dark",
+            theme === "dark" || (theme === "system" && media.matches)
+          );
+          root.dataset.theme = theme;
+          document.querySelectorAll("[data-theme-value]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
+          });
+        };
+
+        apply(getTheme());
+        document.addEventListener("DOMContentLoaded", () => apply(getTheme()));
+        media.addEventListener("change", () => {
+          if (getTheme() === "system") apply("system");
         });
-      };
-
-      apply(getTheme());
-      document.addEventListener("DOMContentLoaded", () => apply(getTheme()));
-      media.addEventListener("change", () => {
-        if (getTheme() === "system") apply("system");
-      });
-      document.addEventListener("click", (event) => {
-        if (!(event.target instanceof Element)) return;
-        const button = event.target.closest("[data-theme-value]");
-        if (!button) return;
-        const theme = button.dataset.themeValue;
-        if (!themes.includes(theme)) return;
-        localStorage.setItem("theme", theme);
-        apply(theme);
-      });
+        document.addEventListener("click", (event) => {
+          if (!(event.target instanceof Element)) return;
+          const button = event.target.closest("[data-theme-value]");
+          if (!button) return;
+          const theme = button.dataset.themeValue;
+          if (!themes.includes(theme)) return;
+          try {
+            localStorage.setItem("theme", theme);
+          } catch {
+            // Storage can be unavailable; the switch still works for this page.
+          }
+          apply(theme);
+        });
+      })();
     </script>
     <script is:inline>
       (() => {
@@ -86,7 +98,14 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
     </script>
   </head>
   <body>
-    <header class="docs-header">
+    <a class="docs-skip-link" href="#content">Skip to content</a>
+    <div
+      class="docs-progress"
+      data-route-progress
+      transition:persist="docs-progress"
+      aria-hidden="true"
+    ></div>
+    <header class="docs-header" transition:persist="docs-header">
       <a class="docs-brand" href="/">
         <img src="/favicon.svg" alt="" width="24" height="24" />
         <span><strong>loseta</strong></span>
@@ -134,7 +153,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
     </header>
 
     <div class:list={["docs-shell", { "docs-shell-toc": hasToc }]}>
-      <aside class="docs-sidebar">
+      <aside class="docs-sidebar" transition:persist="docs-sidebar">
         <nav class="docs-nav" aria-label="Documentation">
           <div class="docs-nav-group">
             <span class="docs-nav-title">Getting started</span>
@@ -182,9 +201,9 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
         </nav>
       </aside>
 
-      <main class="docs-main" id="content">
+      <main class="docs-main" id="content" tabindex="-1">
         <Fragment set:html={pageHtml} />
-        <footer class="docs-footer">
+        <footer class="docs-footer" transition:persist="docs-footer">
           <p>
             loseta is MIT licensed. Built with native CSS, no runtime. Inspired by
             <a href="https://ui.shadcn.com" target="_blank" rel="noreferrer">shadcn/ui</a>.
@@ -196,6 +215,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
     </div>
 
     <script>
+      import "@/scripts/navigation.js";
       import "@/demo/site.js";
     </script>
   </body>

@@ -13,6 +13,10 @@ const applyPackageManager = (value) => {
 
 applyPackageManager(document.documentElement.dataset.packageManager);
 
+document.addEventListener("astro:page-load", () => {
+  applyPackageManager(document.documentElement.dataset.packageManager);
+});
+
 const announce = (message) => {
   let region = document.querySelector("[data-copy-status]");
   if (!region) {

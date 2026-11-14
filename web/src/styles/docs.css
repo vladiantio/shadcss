@@ -29,6 +29,84 @@
     outline-offset: 2px;
   }
 
+  .docs-skip-link {
+    position: fixed;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0.5rem;
+    z-index: 100;
+    transform: translateY(calc(-100% - 1rem));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background-color: var(--background);
+    padding: 0.5rem 0.75rem;
+    box-shadow: var(--shadow-md);
+    color: var(--foreground);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: transform 150ms;
+  }
+
+  .docs-skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
+  .docs-progress {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 100;
+    height: 2px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms;
+  }
+
+  .docs-progress.is-active {
+    opacity: 1;
+  }
+
+  .docs-progress::before {
+    content: "";
+    display: block;
+    width: 40%;
+    height: 100%;
+    background-color: var(--primary);
+    transform: translateX(-100%);
+    animation: docs-progress 1.1s ease-in-out infinite;
+  }
+
+  @keyframes docs-progress {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(350%);
+    }
+  }
+
+  .docs-content > h1:focus {
+    outline: none;
+  }
+
+  body.docs-focus-heading .astro-route-announcer {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .docs-skip-link,
+    .docs-progress {
+      transition: none;
+    }
+
+    .docs-progress::before {
+      width: 100%;
+      transform: none;
+      animation: none;
+      opacity: 0.6;
+    }
+  }
+
   code,
   pre {
     font-family: var(--docs-font-mono);
