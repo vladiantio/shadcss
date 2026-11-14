@@ -8,7 +8,7 @@ It is not an implementation guide. The installed CSS is the reference
 implementation: if this document and the registry disagree,
 [`packages/loseta/registry/tokens.css`](packages/loseta/registry/tokens.css)
 and [`registry.json`](packages/loseta/registry/registry.json) win, and this
-document must be corrected. The baseline covers registry version `0.2.0`.
+document must be corrected. The baseline covers registry version `0.3.0`.
 
 Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
 
@@ -57,11 +57,11 @@ published nor covered by this baseline. The one shipped utility is
 
 ## Styles
 
-The registry declares its styles in `registry.json`. Nova is the default;
-Vega ships as the classic shadcn/ui alternative. A style owns geometry,
-spacing, control sizes, radii and the type scale. Anatomy, markup, tokens,
-layers and the state contract are shared, so switching styles never requires
-markup changes.
+The registry declares its styles in `registry.json`. Nova is the default. The
+complete set is Vega, Nova, Maia, Lyra, Mira, Luma, Sera and Rhea. A style owns
+geometry, spacing, control sizes, radii and the type scale. Anatomy, markup,
+tokens, layers and the state contract are shared, so switching styles never
+requires markup changes.
 
 `loseta.json` selects one style per project. `loseta init --style` chooses it,
 `loseta style <name>` switches it, and the CLI copies only the style files for
@@ -248,7 +248,9 @@ visible.
 The table describes the default Nova style. Vega raises control heights by
 `0.25rem` (input and native select `2.25rem`, buttons `2.25rem`, `lg`
 `2.5rem`), uses `--radius-md` for controls, adds `--shadow-xs` to bordered
-controls and cards, and gives dialogs `1.5rem` padding.
+controls and cards, and gives dialogs `1.5rem` padding. Maia and Luma round
+controls further; Lyra and Sera square them; Mira is the densest; Rhea pairs
+Luma's soft surfaces with compact controls.
 
 Breakpoints:
 
@@ -504,8 +506,8 @@ semantic versioning.
 - No `prefers-reduced-motion` guard.
 - Tooltip entry only fades; the pseudo-element remains at 95% scale instead of
   animating to 100%.
-- Nova and Vega are the only shipped styles; style-specific visual
-  regression snapshots are not part of CI.
+- Nova, Vega, Maia, Lyra, Mira, Luma, Sera and Rhea are the only shipped
+  styles; style-specific visual regression snapshots are not part of CI.
 - No JavaScript behavior is shipped. Dialogs, popovers, dropdown menus, tabs
   and Code Block copy/wrap controls require consumer code.
 - Code Block does not ship syntax highlighting, ANSI rendering, streaming or a

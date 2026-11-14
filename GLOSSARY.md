@@ -47,7 +47,7 @@ A public UI element with its own root class, structural file and style file.
 _Avoid_: widget, block, element
 
 **Style**:
-The visual interpretation of the system; Nova and Vega ship in v1.
+The visual interpretation of the system. The shipped styles are Nova (default), Vega, Maia, Lyra, Mira, Luma, Sera and Rhea.
 _Avoid_: theme, skin, preset
 
 **Nova**:

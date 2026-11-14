@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.json",
   "name": "loseta",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "styles": [
     {
       "name": "nova",
@@ -12,6 +12,36 @@
       "name": "vega",
       "title": "Vega",
       "description": "The classic shadcn/ui look: medium radii, balanced spacing and a regular type scale."
+    },
+    {
+      "name": "maia",
+      "title": "Maia",
+      "description": "Rounded controls, generous spacing and softly padded surfaces."
+    },
+    {
+      "name": "lyra",
+      "title": "Lyra",
+      "description": "Square corners, compact controls and a precise, monospace-friendly type scale."
+    },
+    {
+      "name": "mira",
+      "title": "Mira",
+      "description": "Dense, information-first geometry for data-heavy dashboards and tables."
+    },
+    {
+      "name": "luma",
+      "title": "Luma",
+      "description": "Fluid, luminous surfaces with large radii and soft shadows."
+    },
+    {
+      "name": "sera",
+      "title": "Sera",
+      "description": "Editorial and typographic: square corners, uppercase headings and underline fields."
+    },
+    {
+      "name": "rhea",
+      "title": "Rhea",
+      "description": "Luma's softness in a compact form: rounded surfaces with tighter controls."
     }
   ],
   "items": [
@@ -109,6 +139,42 @@
           "target": "styles/vega/primitives/dialog-shell.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/primitives/dialog-shell.css",
+          "target": "styles/maia/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/primitives/dialog-shell.css",
+          "target": "styles/lyra/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/primitives/dialog-shell.css",
+          "target": "styles/mira/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/primitives/dialog-shell.css",
+          "target": "styles/luma/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/primitives/dialog-shell.css",
+          "target": "styles/sera/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/primitives/dialog-shell.css",
+          "target": "styles/rhea/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ]
     },
@@ -137,6 +203,42 @@
         {
           "path": "styles/vega/primitives/popover.css",
           "target": "styles/vega/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/primitives/popover.css",
+          "target": "styles/maia/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/primitives/popover.css",
+          "target": "styles/lyra/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/primitives/popover.css",
+          "target": "styles/mira/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/primitives/popover.css",
+          "target": "styles/luma/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/primitives/popover.css",
+          "target": "styles/sera/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/primitives/popover.css",
+          "target": "styles/rhea/primitives/popover.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -170,6 +272,42 @@
         {
           "path": "styles/vega/alert.css",
           "target": "styles/vega/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/alert.css",
+          "target": "styles/maia/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/alert.css",
+          "target": "styles/lyra/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/alert.css",
+          "target": "styles/mira/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/alert.css",
+          "target": "styles/luma/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/alert.css",
+          "target": "styles/sera/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/alert.css",
+          "target": "styles/rhea/alert.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -210,6 +348,42 @@
           "target": "styles/vega/alert-dialog.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/alert-dialog.css",
+          "target": "styles/maia/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/alert-dialog.css",
+          "target": "styles/lyra/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/alert-dialog.css",
+          "target": "styles/mira/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/alert-dialog.css",
+          "target": "styles/luma/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/alert-dialog.css",
+          "target": "styles/sera/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/alert-dialog.css",
+          "target": "styles/rhea/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -246,6 +420,42 @@
           "target": "styles/vega/badge.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/badge.css",
+          "target": "styles/maia/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/badge.css",
+          "target": "styles/lyra/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/badge.css",
+          "target": "styles/mira/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/badge.css",
+          "target": "styles/luma/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/badge.css",
+          "target": "styles/sera/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/badge.css",
+          "target": "styles/rhea/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -280,6 +490,42 @@
         {
           "path": "styles/vega/button.css",
           "target": "styles/vega/button.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/button.css",
+          "target": "styles/maia/button.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/button.css",
+          "target": "styles/lyra/button.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/button.css",
+          "target": "styles/mira/button.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/button.css",
+          "target": "styles/luma/button.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/button.css",
+          "target": "styles/sera/button.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/button.css",
+          "target": "styles/rhea/button.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -323,6 +569,42 @@
           "target": "styles/vega/button-group.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/button-group.css",
+          "target": "styles/maia/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/button-group.css",
+          "target": "styles/lyra/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/button-group.css",
+          "target": "styles/mira/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/button-group.css",
+          "target": "styles/luma/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/button-group.css",
+          "target": "styles/sera/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/button-group.css",
+          "target": "styles/rhea/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -357,6 +639,42 @@
         {
           "path": "styles/vega/card.css",
           "target": "styles/vega/card.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/card.css",
+          "target": "styles/maia/card.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/card.css",
+          "target": "styles/lyra/card.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/card.css",
+          "target": "styles/mira/card.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/card.css",
+          "target": "styles/luma/card.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/card.css",
+          "target": "styles/sera/card.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/card.css",
+          "target": "styles/rhea/card.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -397,6 +715,42 @@
           "target": "styles/vega/checkbox.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/checkbox.css",
+          "target": "styles/maia/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/checkbox.css",
+          "target": "styles/lyra/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/checkbox.css",
+          "target": "styles/mira/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/checkbox.css",
+          "target": "styles/luma/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/checkbox.css",
+          "target": "styles/sera/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/checkbox.css",
+          "target": "styles/rhea/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -435,6 +789,42 @@
           "target": "styles/vega/code-block.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/code-block.css",
+          "target": "styles/maia/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/code-block.css",
+          "target": "styles/lyra/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/code-block.css",
+          "target": "styles/mira/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/code-block.css",
+          "target": "styles/luma/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/code-block.css",
+          "target": "styles/sera/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/code-block.css",
+          "target": "styles/rhea/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -471,6 +861,42 @@
         {
           "path": "styles/vega/dialog.css",
           "target": "styles/vega/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/dialog.css",
+          "target": "styles/maia/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/dialog.css",
+          "target": "styles/lyra/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/dialog.css",
+          "target": "styles/mira/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/dialog.css",
+          "target": "styles/luma/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/dialog.css",
+          "target": "styles/sera/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/dialog.css",
+          "target": "styles/rhea/dialog.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -513,6 +939,42 @@
           "target": "styles/vega/dropdown-menu.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/dropdown-menu.css",
+          "target": "styles/maia/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/dropdown-menu.css",
+          "target": "styles/lyra/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/dropdown-menu.css",
+          "target": "styles/mira/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/dropdown-menu.css",
+          "target": "styles/luma/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/dropdown-menu.css",
+          "target": "styles/sera/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/dropdown-menu.css",
+          "target": "styles/rhea/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -547,6 +1009,42 @@
         {
           "path": "styles/vega/empty.css",
           "target": "styles/vega/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/empty.css",
+          "target": "styles/maia/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/empty.css",
+          "target": "styles/lyra/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/empty.css",
+          "target": "styles/mira/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/empty.css",
+          "target": "styles/luma/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/empty.css",
+          "target": "styles/sera/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/empty.css",
+          "target": "styles/rhea/empty.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -594,6 +1092,42 @@
           "target": "styles/vega/field.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/field.css",
+          "target": "styles/maia/field.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/field.css",
+          "target": "styles/lyra/field.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/field.css",
+          "target": "styles/mira/field.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/field.css",
+          "target": "styles/luma/field.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/field.css",
+          "target": "styles/sera/field.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/field.css",
+          "target": "styles/rhea/field.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -630,6 +1164,42 @@
         {
           "path": "styles/vega/input.css",
           "target": "styles/vega/input.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/input.css",
+          "target": "styles/maia/input.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/input.css",
+          "target": "styles/lyra/input.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/input.css",
+          "target": "styles/mira/input.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/input.css",
+          "target": "styles/luma/input.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/input.css",
+          "target": "styles/sera/input.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/input.css",
+          "target": "styles/rhea/input.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -669,6 +1239,42 @@
           "target": "styles/vega/item.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/item.css",
+          "target": "styles/maia/item.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/item.css",
+          "target": "styles/lyra/item.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/item.css",
+          "target": "styles/mira/item.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/item.css",
+          "target": "styles/luma/item.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/item.css",
+          "target": "styles/sera/item.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/item.css",
+          "target": "styles/rhea/item.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -703,6 +1309,42 @@
         {
           "path": "styles/vega/kbd.css",
           "target": "styles/vega/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/kbd.css",
+          "target": "styles/maia/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/kbd.css",
+          "target": "styles/lyra/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/kbd.css",
+          "target": "styles/mira/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/kbd.css",
+          "target": "styles/luma/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/kbd.css",
+          "target": "styles/sera/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/kbd.css",
+          "target": "styles/rhea/kbd.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -743,6 +1385,42 @@
           "target": "styles/vega/label.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/label.css",
+          "target": "styles/maia/label.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/label.css",
+          "target": "styles/lyra/label.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/label.css",
+          "target": "styles/mira/label.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/label.css",
+          "target": "styles/luma/label.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/label.css",
+          "target": "styles/sera/label.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/label.css",
+          "target": "styles/rhea/label.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -779,6 +1457,42 @@
         {
           "path": "styles/vega/native-select.css",
           "target": "styles/vega/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/native-select.css",
+          "target": "styles/maia/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/native-select.css",
+          "target": "styles/lyra/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/native-select.css",
+          "target": "styles/mira/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/native-select.css",
+          "target": "styles/luma/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/native-select.css",
+          "target": "styles/sera/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/native-select.css",
+          "target": "styles/rhea/native-select.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -819,6 +1533,42 @@
           "target": "styles/vega/popover.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/popover.css",
+          "target": "styles/maia/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/popover.css",
+          "target": "styles/lyra/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/popover.css",
+          "target": "styles/mira/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/popover.css",
+          "target": "styles/luma/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/popover.css",
+          "target": "styles/sera/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/popover.css",
+          "target": "styles/rhea/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -857,6 +1607,42 @@
           "target": "styles/vega/radio.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/radio.css",
+          "target": "styles/maia/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/radio.css",
+          "target": "styles/lyra/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/radio.css",
+          "target": "styles/mira/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/radio.css",
+          "target": "styles/luma/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/radio.css",
+          "target": "styles/sera/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/radio.css",
+          "target": "styles/rhea/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -891,6 +1677,42 @@
         {
           "path": "styles/vega/skeleton.css",
           "target": "styles/vega/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/skeleton.css",
+          "target": "styles/maia/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/skeleton.css",
+          "target": "styles/lyra/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/skeleton.css",
+          "target": "styles/mira/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/skeleton.css",
+          "target": "styles/luma/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/skeleton.css",
+          "target": "styles/sera/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/skeleton.css",
+          "target": "styles/rhea/skeleton.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -929,6 +1751,42 @@
         {
           "path": "styles/vega/switch.css",
           "target": "styles/vega/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/switch.css",
+          "target": "styles/maia/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/switch.css",
+          "target": "styles/lyra/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/switch.css",
+          "target": "styles/mira/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/switch.css",
+          "target": "styles/luma/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/switch.css",
+          "target": "styles/sera/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/switch.css",
+          "target": "styles/rhea/switch.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -970,6 +1828,42 @@
           "target": "styles/vega/table.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/table.css",
+          "target": "styles/maia/table.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/table.css",
+          "target": "styles/lyra/table.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/table.css",
+          "target": "styles/mira/table.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/table.css",
+          "target": "styles/luma/table.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/table.css",
+          "target": "styles/sera/table.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/table.css",
+          "target": "styles/rhea/table.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -1004,6 +1898,42 @@
         {
           "path": "styles/vega/tabs.css",
           "target": "styles/vega/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/tabs.css",
+          "target": "styles/maia/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/tabs.css",
+          "target": "styles/lyra/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/tabs.css",
+          "target": "styles/mira/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/tabs.css",
+          "target": "styles/luma/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/tabs.css",
+          "target": "styles/sera/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/tabs.css",
+          "target": "styles/rhea/tabs.css",
           "role": "style",
           "layer": "loseta.style"
         }
@@ -1044,6 +1974,42 @@
           "target": "styles/vega/textarea.css",
           "role": "style",
           "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/textarea.css",
+          "target": "styles/maia/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/textarea.css",
+          "target": "styles/lyra/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/textarea.css",
+          "target": "styles/mira/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/textarea.css",
+          "target": "styles/luma/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/textarea.css",
+          "target": "styles/sera/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/textarea.css",
+          "target": "styles/rhea/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -1078,6 +2044,42 @@
         {
           "path": "styles/vega/tooltip.css",
           "target": "styles/vega/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/maia/tooltip.css",
+          "target": "styles/maia/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/lyra/tooltip.css",
+          "target": "styles/lyra/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/mira/tooltip.css",
+          "target": "styles/mira/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/luma/tooltip.css",
+          "target": "styles/luma/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/sera/tooltip.css",
+          "target": "styles/sera/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
+        },
+        {
+          "path": "styles/rhea/tooltip.css",
+          "target": "styles/rhea/tooltip.css",
           "role": "style",
           "layer": "loseta.style"
         }

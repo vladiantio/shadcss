@@ -1,0 +1,19 @@
+/* Dialog shell */
+@layer loseta.style {
+  .dialog::backdrop,
+  .alert-dialog::backdrop {
+    background-color: color-mix(in oklab, #000 10%, transparent);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    transition-duration: 100ms;
+  }
+
+  :is(.dialog, .alert-dialog) > * > footer {
+    margin-inline: 0;
+    margin-bottom: 0;
+    gap: 0.5rem;
+    border-top-width: 0;
+    background-color: transparent;
+    padding: 0;
+  }
+}

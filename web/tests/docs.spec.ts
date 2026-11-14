@@ -102,6 +102,39 @@ test("styles change control geometry", async ({ page }) => {
   await expect(button).toHaveCSS("border-top-left-radius", "8px");
 });
 
+test("every style loads and passes axe in light and dark", async ({ page }) => {
+  await page.goto("/docs/styles");
+  await page.addStyleTag({
+    content: "*, *::before, *::after { transition: none !important; animation: none !important; }"
+  });
+  const select = page.locator("[data-style-select]");
+  const link = page.locator("[data-style-link]");
+  const styles = ["nova", "vega", "maia", "lyra", "mira", "luma", "sera", "rhea"];
+
+  for (const style of styles) {
+    await select.selectOption(style);
+    await expect(link).toHaveAttribute("href", `/styles/${style}.css`);
+    await page.waitForFunction((name) => {
+      return [...document.styleSheets].some(
+        (sheet) => sheet.href && sheet.href.endsWith(`/styles/${name}.css`)
+      );
+    }, style);
+
+    for (const scheme of ["light", "dark"]) {
+      await page.evaluate(
+        (dark) => document.documentElement.classList.toggle("dark", dark),
+        scheme === "dark"
+      );
+      const results = await new AxeBuilder({ page }).withTags(tags).analyze();
+      const violations = blocking(results.violations);
+      expect(
+        violations,
+        `${style} ${scheme}: ${JSON.stringify(violations, null, 2)}`
+      ).toEqual([]);
+    }
+  }
+});
+
 test("install command switches between pnpm and npm", async ({ page }) => {
   await page.goto("/docs/installation");
   const commands = page.locator(".install-command");

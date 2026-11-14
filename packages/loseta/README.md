@@ -37,8 +37,7 @@ registry/
   utilities.css          # sr-only
   primitives/            # shared popover and dialog shells
   components/            # structural CSS per component
-  styles/nova/           # visual CSS per component (default style)
-  styles/vega/           # visual CSS per component (classic style)
+  styles/                # visual CSS per declared style
   examples/              # example markup used by `add --html`
 ```
 

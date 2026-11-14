@@ -1,0 +1,87 @@
+/* Table */
+@layer loseta.style {
+  .table {
+    width: 100%;
+    caption-side: bottom;
+    color: var(--foreground);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+
+    thead {
+      & tr {
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+      }
+    }
+
+    tbody {
+      & tr:last-child {
+        border-style: solid;
+        border-width: 0px;
+      }
+    }
+
+    tfoot {
+      border-top-style: solid;
+      border-top-width: 1px;
+      border-top-color: var(--border);
+      background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+      font-weight: 500;
+
+      > tr {
+        &:last-child {
+          border-bottom-style: solid;
+          border-bottom-width: 0px;
+        }
+      }
+    }
+
+    tr {
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+      border-bottom-color: var(--border);
+      transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+
+      &:hover {
+        background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+      }
+
+      &[aria-selected='true'] {
+        background-color: var(--muted);
+      }
+    }
+
+    th {
+      height: 3rem;
+      padding: 0 0.75rem;
+      text-align: start;
+      vertical-align: middle;
+      font-weight: 500;
+      white-space: nowrap;
+      color: var(--foreground);
+
+      &:has([role='checkbox']) {
+        padding-inline-end: 0;
+      }
+    }
+
+    td {
+      padding: 0.75rem;
+      vertical-align: middle;
+      white-space: nowrap;
+
+      &:has([role='checkbox']) {
+        padding-inline-end: 0;
+      }
+    }
+
+    caption {
+      margin-top: 1rem;
+      font-size: var(--text-sm);
+      line-height: var(--text-sm--line-height);
+      color: var(--muted-foreground);
+    }
+  }
+}

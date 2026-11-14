@@ -1,0 +1,59 @@
+/* Checkbox */
+@layer loseta.style {
+  .checkbox:not([role='switch']) {
+    display: flex;
+    width: 1rem;
+    height: 1rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--input);
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+
+    &:checked {
+      border-color: var(--primary);
+      background-color: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--destructive);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+
+      &:checked {
+        border-color: var(--primary);
+      }
+    }
+
+    &:is(html.dark *) {
+      background-color: color-mix(in oklab, var(--input) 30%, transparent);
+
+      &:checked {
+        background-color: var(--primary);
+      }
+
+      &[aria-invalid='true'] {
+        border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent);
+
+        &:checked {
+          border-color: var(--primary);
+        }
+      }
+    }
+  }
+
+  .checkbox:not([role='switch']):checked::after {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
