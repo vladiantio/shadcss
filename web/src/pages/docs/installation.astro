@@ -17,7 +17,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
     <InstallCommand command="loseta init" />
     <p>
       If you prefer to answer every question explicitly, omit <code>--yes</code>. The CLI asks for
-      the CSS directory, the theme and the entrypoint.
+      the CSS directory, the style and the entrypoint.
     </p>
     <div class="docs-callout">
       <strong>Re-running init.</strong> The manifest resets to the foundation and
@@ -26,7 +26,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
     </div>
 
     <h2>2. Add components</h2>
-    <p>Components install their structural CSS, the Nova theme file and any primitive dependency.</p>
+    <p>Components install their structural CSS, the Nova style file and any primitive dependency.</p>
     <InstallCommand command="loseta add button card field dialog" />
     <p>To install every stable component:</p>
     <InstallCommand command="loseta add all" />
@@ -41,7 +41,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
     <h2>Project files</h2>
     <CodeBlock
       lang="text"
-      code={`loseta.json                 # cssDir, entrypoint and theme
+      code={`loseta.json                 # cssDir, entrypoint and style
 .loseta/manifest.json       # installed items and file hashes
 src/styles/loseta/
   tokens.css                 # design tokens
@@ -51,7 +51,7 @@ src/styles/loseta/
   index.css                  # generated @layer order + imports
   primitives/                # shared popover/dialog shells
   components/                # structural CSS per component
-  themes/nova/               # visual CSS per component`}
+  styles/nova/               # visual CSS per component`}
     />
 
     <h2>Commands</h2>

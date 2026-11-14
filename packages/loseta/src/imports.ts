@@ -4,7 +4,7 @@ import { readTextIfExists, writeText } from "./fs.js";
 import type { Registry, LosetaConfig } from "./types.js";
 
 const LAYER_ORDER =
-  "loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.theme, loseta.utilities";
+  "loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.style, loseta.utilities";
 
 function toPosix(path: string): string {
   return path.split("\\").join("/");
@@ -21,9 +21,9 @@ export function generateIndex(registry: Registry, installed: Set<string>): strin
     .flatMap((item) => item.files)
     .filter((file) => file.role === "base")
     .map((file) => importLine(file.target));
-  const themeFiles = selected
+  const styleFiles = selected
     .flatMap((item) => item.files)
-    .filter((file) => file.role === "theme")
+    .filter((file) => file.role === "style")
     .map((file) => importLine(file.target));
 
   return [
@@ -32,7 +32,7 @@ export function generateIndex(registry: Registry, installed: Set<string>): strin
     "",
     ...baseFiles,
     "",
-    ...themeFiles,
+    ...styleFiles,
     ""
   ].join("\n");
 }

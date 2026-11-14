@@ -22,12 +22,12 @@ Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
    Unmodified installed files are the contract; edited files are the
    consumer's own divergence.
 3. **Structure and style are separate.** Base files describe anatomy, layout
-   and state hooks. Theme files supply the Nova visual treatment.
+   and state hooks. Style files supply the Nova visual treatment.
 4. **Semantic HTML and platform states come first.** Styling reads ARIA and
    native pseudo-classes, not bespoke state classes. loseta ships no
    JavaScript behavior.
 5. **Tokens are the customization surface.** Visual decisions should be
-   changeable through tokens before they require editing a component or theme
+   changeable through tokens before they require editing a component or style
    file.
 6. **Quiet by default.** The default system is neutral, with strong foreground
    and background contrast in light and dark mode, and restrained: primary
@@ -64,7 +64,7 @@ Older engines may render a reduced experience where they lack `:has()`,
 Every generated `index.css` declares this order before importing any file:
 
 ```css
-@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.theme, loseta.utilities;
+@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.style, loseta.utilities;
 ```
 
 | Layer | Owner | Responsibility |
@@ -73,15 +73,15 @@ Every generated `index.css` declares this order before importing any file:
 | `loseta.reset` | foundation | Minimal reset: box sizing, borders, margins, media defaults, form inheritance. Not a full preflight. |
 | `loseta.base` | foundation | Global element defaults: page colors, button cursor, selection color, outline color. |
 | `loseta.components` | base files and primitives | Anatomy, layout, behavior hooks and structural state rules. |
-| `loseta.theme` | Nova theme files | Color, typography, spacing, radii, shadows, surfaces and animations. |
+| `loseta.style` | Nova style files | Color, typography, spacing, radii, shadows, surfaces and animations. |
 | `loseta.utilities` | foundation | Only `.sr-only` in v1. |
 
 Rules:
 
 - The order is fixed. Consumers may add their own layers after it.
-- Base and theme files for an item are installed separately and imported by
-  the generated entrypoint: base files first, theme files second.
-- A new visual decision belongs in the theme layer. Base files may consume
+- Base and style files for an item are installed separately and imported by
+  the generated entrypoint: base files first, style files second.
+- A new visual decision belongs in the style layer. Base files may consume
   tokens for structural semantics (for example, invalid text or a selected
   row), but they must not become the primary place for visual styling.
 - Do not use `!important` to cross layers. Fix ownership instead.
@@ -109,7 +109,7 @@ for values; this table defines intent.
 | `--border` | Separators, card outlines and outline-variant borders. |
 | `--input` | Form-control borders and subtle control fills in dark mode. |
 | `--ring` | Focus border and focus shadow. |
-| `--chart-*`, `--sidebar-*`, `--scrollbar-*` | Reserved token families shipped with the theme; v1 components do not consume them. |
+| `--chart-*`, `--sidebar-*`, `--scrollbar-*` | Reserved token families shipped with the style; v1 components do not consume them. |
 
 Transparency is derived with `color-mix(in oklab, var(--token) N%, transparent)`
 or `currentColor`; raw palette colors do not belong in component CSS except
@@ -119,7 +119,7 @@ for embedded SVG data URIs and the dialog backdrop.
 
 - Light is the default in `:root`. Dark values are applied by `.dark` on the
   `<html>` element; the token file also sets `color-scheme` so native controls
-  follow the theme.
+  follow the color scheme.
 - Components reference role tokens. Nova may add `html.dark` adjustments for
   contrast, but a component must not invent a separate dark palette.
 - Every documented page is exercised in light and dark mode in CI.
@@ -177,7 +177,7 @@ fixed 4px radius. Code Block uses `--radius-xl`; its `sm` size uses
 ### Spacing
 
 v1 does not expose a spacing token scale. Component spacing uses rem values on
-a `0.125rem` grid. Consumers should customize spacing by editing the theme
+a `0.125rem` grid. Consumers should customize spacing by editing the style
 file they own, not by expecting a spacing API.
 
 ## Surfaces and state recipes
@@ -381,7 +381,7 @@ Notes:
 - Controls, hover states, tabs, table rows and tooltips transition in `150ms`.
 - Code Block's floating actions fade in `150ms` on hover and focus-within.
 - Nova overlays (popover, dropdown, dialog, alert dialog) transition in
-  `100ms`; the underlying shell defaults to `150ms` when a theme does not
+  `100ms`; the underlying shell defaults to `150ms` when a style does not
   override it.
 - Item hover and state transitions use `100ms`; the skeleton pulses on a `2s`
   loop with `cubic-bezier(0.4, 0, 0.6, 1)`.
@@ -437,16 +437,16 @@ intentional exclusion.
 
 Install targets:
 
-| Item kind | Base file | Theme file |
+| Item kind | Base file | Style file |
 | --- | --- | --- |
 | Foundation | `tokens.css`, `reset.css`, `base.css`, `utilities.css` | — |
-| Primitive | `primitives/<name>.css` | `themes/nova/primitives/<name>.css` |
-| Component | `components/<name>.css` | `themes/nova/<name>.css` |
+| Primitive | `primitives/<name>.css` | `styles/nova/primitives/<name>.css` |
+| Component | `components/<name>.css` | `styles/nova/<name>.css` |
 
 The CLI writes these under the configured CSS directory (default
 `src/styles/loseta`), records them in `.loseta/manifest.json`, and regenerates
 `index.css` with the fixed layer declaration and imports. `loseta.json` holds
-the CSS directory, entrypoint and theme. The default theme is Nova.
+the CSS directory, entrypoint and style. The default style is Nova.
 
 Registry dependencies are hard: installing `dialog` or `alert-dialog` also
 installs `dialog-shell`; installing `dropdown-menu` or `popover` also installs
@@ -470,7 +470,7 @@ The following are public API and require a breaking-change note when changed:
 
 Additive changes (a new optional part, a new variant, a new token with a
 fallback) are non-breaking. Visual refinements that preserve anatomy and API
-are normal theme work, but they must keep contrast and focus visibility.
+are normal style work, but they must keep contrast and focus visibility.
 
 Because distribution is copy-paste, installed files do not update
 automatically. Consumers receive changes only by installing or re-adding
@@ -486,7 +486,7 @@ semantic versioning.
 - No `prefers-reduced-motion` guard.
 - Tooltip entry only fades; the pseudo-element remains at 95% scale instead of
   animating to 100%.
-- Nova is the only shipped theme; theme switching is not part of v1.
+- Nova is the only shipped style; style switching is not part of v1.
 - No JavaScript behavior is shipped. Dialogs, popovers, dropdown menus, tabs
   and Code Block copy/wrap controls require consumer code.
 - Code Block does not ship syntax highlighting, ANSI rendering, streaming or a

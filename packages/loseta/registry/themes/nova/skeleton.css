@@ -1,7 +1,0 @@
-/* Skeleton */
-@layer loseta.theme {
-  .skeleton {
-    border-radius: var(--radius-md);
-    background-color: var(--muted);
-  }
-}

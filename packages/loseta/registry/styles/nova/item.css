@@ -1,0 +1,133 @@
+/* Item */
+@layer loseta.style {
+  .item {
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+
+    &:focus-visible {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &:is(a):hover {
+      background-color: var(--muted);
+    }
+
+    &:not([data-variant]),
+    &[data-variant='default'] {
+      border-color: transparent;
+    }
+
+    &[data-variant='outline'] {
+      border-color: var(--border);
+    }
+
+    &[data-variant='muted'] {
+      border-color: transparent;
+      background-color: color-mix(in oklab, var(--muted) 50%, transparent);
+    }
+
+    &:not([data-size]),
+    &[data-size='default'] {
+      gap: 0.625rem;
+      padding-inline: 0.75rem;
+      padding-block: 0.625rem;
+    }
+
+    &[data-size='sm'] {
+      gap: 0.625rem;
+      padding-inline: 0.75rem;
+      padding-block: 0.625rem;
+    }
+
+    &[data-size='xs'] {
+      gap: 0.5rem;
+      padding-inline: 0.625rem;
+      padding-block: 0.5rem;
+    }
+
+    > figure {
+      gap: 0.5rem;
+    }
+
+    &:has(p) > figure {
+      translate: 0 0.125rem;
+      align-self: flex-start;
+    }
+
+    > figure:has(> svg:only-child) {
+      & svg {
+        width: var(--icon-size, 1rem);
+        height: var(--icon-size, 1rem);
+      }
+    }
+
+    > figure:has(> img) {
+      width: 2.5rem;
+      height: 2.5rem;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+    }
+
+    &[data-size='sm'] > figure:has(> img) {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    &[data-size='xs'] > figure:has(> img) {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    > section {
+      gap: 0.25rem;
+    }
+
+    &[data-size='xs'] > section {
+      gap: 0;
+    }
+
+    :is(h2, h3, h4) {
+      gap: 0.5rem;
+      font-size: var(--text-sm);
+      line-height: 1.375;
+      font-weight: 500;
+      text-underline-offset: 4px;
+    }
+
+    p {
+      font-size: var(--text-sm);
+      line-height: 1.5;
+    }
+
+    &[data-size='xs'] p {
+      font-size: var(--text-xs);
+      line-height: var(--text-xs--line-height);
+    }
+
+    > aside,
+    > :is(header, footer) {
+      gap: 0.5rem;
+    }
+  }
+
+  .item-group {
+    gap: 1rem;
+
+    &:has(> .item[data-size='sm']) {
+      gap: 0.625rem;
+    }
+
+    &:has(> .item[data-size='xs']) {
+      gap: 0.5rem;
+    }
+
+    > hr {
+      margin-block: 0.5rem;
+      border-color: var(--border);
+    }
+  }
+}

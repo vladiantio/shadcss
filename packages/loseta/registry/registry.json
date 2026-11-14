@@ -87,10 +87,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/primitives/dialog-shell.css",
-          "target": "themes/nova/primitives/dialog-shell.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/primitives/dialog-shell.css",
+          "target": "styles/nova/primitives/dialog-shell.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ]
     },
@@ -111,10 +111,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/primitives/popover.css",
-          "target": "themes/nova/primitives/popover.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/primitives/popover.css",
+          "target": "styles/nova/primitives/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ]
     },
@@ -138,10 +138,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/alert.css",
-          "target": "themes/nova/alert.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/alert.css",
+          "target": "styles/nova/alert.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -170,10 +170,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/alert-dialog.css",
-          "target": "themes/nova/alert-dialog.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/alert-dialog.css",
+          "target": "styles/nova/alert-dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -200,10 +200,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/badge.css",
-          "target": "themes/nova/badge.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/badge.css",
+          "target": "styles/nova/badge.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -230,10 +230,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/button.css",
-          "target": "themes/nova/button.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/button.css",
+          "target": "styles/nova/button.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -265,10 +265,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/button-group.css",
-          "target": "themes/nova/button-group.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/button-group.css",
+          "target": "styles/nova/button-group.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -295,10 +295,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/card.css",
-          "target": "themes/nova/card.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/card.css",
+          "target": "styles/nova/card.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -327,10 +327,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/checkbox.css",
-          "target": "themes/nova/checkbox.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/checkbox.css",
+          "target": "styles/nova/checkbox.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -359,10 +359,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/code-block.css",
-          "target": "themes/nova/code-block.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/code-block.css",
+          "target": "styles/nova/code-block.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -391,10 +391,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/dialog.css",
-          "target": "themes/nova/dialog.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/dialog.css",
+          "target": "styles/nova/dialog.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -425,10 +425,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/dropdown-menu.css",
-          "target": "themes/nova/dropdown-menu.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/dropdown-menu.css",
+          "target": "styles/nova/dropdown-menu.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -455,10 +455,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/empty.css",
-          "target": "themes/nova/empty.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/empty.css",
+          "target": "styles/nova/empty.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -494,10 +494,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/field.css",
-          "target": "themes/nova/field.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/field.css",
+          "target": "styles/nova/field.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -526,10 +526,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/input.css",
-          "target": "themes/nova/input.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/input.css",
+          "target": "styles/nova/input.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -557,10 +557,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/item.css",
-          "target": "themes/nova/item.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/item.css",
+          "target": "styles/nova/item.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -587,10 +587,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/kbd.css",
-          "target": "themes/nova/kbd.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/kbd.css",
+          "target": "styles/nova/kbd.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -619,10 +619,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/label.css",
-          "target": "themes/nova/label.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/label.css",
+          "target": "styles/nova/label.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -651,10 +651,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/native-select.css",
-          "target": "themes/nova/native-select.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/native-select.css",
+          "target": "styles/nova/native-select.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -683,10 +683,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/popover.css",
-          "target": "themes/nova/popover.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/popover.css",
+          "target": "styles/nova/popover.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -715,10 +715,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/radio.css",
-          "target": "themes/nova/radio.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/radio.css",
+          "target": "styles/nova/radio.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -745,10 +745,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/skeleton.css",
-          "target": "themes/nova/skeleton.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/skeleton.css",
+          "target": "styles/nova/skeleton.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -777,10 +777,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/switch.css",
-          "target": "themes/nova/switch.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/switch.css",
+          "target": "styles/nova/switch.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -810,10 +810,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/table.css",
-          "target": "themes/nova/table.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/table.css",
+          "target": "styles/nova/table.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -840,10 +840,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/tabs.css",
-          "target": "themes/nova/tabs.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/tabs.css",
+          "target": "styles/nova/tabs.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -872,10 +872,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/textarea.css",
-          "target": "themes/nova/textarea.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/textarea.css",
+          "target": "styles/nova/textarea.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [
@@ -902,10 +902,10 @@
           "layer": "loseta.components"
         },
         {
-          "path": "themes/nova/tooltip.css",
-          "target": "themes/nova/tooltip.css",
-          "role": "theme",
-          "layer": "loseta.theme"
+          "path": "styles/nova/tooltip.css",
+          "target": "styles/nova/tooltip.css",
+          "role": "style",
+          "layer": "loseta.style"
         }
       ],
       "examples": [

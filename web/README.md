@@ -21,7 +21,7 @@ From the repo root, use `pnpm web:dev` or `pnpm web:build`.
 `src/scripts/docs-client/` owns browser-side docs behavior: stored preferences,
 navigation chrome, the table of contents and demo interactions. Layouts and
 components stay markup-only; the layout imports the client entry once, and a
-small inline boot applies the stored theme before first paint.
+small inline boot applies the stored color scheme before first paint.
 
 Demo interactions are docs-only. They must never become a registry dependency.
 

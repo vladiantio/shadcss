@@ -1,0 +1,33 @@
+/* Chart */
+@layer loseta.style {
+  .chart {
+    --chart-bar-radius: 6px;
+  }
+
+  .chart-tooltip {
+    gap: 0.375rem;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    border-color: color-mix(in oklab, var(--border) 50%, transparent);
+    background-color: var(--background);
+    padding-inline: 0.625rem;
+    padding-block: 0.375rem;
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    color: var(--foreground);
+    box-shadow: var(--shadow-xl);
+  }
+
+  .chart-tooltip-title {
+    font-weight: 500;
+  }
+
+  .chart-legend-item {
+    color: var(--foreground);
+  }
+
+  .chart-legend-item[aria-pressed='false'] {
+    color: var(--muted-foreground);
+  }
+}

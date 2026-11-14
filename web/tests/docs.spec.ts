@@ -21,19 +21,19 @@ test("home renders", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Native CSS scaffolds");
 });
 
-test("theme switch supports system, light and dark", async ({ page }) => {
+test("color scheme switch supports system, light and dark", async ({ page }) => {
   await page.goto("/");
   const html = page.locator("html");
-  const system = page.getByRole("button", { name: "System theme" });
-  const light = page.getByRole("button", { name: "Light theme" });
-  const dark = page.getByRole("button", { name: "Dark theme" });
+  const system = page.getByRole("button", { name: "System color scheme" });
+  const light = page.getByRole("button", { name: "Light color scheme" });
+  const dark = page.getByRole("button", { name: "Dark color scheme" });
 
   await expect(system).toHaveAttribute("aria-pressed", "true");
 
   await light.click();
   await expect(light).toHaveAttribute("aria-pressed", "true");
   await expect(html).not.toHaveClass(/\bdark\b/);
-  expect(await page.evaluate(() => localStorage.getItem("theme"))).toBe("light");
+  expect(await page.evaluate(() => localStorage.getItem("scheme"))).toBe("light");
 
   await dark.click();
   await expect(dark).toHaveAttribute("aria-pressed", "true");

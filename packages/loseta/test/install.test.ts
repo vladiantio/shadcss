@@ -8,7 +8,7 @@ import { installItems } from "../src/install.js";
 import { loadRegistry, registryDir, resolveItems } from "../src/registry.js";
 import type { LosetaConfig, Manifest, Registry } from "../src/types.js";
 
-const config: LosetaConfig = { cssDir: "styles/loseta", theme: "nova" };
+const config: LosetaConfig = { cssDir: "styles/loseta", style: "nova" };
 
 function project(): string {
   return mkdtempSync(join(tmpdir(), "loseta-install-"));
@@ -32,7 +32,7 @@ function resolve(registry: Registry, names: string[]) {
   return resolveItems(registry, names);
 }
 
-test("installs base and theme files, manifest and index", async (t) => {
+test("installs base and style files, manifest and index", async (t) => {
   const projectRoot = project();
   t.after(() => rmSync(projectRoot, { recursive: true, force: true }));
 
@@ -50,9 +50,9 @@ test("installs base and theme files, manifest and index", async (t) => {
 
   assert.deepEqual(result.installed, ["dialog-shell", "dialog"]);
   assert.ok(result.written.includes("components/dialog.css"));
-  assert.ok(result.written.includes("themes/nova/dialog.css"));
+  assert.ok(result.written.includes("styles/nova/dialog.css"));
   assert.ok(result.written.includes("primitives/dialog-shell.css"));
-  assert.ok(result.written.includes("themes/nova/primitives/dialog-shell.css"));
+  assert.ok(result.written.includes("styles/nova/primitives/dialog-shell.css"));
   assert.equal(result.skipped.length, 0);
 
   const manifest = readManifest(projectRoot);
@@ -68,9 +68,9 @@ test("installs base and theme files, manifest and index", async (t) => {
   const index = readIndex(projectRoot);
   assert.match(
     index,
-    /@layer loseta\.tokens, loseta\.reset, loseta\.base, loseta\.components, loseta\.theme, loseta\.utilities;/
+    /@layer loseta\.tokens, loseta\.reset, loseta\.base, loseta\.components, loseta\.style, loseta\.utilities;/
   );
-  assert.ok(index.indexOf("./components/dialog.css") < index.indexOf("./themes/nova/dialog.css"));
+  assert.ok(index.indexOf("./components/dialog.css") < index.indexOf("./styles/nova/dialog.css"));
 });
 
 test("reinstalling identical files skips without consulting onConflict", async (t) => {
