@@ -423,7 +423,7 @@ Done in 2.8s using pnpm v10.18.0</code></pre>
   skeleton: [
     {
       title: "Default",
-      html: `<div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 20rem">
+      html: `<div style="display: flex; flex-direction: column; gap: 0.5rem; width: 100%; max-width: 20rem">
   <div class="skeleton" style="height: 1rem; width: 60%"></div>
   <div class="skeleton" style="height: 1rem; width: 100%"></div>
   <div class="skeleton" style="height: 1rem; width: 80%"></div>
