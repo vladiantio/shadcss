@@ -20,6 +20,10 @@ npx loseta add button card field
 `add` flags: `--overwrite`, `--no-deps`, `--html`, `--theme`, `--yes`.
 `init` flags: `--css-dir`, `--entrypoint`, `--theme`, `--import`, `--yes`.
 
+Re-running `init` resets `.loseta/manifest.json` to the foundation and regenerates
+`index.css`. Component files stay on disk but are no longer tracked; run
+`loseta add all` to restore their manifest entries and imports.
+
 ## Registry layout
 
 ```
@@ -55,6 +59,7 @@ Each component item contains:
 ```bash
 pnpm install
 pnpm --filter loseta build       # tsc -> dist/
+pnpm --filter loseta test        # registry and install pipeline tests
 pnpm --filter loseta validate    # registry integrity + CSS parse
 pnpm --filter loseta examples    # regenerate registry/examples from the docs
 pnpm --filter loseta dev         # run the CLI with tsx

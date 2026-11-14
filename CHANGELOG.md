@@ -8,6 +8,12 @@
   highlighted lines, wrap and size variants, and a destructive variant.
 - Docs code snippets now use the registry Code Block anatomy.
 
+### Changed
+
+- `loseta add` now records the registry version on the install manifest.
+- Re-running `loseta init` warns that installed items stay on disk but are no
+  longer tracked, and names `loseta add all` as the restore command.
+
 ## 0.1.0 - 2026-11-12
 
 ### Added

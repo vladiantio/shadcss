@@ -19,6 +19,11 @@ import CodeBlock from "@/components/CodeBlock.astro";
       If you prefer to answer every question explicitly, omit <code>--yes</code>. The CLI asks for
       the CSS directory, the theme and the entrypoint.
     </p>
+    <div class="docs-callout">
+      <strong>Re-running init.</strong> The manifest resets to the foundation and
+      <code>index.css</code> is regenerated. Component files stay on disk but are no longer
+      tracked; run <code>loseta add all</code> to restore them.
+    </div>
 
     <h2>2. Add components</h2>
     <p>Components install their structural CSS, the Nova theme file and any primitive dependency.</p>
