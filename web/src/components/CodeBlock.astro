@@ -36,6 +36,24 @@ const { code, lang = "bash", label = lang } = Astro.props;
     lang={lang}
     themes={shikiThemes}
     defaultColor={false}
+    transformers={[
+      {
+        // The code block styles line numbers and variants through these slots.
+        name: "loseta:code-block-slots",
+        line(hast) {
+          hast.properties["data-slot"] = "line";
+          hast.children = [
+            {
+              type: "element",
+              tagName: "span",
+              properties: { "data-slot": "line-content" },
+              children: hast.children
+            }
+          ];
+        }
+      }
+    ]}
+    data-line-numbers
     tabindex="0"
     dir="ltr"
   />
