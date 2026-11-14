@@ -3,16 +3,18 @@ import { cancel, confirm, intro, isCancel, log, outro, text } from "@clack/promp
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import {
+  AVAILABLE_THEMES,
   DEFAULT_CSS_DIR,
   DEFAULT_THEME,
   detectEntrypoint,
+  isTheme,
   readConfig,
   writeConfig
 } from "../config.js";
 import { addEntrypointImport } from "../imports.js";
 import { installItems } from "../install.js";
 import { readManifest } from "../manifest.js";
-import { loadRegistry, registryDir, resolveItems } from "../registry.js";
+import { loadRegistry, registryDir, resolveItems, stableFoundation } from "../registry.js";
 import type { LosetaConfig } from "../types.js";
 
 export const initCommand = defineCommand({
@@ -51,9 +53,7 @@ export const initCommand = defineCommand({
     intro("loseta init");
 
     const registry = loadRegistry();
-    const foundation = registry.items.filter(
-      (item) => item.type === "foundation" && item.status === "stable"
-    );
+    const foundation = stableFoundation(registry);
     const foundationNames = new Set(foundation.map((item) => item.name));
     const existingManifest = readManifest(projectRoot);
     const tracked =
@@ -117,8 +117,8 @@ export const initCommand = defineCommand({
       entrypoint = String(entrypointAnswer);
     }
 
-    if (theme !== "nova") {
-      log.error(`Unknown theme: ${theme}. Available themes: nova.`);
+    if (!isTheme(theme)) {
+      log.error(`Unknown theme: ${theme}. Available themes: ${AVAILABLE_THEMES.join(", ")}.`);
       process.exitCode = 1;
       return;
     }

@@ -1,27 +1,20 @@
 import { defineCommand } from "citty";
 import { cancel, confirm, intro, isCancel, log, outro } from "@clack/prompts";
-import { join, resolve } from "node:path";
-import { readConfig } from "../config.js";
-import { copyFile, exists, hashFile, readTextIfExists } from "../fs.js";
-import { writeIndex } from "../imports.js";
-import {
-  installedNames,
-  readManifest,
-  upsertManifestItem,
-  writeManifest
-} from "../manifest.js";
+import { join } from "node:path";
+import { AVAILABLE_THEMES, isTheme, readConfig } from "../config.js";
+import { readTextIfExists } from "../fs.js";
+import { installItems } from "../install.js";
+import { installedNames, readManifest } from "../manifest.js";
 import {
   findItem,
   itemMap,
   loadRegistry,
+  missingFoundation,
   registryDir,
   resolveItems,
   stableComponents
 } from "../registry.js";
-import type { ManifestFile } from "../types.js";
 import { installedSummary, printItems } from "../ui.js";
-
-const FOUNDATION = ["tokens", "reset", "base", "utilities"];
 
 export const addCommand = defineCommand({
   meta: {
@@ -70,10 +63,10 @@ export const addCommand = defineCommand({
 
     const registry = loadRegistry();
     const installed = installedNames(manifest);
-    const missingFoundation = FOUNDATION.filter((name) => !installed.has(name));
-    if (missingFoundation.length > 0) {
+    const missing = missingFoundation(registry, installed);
+    if (missing.length > 0) {
       log.error(
-        `The loseta foundation is incomplete (missing: ${missingFoundation.join(", ")}). Run \`loseta init\`.`
+        `The loseta foundation is incomplete (missing: ${missing.join(", ")}). Run \`loseta init\`.`
       );
       process.exitCode = 1;
       return;
@@ -109,8 +102,8 @@ export const addCommand = defineCommand({
     }
 
     const theme = args.theme ?? config.theme;
-    if (theme !== "nova") {
-      log.error(`Unknown theme: ${theme}. Available themes: nova.`);
+    if (!isTheme(theme)) {
+      log.error(`Unknown theme: ${theme}. Available themes: ${AVAILABLE_THEMES.join(", ")}.`);
       process.exitCode = 1;
       return;
     }
@@ -128,55 +121,27 @@ export const addCommand = defineCommand({
       resolved = resolveItems(registry, names);
     }
 
-    const cssDirAbs = resolve(projectRoot, config.cssDir);
-    let copied = 0;
-    let skipped = 0;
-
-    for (const item of resolved) {
-      const files: ManifestFile[] = [];
-      for (const file of item.files) {
-        const source = join(registryDir, file.path);
-        const target = join(cssDirAbs, file.target);
-        const sourceHash = hashFile(source);
-        const targetHash = exists(target) ? hashFile(target) : undefined;
-
-        let shouldCopy = true;
-        if (targetHash !== undefined) {
-          if (targetHash === sourceHash) {
-            shouldCopy = false;
-          } else if (args.overwrite) {
-            shouldCopy = true;
-          } else if (args.yes) {
-            log.warn(`Keeping modified file: ${file.target}`);
-            shouldCopy = false;
-          } else {
-            const answer = await confirm({
-              message: `Overwrite ${file.target}?`,
-              initialValue: false
-            });
-            shouldCopy = !isCancel(answer) && Boolean(answer);
-          }
+    const result = await installItems({
+      projectRoot,
+      config,
+      registry,
+      sourceRoot: registryDir,
+      manifest,
+      items: resolved,
+      onConflict: async (file) => {
+        if (args.overwrite) return "overwrite";
+        if (args.yes) {
+          log.warn(`Keeping modified file: ${file.target}`);
+          return "keep";
         }
 
-        if (shouldCopy) {
-          copyFile(source, target);
-          copied += 1;
-        } else {
-          skipped += 1;
-        }
-
-        files.push({ path: file.target, hash: hashFile(target) });
+        const answer = await confirm({
+          message: `Overwrite ${file.target}?`,
+          initialValue: false
+        });
+        return !isCancel(answer) && Boolean(answer) ? "overwrite" : "keep";
       }
-
-      upsertManifestItem(manifest, {
-        name: item.name,
-        version: registry.version,
-        files
-      });
-    }
-
-    writeManifest(projectRoot, manifest);
-    writeIndex(projectRoot, config, registry, installedNames(manifest));
+    });
 
     const added = resolved.filter((item) => item.type === "component").map((item) => item.name);
     const primitives = resolved
@@ -187,7 +152,7 @@ export const addCommand = defineCommand({
     if (primitives.length > 0) {
       log.info(`Installed dependencies: ${primitives.join(", ")}.`);
     }
-    log.info(`${copied} file(s) written, ${skipped} skipped.`);
+    log.info(`${result.written.length} file(s) written, ${result.skipped.length} skipped.`);
 
     if (args.html) {
       for (const name of added) {

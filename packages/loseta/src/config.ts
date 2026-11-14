@@ -4,7 +4,17 @@ import type { LosetaConfig } from "./types.js";
 
 export const CONFIG_FILE = "loseta.json";
 export const DEFAULT_CSS_DIR = "src/styles/loseta";
-export const DEFAULT_THEME = "nova";
+export const AVAILABLE_THEMES = ["nova"] as const;
+export type Theme = (typeof AVAILABLE_THEMES)[number];
+export const DEFAULT_THEME: Theme = "nova";
+
+export function isTheme(value: string | null | undefined): value is Theme {
+  return (
+    value !== null &&
+    value !== undefined &&
+    (AVAILABLE_THEMES as readonly string[]).includes(value)
+  );
+}
 
 const ENTRYPOINT_CANDIDATES = [
   "src/styles/global.css",

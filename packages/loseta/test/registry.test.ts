@@ -1,7 +1,31 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { loadRegistry, resolveItems } from "../src/registry.js";
+import {
+  loadRegistry,
+  missingFoundation,
+  resolveItems,
+  stableFoundation
+} from "../src/registry.js";
 import type { Registry } from "../src/types.js";
+
+test("stableFoundation returns the four stable foundation items", () => {
+  const names = stableFoundation(loadRegistry()).map((item) => item.name);
+
+  assert.deepEqual(names, ["tokens", "reset", "base", "utilities"]);
+});
+
+test("missingFoundation reports only the missing foundation names", () => {
+  const registry = loadRegistry();
+
+  assert.deepEqual(missingFoundation(registry, new Set(["tokens", "reset"])), [
+    "base",
+    "utilities"
+  ]);
+  assert.deepEqual(
+    missingFoundation(registry, new Set(["tokens", "reset", "base", "utilities"])),
+    []
+  );
+});
 
 test("resolveItems installs registry dependencies before their dependents", () => {
   const registry = loadRegistry();

@@ -60,6 +60,20 @@ export function resolveItems(registry: Registry, names: string[]): RegistryItem[
   return ordered;
 }
 
+/** Stable foundation items, in registry order. */
+export function stableFoundation(registry: Registry): RegistryItem[] {
+  return registry.items.filter(
+    (item) => item.type === "foundation" && item.status === "stable"
+  );
+}
+
+/** Names of stable foundation items missing from an installed set. */
+export function missingFoundation(registry: Registry, installed: Set<string>): string[] {
+  return stableFoundation(registry)
+    .map((item) => item.name)
+    .filter((name) => !installed.has(name));
+}
+
 /** Stable component items, alphabetically sorted. */
 export function stableComponents(registry: Registry): RegistryItem[] {
   return registry.items
