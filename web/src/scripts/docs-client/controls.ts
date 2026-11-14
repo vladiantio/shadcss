@@ -61,3 +61,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () 
 export const controls: PageBehavior = {
   mount: syncButtons
 };
+
+// The deferred module runs after the header exists; sync before the page-load
+// mount so the stored choice is reflected as early as possible.
+syncButtons();
