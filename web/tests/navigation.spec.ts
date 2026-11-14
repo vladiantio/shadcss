@@ -63,6 +63,46 @@ test("client navigation preserves theme and package manager", async ({ page }) =
   await expect(command.locator("[data-package-manager-panel='npm']")).toBeVisible();
 });
 
+test("repeated client navigation keeps preferences and remounts the page", async ({ page }) => {
+  await page.goto("/docs/installation");
+  await page.getByRole("button", { name: "Dark theme" }).click();
+
+  const command = page.locator(".install-command").first();
+  await command.locator("[data-package-manager-value='npm']").click();
+
+  const sidebar = page.getByRole("navigation", { name: "Documentation" });
+  await sidebar.getByRole("link", { name: "Theming" }).click();
+  await expect(page).toHaveURL(/\/docs\/theming$/);
+
+  const toc = page.getByRole("navigation", { name: "Table of contents" });
+  await expect(toc.getByRole("link", { name: "Layers" })).toBeVisible();
+
+  const buttonLink = sidebar.getByRole("link", { name: "Button", exact: true });
+  await buttonLink.click();
+  await expect(page).toHaveURL(/\/docs\/components\/button$/);
+
+  await expect(page.locator("html")).toHaveClass(/\bdark\b/);
+  await expect(page.getByRole("button", { name: "Dark theme" })).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+
+  const buttonCommand = page.locator(".install-command").first();
+  await expect(buttonCommand.locator("[data-package-manager-value='npm']")).toHaveAttribute(
+    "aria-pressed",
+    "true"
+  );
+  await expect(buttonCommand.locator("[data-package-manager-panel='npm']")).toBeVisible();
+
+  await expect(toc.getByRole("link", { name: "Layers" })).toHaveCount(0);
+  await expect(toc.getByRole("link", { name: "Install contract" })).toBeVisible();
+
+  const current = sidebar.locator('[aria-current="page"]');
+  await expect(current).toHaveCount(1);
+  await expect(current).toHaveText("Button");
+  await expect(buttonLink).toBeFocused();
+});
+
 test("in-content navigation focuses the new heading", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Browse components" }).click();
