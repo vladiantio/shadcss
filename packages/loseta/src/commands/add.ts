@@ -6,9 +6,7 @@ import { readTextIfExists } from "../fs.js";
 import { installItems } from "../install.js";
 import { installedNames, readManifest } from "../manifest.js";
 import {
-  availableStyles,
   findItem,
-  isStyleName,
   itemMap,
   loadRegistry,
   missingFoundation,
@@ -16,6 +14,7 @@ import {
   resolveItems,
   stableComponents
 } from "../registry.js";
+import { resolveAddStyle } from "../style-selection.js";
 import type { LosetaConfig } from "../types.js";
 import { installedSummary, printItems } from "../ui.js";
 
@@ -114,18 +113,9 @@ export const addCommand = defineCommand({
       }
     }
 
-    const style = args.style ?? config.style;
-    if (!isStyleName(registry, style)) {
-      log.error(
-        `Unknown style: ${style}. Available styles: ${availableStyles(registry).join(", ")}.`
-      );
-      process.exitCode = 1;
-      return;
-    }
-    if (args.style && args.style !== config.style) {
-      log.error(
-        `This project uses the "${config.style}" style. Run \`loseta style ${args.style}\` to switch styles.`
-      );
+    const styleResolution = resolveAddStyle(registry, config, args.style);
+    if ("error" in styleResolution) {
+      log.error(styleResolution.error);
       process.exitCode = 1;
       return;
     }

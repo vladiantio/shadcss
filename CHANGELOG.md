@@ -6,18 +6,9 @@
 
 ### Added
 
-- Maia, Lyra, Mira, Luma, Sera and Rhea styles. The registry now ships all
-  eight shadcn/ui styles: Nova (default), Vega, Maia, Lyra, Mira, Luma, Sera
-  and Rhea.
-- Each style covers every component and primitive, and the docs style switcher
-  previews all eight across the site.
-
-## 0.2.0 - 2026-11-14
-
-### Added
-
-- Vega style: the classic shadcn/ui look with medium control radii, taller
-  controls, roomier spacing and a regular type scale.
+- All eight shadcn/ui styles: Nova (default), Vega, Maia, Lyra, Mira, Luma,
+  Sera and Rhea. Each style covers every component and primitive, and the docs
+  style switcher previews all eight across the site.
 - Multi-style registry: `registry.json` declares the available styles and every
   component and primitive ships one style file per declared style. The CLI
   installs only the files for the selected style.

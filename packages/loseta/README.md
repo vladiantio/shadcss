@@ -64,7 +64,7 @@ them and regenerates `index.css`.
 ```bash
 pnpm install
 pnpm --filter loseta build       # tsc -> dist/
-pnpm --filter loseta test        # registry and install pipeline tests
+pnpm --filter loseta test        # registry, install and CLI tests
 pnpm --filter loseta smoke       # interactive init prompt smoke test
 pnpm --filter loseta validate    # registry integrity + CSS parse
 pnpm --filter loseta examples    # regenerate registry/examples from the docs

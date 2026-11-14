@@ -1,14 +1,9 @@
 import { defineCommand } from "citty";
 import { intro, log, outro } from "@clack/prompts";
-import { ConfigError, readConfig, writeConfig } from "../config.js";
-import { installItems } from "../install.js";
-import { installedNames, readManifest } from "../manifest.js";
-import {
-  availableStyles,
-  isStyleName,
-  loadRegistry,
-  registryDir
-} from "../registry.js";
+import { ConfigError, readConfig } from "../config.js";
+import { readManifest } from "../manifest.js";
+import { loadRegistry, registryDir } from "../registry.js";
+import { applyStyleSwitch, resolveStyleSwitch } from "../style-switch.js";
 import type { LosetaConfig } from "../types.js";
 
 export const styleCommand = defineCommand({
@@ -44,66 +39,34 @@ export const styleCommand = defineCommand({
 
     const registry = loadRegistry();
     const name = String(args._[0] ?? "");
-    if (!name) {
-      log.error(
-        `Usage: loseta style <name>. Available styles: ${availableStyles(registry).join(", ")}.`
-      );
+    const resolution = resolveStyleSwitch(registry, manifest, config, name);
+    if (resolution.status === "error") {
+      log.error(resolution.message);
       process.exitCode = 1;
       return;
     }
-    if (!isStyleName(registry, name)) {
-      log.error(
-        `Unknown style: ${name}. Available styles: ${availableStyles(registry).join(", ")}.`
-      );
-      process.exitCode = 1;
-      return;
-    }
-    if (name === config.style) {
-      log.info(`This project already uses the "${name}" style.`);
+    if (resolution.status === "noop") {
+      log.info(resolution.message);
       return;
     }
 
-    const installed = installedNames(manifest);
-    const items = registry.items.filter(
-      (item) =>
-        installed.has(item.name) &&
-        (item.type === "component" || item.type === "primitive")
-    );
-    if (items.length === 0) {
-      log.error("No components are installed yet. Run `loseta add <component>` first.");
-      process.exitCode = 1;
-      return;
-    }
-
-    intro(`loseta style ${name}`);
-    const previous = config.style;
-    const nextConfig: LosetaConfig = { ...config, style: name };
-    const kept: string[] = [];
-
-    const result = await installItems({
+    intro(`loseta style ${resolution.plan.nextConfig.style}`);
+    const { result, kept } = await applyStyleSwitch({
       projectRoot,
-      config: nextConfig,
       registry,
       sourceRoot: registryDir,
       manifest,
-      items,
-      onConflict: (file) => {
-        if (file.role === "style") return "overwrite";
-        kept.push(file.target);
-        return "keep";
-      }
+      plan: resolution.plan
     });
 
-    writeConfig(projectRoot, nextConfig);
-
     log.success(
-      `Switched from "${previous}" to "${name}" (${result.written.length} file(s) written).`
+      `Switched from "${resolution.plan.previous}" to "${resolution.plan.nextConfig.style}" (${result.written.length} file(s) written).`
     );
     if (kept.length > 0) {
       log.warn(`Kept locally modified base files: ${[...new Set(kept)].join(", ")}.`);
     }
     log.info(
-      `The "${previous}" style files remain under ${config.cssDir}/styles/${previous}/ and are no longer imported.`
+      `The "${resolution.plan.previous}" style files remain under ${config.cssDir}/styles/${resolution.plan.previous}/ and are no longer imported.`
     );
     outro("Done.");
   }

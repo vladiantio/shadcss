@@ -1,6 +1,15 @@
+import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { components } from "../src/data/components";
+
+const registry = JSON.parse(
+  readFileSync(
+    new URL("../../packages/loseta/registry/registry.json", import.meta.url),
+    "utf8"
+  )
+) as { styles: Array<{ name: string }> };
+const styleNames = registry.styles.map((style) => style.name);
 
 const staticPages = [
   "/",
@@ -103,15 +112,15 @@ test("styles change control geometry", async ({ page }) => {
 });
 
 test("every style loads and passes axe in light and dark", async ({ page }) => {
+  expect(styleNames.length).toBeGreaterThan(0);
   await page.goto("/docs/styles");
   await page.addStyleTag({
     content: "*, *::before, *::after { transition: none !important; animation: none !important; }"
   });
   const select = page.locator("[data-style-select]");
   const link = page.locator("[data-style-link]");
-  const styles = ["nova", "vega", "maia", "lyra", "mira", "luma", "sera", "rhea"];
 
-  for (const style of styles) {
+  for (const style of styleNames) {
     await select.selectOption(style);
     await expect(link).toHaveAttribute("href", `/styles/${style}.css`);
     await page.waitForFunction((name) => {

@@ -38,7 +38,10 @@ not through a repository secret.
 
 ## Subsequent releases
 
-1. Bump `packages/loseta/package.json` and add a `CHANGELOG.md` section.
+1. Bump `packages/loseta/package.json` and add a `CHANGELOG.md` section. Keep
+   one changelog section per published version; if planned releases are
+   collapsed into one, fold their entries into the released version instead of
+   leaving sections for versions npm never received.
 2. Run the full gate and regenerate artifacts if needed:
 
    ```bash

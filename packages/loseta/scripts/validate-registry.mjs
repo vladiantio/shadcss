@@ -39,7 +39,14 @@ function readJson(file) {
 }
 
 const registry = readJson(registryPath);
+const packageJson = readJson(join(packageRoot, "package.json"));
 const schema = readJson(schemaPath);
+
+if (registry.version !== packageJson.version) {
+  fail(
+    `version mismatch: registry.json is ${registry.version}, package.json is ${packageJson.version}`
+  );
+}
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 const validate = ajv.compile(schema);

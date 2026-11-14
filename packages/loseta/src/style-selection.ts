@@ -1,6 +1,6 @@
 import { DEFAULT_STYLE } from "./config.js";
 import { availableStyles, isStyleName } from "./registry.js";
-import type { Registry } from "./types.js";
+import type { LosetaConfig, Registry } from "./types.js";
 
 /** Option shape expected by the `@clack/prompts` select prompt. */
 export interface StyleOption {
@@ -50,4 +50,29 @@ export function resolveInitStyle(
   }
 
   return { style: configStyle ?? DEFAULT_STYLE };
+}
+
+export type AddStyleResolution = { style: string } | { error: string };
+
+/**
+ * Resolves the style for `add`. An explicit `--style` must match the project
+ * style; switching is `loseta style <name>`'s job.
+ */
+export function resolveAddStyle(
+  registry: Registry,
+  config: LosetaConfig,
+  argsStyle: string | undefined
+): AddStyleResolution {
+  const style = argsStyle ?? config.style;
+  if (!isStyleName(registry, style)) {
+    return {
+      error: `Unknown style: ${style}. Available styles: ${availableStyles(registry).join(", ")}.`
+    };
+  }
+  if (argsStyle !== undefined && argsStyle !== config.style) {
+    return {
+      error: `This project uses the "${config.style}" style. Run \`loseta style ${argsStyle}\` to switch styles.`
+    };
+  }
+  return { style };
 }

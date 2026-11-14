@@ -15,6 +15,10 @@ files consumers install.
   correct the document.
 - `packages/loseta/README.md` — read before changing CLI commands, install
   behavior or registry layout.
+- `RELEASING.md` — read before changing the package version or claiming a
+  release. A version is released only after the Publish workflow succeeds and
+  `npm view loseta version` reports it; a version bump, changelog entry, tag,
+  GitHub release or merged PR is preparation.
 
 ## Non-negotiables
 
@@ -34,7 +38,7 @@ files consumers install.
 
 - `packages/loseta/registry/` — published catalog: foundations, primitives,
   components, Nova style, examples and `registry.json`.
-- `packages/loseta/src/` — CLI (`init`, `add`, `list`).
+- `packages/loseta/src/` — CLI (`init`, `add`, `list`, `style`).
 - `packages/loseta/test/` — CLI tests (`node:test`); keep flag and config
   resolution in testable modules rather than prompt handlers.
 - `packages/loseta/experimental/` — unpublished work outside the v1 contract.
@@ -45,7 +49,7 @@ files consumers install.
 Every component and primitive ships two files:
 
 - **Base** (`components/`, `primitives/`): anatomy, layout and behavior hooks.
-- **Style** (`styles/nova/`): color, typography, spacing, radii, surfaces,
+- **Style** (`styles/<name>/`): color, typography, spacing, radii, surfaces,
   shadows and motion.
 
 Base files may use tokens for structural state semantics (for example invalid
