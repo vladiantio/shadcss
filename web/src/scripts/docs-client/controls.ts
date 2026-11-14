@@ -1,17 +1,17 @@
 import {
   applyPreferences,
+  isColorScheme,
   isPackageManager,
-  isTheme,
   readPreferences,
   updatePreference
 } from "./preferences";
 import type { PageBehavior } from "./lifecycle";
 
 const syncButtons = (): void => {
-  const { theme, packageManager } = readPreferences();
+  const { scheme, packageManager } = readPreferences();
 
-  document.querySelectorAll<HTMLElement>("[data-theme-value]").forEach((button) => {
-    button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
+  document.querySelectorAll<HTMLElement>("[data-scheme-value]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.schemeValue === scheme));
   });
 
   document
@@ -32,11 +32,11 @@ const applyCurrentPreferences = (): void => {
 document.addEventListener("click", (event) => {
   if (!(event.target instanceof Element)) return;
 
-  const themeButton = event.target.closest("[data-theme-value]");
-  if (themeButton) {
-    const value = themeButton.getAttribute("data-theme-value");
-    if (isTheme(value)) {
-      updatePreference("theme", value);
+  const schemeButton = event.target.closest("[data-scheme-value]");
+  if (schemeButton) {
+    const value = schemeButton.getAttribute("data-scheme-value");
+    if (isColorScheme(value)) {
+      updatePreference("scheme", value);
       applyCurrentPreferences();
     }
     return;
@@ -53,7 +53,7 @@ document.addEventListener("click", (event) => {
 });
 
 window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-  if (readPreferences().theme === "system") {
+  if (readPreferences().scheme === "system") {
     applyPreferences(document.documentElement);
   }
 });

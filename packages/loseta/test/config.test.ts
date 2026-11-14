@@ -1,14 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { AVAILABLE_THEMES, DEFAULT_THEME, isTheme } from "../src/config.js";
+import { AVAILABLE_STYLES, DEFAULT_STYLE, isStyle } from "../src/config.js";
 
-test("the default theme is one of the available themes", () => {
-  assert.ok((AVAILABLE_THEMES as readonly string[]).includes(DEFAULT_THEME));
+test("the default style is one of the available styles", () => {
+  assert.ok((AVAILABLE_STYLES as readonly string[]).includes(DEFAULT_STYLE));
 });
 
-test("isTheme narrows known theme names", () => {
-  assert.equal(isTheme("nova"), true);
-  assert.equal(isTheme("other"), false);
-  assert.equal(isTheme(null), false);
-  assert.equal(isTheme(undefined), false);
+test("isStyle narrows known style names", () => {
+  assert.equal(isStyle("nova"), true);
+  assert.equal(isStyle("other"), false);
+  assert.equal(isStyle(null), false);
+  assert.equal(isStyle(undefined), false);
 });

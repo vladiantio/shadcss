@@ -41,13 +41,13 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
       (() => {
         const root = document.documentElement;
         const media = window.matchMedia("(prefers-color-scheme: dark)");
-        let theme = "system";
+        let scheme = "system";
         let packageManager = "pnpm";
 
         try {
-          const storedTheme = localStorage.getItem("theme");
-          if (storedTheme === "system" || storedTheme === "light" || storedTheme === "dark") {
-            theme = storedTheme;
+          const storedScheme = localStorage.getItem("scheme");
+          if (storedScheme === "system" || storedScheme === "light" || storedScheme === "dark") {
+            scheme = storedScheme;
           }
           const storedManager = localStorage.getItem("package-manager");
           if (storedManager === "pnpm" || storedManager === "npm") {
@@ -59,10 +59,10 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
 
         root.classList.toggle(
           "dark",
-          theme === "dark" || (theme === "system" && media.matches)
+          scheme === "dark" || (scheme === "system" && media.matches)
         );
         root.dataset.js = "true";
-        root.dataset.theme = theme;
+        root.dataset.scheme = scheme;
         root.dataset.packageManager = packageManager;
       })();
     </script>
@@ -90,33 +90,33 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
         >
           GitHub
         </a>
-        <div class="docs-theme-switch" role="group" aria-label="Color theme">
+        <div class="docs-scheme-switch" role="group" aria-label="Color scheme">
           <button
-            class="docs-theme-button"
+            class="docs-scheme-button"
             type="button"
-            data-theme-value="system"
-            aria-label="System theme"
-            title="System theme"
+            data-scheme-value="system"
+            aria-label="System color scheme"
+            title="System color scheme"
           >
-            <MonitorIcon class="docs-theme-icon" />
+            <MonitorIcon class="docs-scheme-icon" />
           </button>
           <button
-            class="docs-theme-button"
+            class="docs-scheme-button"
             type="button"
-            data-theme-value="light"
-            aria-label="Light theme"
-            title="Light theme"
+            data-scheme-value="light"
+            aria-label="Light color scheme"
+            title="Light color scheme"
           >
-            <SunIcon class="docs-theme-icon" />
+            <SunIcon class="docs-scheme-icon" />
           </button>
           <button
-            class="docs-theme-button"
+            class="docs-scheme-button"
             type="button"
-            data-theme-value="dark"
-            aria-label="Dark theme"
-            title="Dark theme"
+            data-scheme-value="dark"
+            aria-label="Dark color scheme"
+            title="Dark color scheme"
           >
-            <MoonIcon class="docs-theme-icon" />
+            <MoonIcon class="docs-scheme-icon" />
           </button>
         </div>
       </nav>

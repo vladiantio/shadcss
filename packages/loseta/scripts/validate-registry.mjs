@@ -17,7 +17,7 @@ const forbiddenInBase = [
   { pattern: /\.active\b/g, message: ".active is replaced by data-highlighted / ARIA state" },
   { pattern: /!important/g, message: "!important is not allowed" },
   { pattern: /@layer components/g, message: "use loseta.* layers" },
-  { pattern: /html\.dark/g, message: "dark rules belong in the theme layer" },
+  { pattern: /html\.dark/g, message: "dark rules belong in the style layer" },
   { pattern: /\[data-state=['"]selected['"]\]/g, message: "use aria-selected" },
   { pattern: /\[data-invalid\]/g, message: "use aria-invalid" },
   { pattern: /\[data-disabled/g, message: "use :disabled or aria-disabled" },
@@ -106,8 +106,8 @@ for (const item of registry.items ?? []) {
   }
 
   if (item.type === "component" || item.type === "primitive") {
-    if (!roles.has("base") || !roles.has("theme")) {
-      fail(`${item.name}: expected both base and theme files`);
+    if (!roles.has("base") || !roles.has("style")) {
+      fail(`${item.name}: expected both base and style files`);
     }
   }
 

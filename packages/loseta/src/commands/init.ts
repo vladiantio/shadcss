@@ -3,11 +3,12 @@ import { cancel, confirm, intro, isCancel, log, outro, text } from "@clack/promp
 import { existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 import {
-  AVAILABLE_THEMES,
+  AVAILABLE_STYLES,
+  ConfigError,
   DEFAULT_CSS_DIR,
-  DEFAULT_THEME,
+  DEFAULT_STYLE,
   detectEntrypoint,
-  isTheme,
+  isStyle,
   readConfig,
   writeConfig
 } from "../config.js";
@@ -33,10 +34,9 @@ export const initCommand = defineCommand({
       description: "CSS entrypoint to import loseta from",
       alias: "e"
     },
-    theme: {
+    style: {
       type: "string",
-      description: "Theme to install (default: nova)",
-      default: DEFAULT_THEME
+      description: "Style to install (default: nova)"
     },
     import: {
       type: "boolean",
@@ -65,7 +65,17 @@ export const initCommand = defineCommand({
       );
     }
 
-    const existingConfig = readConfig(projectRoot);
+    let existingConfig: LosetaConfig | undefined;
+    try {
+      existingConfig = readConfig(projectRoot);
+    } catch (error) {
+      if (error instanceof ConfigError) {
+        log.error(error.message);
+        process.exitCode = 1;
+        return;
+      }
+      throw error;
+    }
     if (existingConfig && !args.yes) {
       log.warn("loseta.json already exists.");
       const proceed = await confirm({
@@ -79,7 +89,7 @@ export const initCommand = defineCommand({
     }
 
     let cssDir = args.cssDir ?? existingConfig?.cssDir ?? DEFAULT_CSS_DIR;
-    let theme = args.theme ?? existingConfig?.theme ?? DEFAULT_THEME;
+    let style = args.style ?? existingConfig?.style ?? DEFAULT_STYLE;
     let entrypoint = args.entrypoint ?? existingConfig?.entrypoint ?? detectEntrypoint(projectRoot) ?? "";
 
     if (!args.yes) {
@@ -94,16 +104,16 @@ export const initCommand = defineCommand({
       }
       cssDir = String(cssDirAnswer);
 
-      const themeAnswer = await text({
-        message: "Theme",
-        placeholder: DEFAULT_THEME,
-        defaultValue: theme
+      const styleAnswer = await text({
+        message: "Style",
+        placeholder: DEFAULT_STYLE,
+        defaultValue: style
       });
-      if (isCancel(themeAnswer)) {
+      if (isCancel(styleAnswer)) {
         cancel("Cancelled.");
         return;
       }
-      theme = String(themeAnswer);
+      style = String(styleAnswer);
 
       const entrypointAnswer = await text({
         message: "CSS entrypoint (leave empty to skip)",
@@ -117,15 +127,15 @@ export const initCommand = defineCommand({
       entrypoint = String(entrypointAnswer);
     }
 
-    if (!isTheme(theme)) {
-      log.error(`Unknown theme: ${theme}. Available themes: ${AVAILABLE_THEMES.join(", ")}.`);
+    if (!isStyle(style)) {
+      log.error(`Unknown style: ${style}. Available styles: ${AVAILABLE_STYLES.join(", ")}.`);
       process.exitCode = 1;
       return;
     }
 
     const config: LosetaConfig = {
       cssDir,
-      theme,
+      style,
       ...(entrypoint ? { entrypoint } : {})
     };
     writeConfig(projectRoot, config);

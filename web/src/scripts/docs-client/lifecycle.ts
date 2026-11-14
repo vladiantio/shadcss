@@ -22,7 +22,7 @@ let started = false;
 /**
  * Owns the Astro client-router lifecycle. Behaviors mount once per page and
  * clean up before the next swap; preference root state is applied on both
- * sides of the swap so the incoming page never paints in the wrong theme.
+ * sides of the swap so the incoming page never paints in the wrong color scheme.
  */
 export function startPageLifecycle({
   behaviors,

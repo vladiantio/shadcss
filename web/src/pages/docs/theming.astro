@@ -3,13 +3,13 @@ import Layout from "@/layouts/Layout.astro";
 import CodeBlock from "@/components/CodeBlock.astro";
 ---
 
-<Layout title="Theming" description="Tokens, layers, dark mode and the public style contract.">
+<Layout title="Theming" description="Tokens, layers, color scheme and the public style contract.">
   <div class="docs-content">
     <p class="docs-eyebrow">Getting started</p>
     <h1>Theming</h1>
     <p class="docs-lead">
       Colors, radius, shadows and typography are CSS custom properties. The visual style lives in
-      <code>themes/nova</code>; the structure lives in <code>components</code>.
+      <code>styles/nova</code>; the structure lives in <code>components</code>.
     </p>
 
     <h2>Layers</h2>
@@ -19,7 +19,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
     </p>
     <CodeBlock
       lang="css"
-      code={`@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.theme, loseta.utilities;`}
+      code={`@layer loseta.tokens, loseta.reset, loseta.base, loseta.components, loseta.style, loseta.utilities;`}
     />
 
     <h2>Tokens</h2>
@@ -44,7 +44,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
     <h2>Dark mode</h2>
     <p>
       Add <code>.dark</code> to the <code>&lt;html&gt;</code> element. The token file also sets
-      <code>color-scheme</code> so native controls follow the theme.
+      <code>color-scheme</code> so native controls follow the color scheme.
     </p>
     <CodeBlock lang="js" code={`document.documentElement.classList.toggle("dark", isDark);`} />
 
@@ -63,15 +63,15 @@ import CodeBlock from "@/components/CodeBlock.astro";
       <li><code>:disabled</code> and <code>aria-disabled="true"</code> for disabled states.</li>
     </ul>
 
-    <h2>Styles and themes</h2>
+    <h2>Styles</h2>
     <p>
-      <code>themes/nova</code> is the default visual style. To create a new style, copy that folder,
-      edit its files and point <code>loseta.json</code> at the new theme when you initialize a
+      <code>styles/nova</code> is the default visual style. To create a new style, copy that folder,
+      edit its files and point <code>loseta.json</code> at the new style when you initialize a
       project. v1 ships Nova only.
     </p>
     <p>
       Tokens are the primary customization surface. If a change cannot be expressed with tokens,
-      edit the component or theme file you own.
+      edit the component or style file you own.
     </p>
 
     <div class="docs-callout">

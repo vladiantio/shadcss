@@ -1,13 +1,13 @@
-export type ItemType = "component" | "primitive" | "foundation" | "theme";
+export type ItemType = "component" | "primitive" | "foundation" | "style";
 export type ItemStatus = "stable" | "experimental";
-export type FileRole = "base" | "theme";
+export type FileRole = "base" | "style";
 
 export type LayerName =
   | "loseta.tokens"
   | "loseta.reset"
   | "loseta.base"
   | "loseta.components"
-  | "loseta.theme"
+  | "loseta.style"
   | "loseta.utilities";
 
 export interface RegistryFile {
@@ -42,7 +42,7 @@ export interface LosetaConfig {
   $schema?: string;
   cssDir: string;
   entrypoint?: string;
-  theme: string;
+  style: string;
 }
 
 export interface ManifestFile {

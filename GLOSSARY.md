@@ -43,16 +43,16 @@ An internal item installed automatically to provide shared structure for one or 
 _Avoid_: base component, helper, utility component
 
 **Component**:
-A public UI element with its own root class, structural file and theme file.
+A public UI element with its own root class, structural file and style file.
 _Avoid_: widget, block, element
 
-**Theme**:
-The visual interpretation of the system; Nova is the only theme shipped in v1.
-_Avoid_: skin, preset
+**Style**:
+The visual interpretation of the system; Nova is the only style shipped in v1.
+_Avoid_: theme, skin, preset
 
 **Nova**:
-The default and reference visual theme of loseta.
-_Avoid_: default style, skin
+The default and reference visual style of loseta.
+_Avoid_: theme, skin
 
 ## Architecture
 
@@ -60,12 +60,12 @@ _Avoid_: default style, skin
 The structural half of an item: markup expectations, layout and behavior hooks.
 _Avoid_: core CSS, style file
 
-**Theme file**:
+**Style file**:
 The visual half of an item: color, typography, spacing and surface treatment.
-_Avoid_: override, skin
+_Avoid_: theme file, override, skin
 
 **Layer**:
-One of the fixed, namespaced cascade layers that order tokens, reset, base, components, theme and utilities.
+One of the fixed, namespaced cascade layers that order tokens, reset, base, components, style and utilities.
 _Avoid_: level, tier
 
 **Token**:
@@ -75,6 +75,10 @@ _Avoid_: variable, constant
 **Color role**:
 A semantic token that describes intent rather than a literal color, such as background, primary, muted or destructive.
 _Avoid_: palette entry, color name
+
+**Color scheme**:
+The light or dark rendering of the same tokens, selected through `.dark` on the root element.
+_Avoid_: theme, mode, appearance
 
 **Registry dependency**:
 A hard dependency that the CLI installs automatically because the item cannot work without it.

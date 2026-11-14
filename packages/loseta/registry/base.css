@@ -1,4 +1,4 @@
-/* Element defaults. Structural only: visual decisions live in the theme layer. */
+/* Element defaults. Structural only: visual decisions live in the style layer. */
 @layer loseta.base {
   body {
     background-color: var(--background);

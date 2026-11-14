@@ -1,27 +1,31 @@
-export const THEMES = ["system", "light", "dark"] as const;
-export type Theme = (typeof THEMES)[number];
+export const COLOR_SCHEMES = ["system", "light", "dark"] as const;
+export type ColorScheme = (typeof COLOR_SCHEMES)[number];
 
 export const PACKAGE_MANAGERS = ["pnpm", "npm"] as const;
 export type PackageManager = (typeof PACKAGE_MANAGERS)[number];
 
 export interface Preferences {
-  theme: Theme;
+  scheme: ColorScheme;
   packageManager: PackageManager;
 }
 
 const STORAGE_KEYS: Record<keyof Preferences, string> = {
-  theme: "theme",
+  scheme: "scheme",
   packageManager: "package-manager"
 };
 
 const DEFAULT_PREFERENCES: Preferences = {
-  theme: "system",
+  scheme: "system",
   packageManager: "pnpm"
 };
 
-export function isTheme(value: string | null | undefined): value is Theme {
+export function isColorScheme(
+  value: string | null | undefined
+): value is ColorScheme {
   return (
-    value !== null && value !== undefined && (THEMES as readonly string[]).includes(value)
+    value !== null &&
+    value !== undefined &&
+    (COLOR_SCHEMES as readonly string[]).includes(value)
   );
 }
 
@@ -37,10 +41,10 @@ export function isPackageManager(
 
 export function readPreferences(): Preferences {
   try {
-    const theme = localStorage.getItem(STORAGE_KEYS.theme);
+    const scheme = localStorage.getItem(STORAGE_KEYS.scheme);
     const packageManager = localStorage.getItem(STORAGE_KEYS.packageManager);
     return {
-      theme: isTheme(theme) ? theme : DEFAULT_PREFERENCES.theme,
+      scheme: isColorScheme(scheme) ? scheme : DEFAULT_PREFERENCES.scheme,
       packageManager: isPackageManager(packageManager)
         ? packageManager
         : DEFAULT_PREFERENCES.packageManager
@@ -68,12 +72,12 @@ export function applyPreferences(
   preferences: Preferences = readPreferences()
 ): void {
   const dark =
-    preferences.theme === "dark" ||
-    (preferences.theme === "system" &&
+    preferences.scheme === "dark" ||
+    (preferences.scheme === "system" &&
       window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   root.classList.toggle("dark", dark);
   root.dataset.js = "true";
-  root.dataset.theme = preferences.theme;
+  root.dataset.scheme = preferences.scheme;
   root.dataset.packageManager = preferences.packageManager;
 }

@@ -37,9 +37,9 @@ test("client navigation keeps the shell mounted", async ({ page }) => {
   );
 });
 
-test("client navigation preserves theme and package manager", async ({ page }) => {
+test("client navigation preserves color scheme and package manager", async ({ page }) => {
   await page.goto("/docs/installation");
-  await page.getByRole("button", { name: "Dark theme" }).click();
+  await page.getByRole("button", { name: "Dark color scheme" }).click();
 
   const firstCommand = page.locator(".install-command").first();
   await firstCommand.locator("[data-package-manager-value='npm']").click();
@@ -49,7 +49,7 @@ test("client navigation preserves theme and package manager", async ({ page }) =
 
   await expect(page).toHaveURL(/\/docs\/theming$/);
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
-  await expect(page.getByRole("button", { name: "Dark theme" })).toHaveAttribute(
+  await expect(page.getByRole("button", { name: "Dark color scheme" })).toHaveAttribute(
     "aria-pressed",
     "true"
   );
@@ -65,7 +65,7 @@ test("client navigation preserves theme and package manager", async ({ page }) =
 
 test("repeated client navigation keeps preferences and remounts the page", async ({ page }) => {
   await page.goto("/docs/installation");
-  await page.getByRole("button", { name: "Dark theme" }).click();
+  await page.getByRole("button", { name: "Dark color scheme" }).click();
 
   const command = page.locator(".install-command").first();
   await command.locator("[data-package-manager-value='npm']").click();
@@ -82,7 +82,7 @@ test("repeated client navigation keeps preferences and remounts the page", async
   await expect(page).toHaveURL(/\/docs\/components\/button$/);
 
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
-  await expect(page.getByRole("button", { name: "Dark theme" })).toHaveAttribute(
+  await expect(page.getByRole("button", { name: "Dark color scheme" })).toHaveAttribute(
     "aria-pressed",
     "true"
   );

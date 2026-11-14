@@ -1,7 +1,7 @@
 import { defineCommand } from "citty";
 import { cancel, confirm, intro, isCancel, log, outro } from "@clack/prompts";
 import { join } from "node:path";
-import { AVAILABLE_THEMES, isTheme, readConfig } from "../config.js";
+import { AVAILABLE_STYLES, ConfigError, isStyle, readConfig } from "../config.js";
 import { readTextIfExists } from "../fs.js";
 import { installItems } from "../install.js";
 import { installedNames, readManifest } from "../manifest.js";
@@ -14,6 +14,7 @@ import {
   resolveItems,
   stableComponents
 } from "../registry.js";
+import type { LosetaConfig } from "../types.js";
 import { installedSummary, printItems } from "../ui.js";
 
 export const addCommand = defineCommand({
@@ -35,9 +36,9 @@ export const addCommand = defineCommand({
       type: "boolean",
       description: "Print the example HTML for the added components"
     },
-    theme: {
+    style: {
       type: "string",
-      description: "Theme to use (default: nova)"
+      description: "Style to use (must match loseta.json)"
     },
     yes: {
       type: "boolean",
@@ -47,7 +48,17 @@ export const addCommand = defineCommand({
   },
   async run({ args }) {
     const projectRoot = process.cwd();
-    const config = readConfig(projectRoot);
+    let config: LosetaConfig | undefined;
+    try {
+      config = readConfig(projectRoot);
+    } catch (error) {
+      if (error instanceof ConfigError) {
+        log.error(error.message);
+        process.exitCode = 1;
+        return;
+      }
+      throw error;
+    }
     if (!config) {
       log.error("loseta.json not found. Run `loseta init` first.");
       process.exitCode = 1;
@@ -101,9 +112,16 @@ export const addCommand = defineCommand({
       }
     }
 
-    const theme = args.theme ?? config.theme;
-    if (!isTheme(theme)) {
-      log.error(`Unknown theme: ${theme}. Available themes: ${AVAILABLE_THEMES.join(", ")}.`);
+    const style = args.style ?? config.style;
+    if (!isStyle(style)) {
+      log.error(`Unknown style: ${style}. Available styles: ${AVAILABLE_STYLES.join(", ")}.`);
+      process.exitCode = 1;
+      return;
+    }
+    if (args.style && args.style !== config.style) {
+      log.error(
+        `This project uses the "${config.style}" style. --style can only match loseta.json.`
+      );
       process.exitCode = 1;
       return;
     }

@@ -26,34 +26,34 @@ files consumers install.
 - `.sr-only` is the only utility.
 - Class names and tokens are prefix-free.
 - The layer order is fixed: `loseta.tokens`, `loseta.reset`, `loseta.base`,
-  `loseta.components`, `loseta.theme`, `loseta.utilities`.
+  `loseta.components`, `loseta.style`, `loseta.utilities`.
 - Public API changes require updating `DESIGN.md` and the docs that describe
   them. Breaking changes also require a `CHANGELOG.md` entry.
 
 ## Layout
 
 - `packages/loseta/registry/` — published catalog: foundations, primitives,
-  components, Nova theme, examples and `registry.json`.
+  components, Nova style, examples and `registry.json`.
 - `packages/loseta/src/` — CLI (`init`, `add`, `list`).
 - `packages/loseta/experimental/` — unpublished work outside the v1 contract.
 - `web/` — Astro docs site; it imports the registry CSS directly.
 
-## Base/theme split
+## Base/style split
 
 Every component and primitive ships two files:
 
 - **Base** (`components/`, `primitives/`): anatomy, layout and behavior hooks.
-- **Theme** (`themes/nova/`): color, typography, spacing, radii, surfaces,
+- **Style** (`styles/nova/`): color, typography, spacing, radii, surfaces,
   shadows and motion.
 
 Base files may use tokens for structural state semantics (for example invalid
-text or a selected row), but prefer the theme file for visual treatment.
-Dark-mode adjustments (`html.dark`) belong in theme files. Nova is the only
-theme in v1.
+text or a selected row), but prefer the style file for visual treatment.
+Dark-mode adjustments (`html.dark`) belong in style files. Nova is the only
+style in v1.
 
 ## Registry workflow
 
-1. Edit the base and/or theme file under `packages/loseta/registry/`.
+1. Edit the base and/or style file under `packages/loseta/registry/`.
 2. Update the item in `registry.json`: `title`, `description`, `root`, `files`,
    dependencies, `status`, `docs` and `examples` as applicable.
 3. Edit example markup in `web/src/data/examples.ts`. Use the demo hooks
@@ -66,7 +66,7 @@ theme in v1.
 
 When adding a component, also add its group and any contract note in
 `web/src/data/components.ts`. Keep experimental CSS in
-`packages/loseta/experimental/` until the component has base/theme files,
+`packages/loseta/experimental/` until the component has base/style files,
 registry metadata, an example and docs coverage.
 
 ## CSS rules

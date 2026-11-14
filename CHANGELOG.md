@@ -10,6 +10,16 @@
 
 ### Changed
 
+- **Breaking:** renamed the visual axis from "theme" to "style" to match
+  shadcn/ui vocabulary. `loseta.json` now uses the `style` key instead of
+  `theme`, the CLI flag is `--style`, installed visual files live under
+  `styles/<name>/` instead of `themes/<name>/`, the registry file role is
+  `style`, and the cascade layer is `loseta.style` instead of `loseta.theme`.
+  Projects created with 0.1.0 must rename the config key, move the installed
+  `themes/` directory to `styles/`, and re-add their items; the CLI reports the
+  required steps when it reads an old config.
+- The docs color-scheme preference now uses the storage key `scheme` and the
+  `data-scheme` attribute instead of `theme` and `data-theme`.
 - `loseta add` now records the registry version on the install manifest.
 - Re-running `loseta init` warns that installed items stay on disk but are no
   longer tracked, and names `loseta add all` as the restore command.
