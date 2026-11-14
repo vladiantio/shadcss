@@ -20,8 +20,9 @@ files consumers install.
 
 - Native CSS only: no Tailwind, CSS-in-JS, preprocessor or framework
   dependency in the registry.
-- The registry is CSS-only: loseta ships styling, not behavior. The docs demo
-  script in `web/src/demo/` must not become a registry dependency.
+- The registry is CSS-only: loseta ships styling, not behavior. The docs client
+  demo behavior in `web/src/scripts/docs-client/demo.ts` must not become a
+  registry dependency.
 - `.sr-only` is the only utility.
 - Class names and tokens are prefix-free.
 - The layer order is fixed: `loseta.tokens`, `loseta.reset`, `loseta.base`,

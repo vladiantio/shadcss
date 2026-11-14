@@ -1,4 +1,4 @@
-const announce = (message) => {
+const announce = (message: string): void => {
   let region = document.querySelector("[data-copy-status]");
   if (!region) {
     region = document.createElement("span");
@@ -13,7 +13,7 @@ const announce = (message) => {
   });
 };
 
-const closeAllPopovers = (except) => {
+const closeAllPopovers = (except?: Element): void => {
   document.querySelectorAll("[data-demo] [data-popover]").forEach((popover) => {
     if (popover === except) return;
     popover.setAttribute("aria-hidden", "true");
@@ -22,7 +22,7 @@ const closeAllPopovers = (except) => {
   });
 };
 
-document.addEventListener("click", async (event) => {
+const onClick = async (event: MouseEvent): Promise<void> => {
   const target = event.target;
   if (!(target instanceof Element)) return;
 
@@ -39,7 +39,9 @@ document.addEventListener("click", async (event) => {
         const text =
           lines.length > 0
             ? Array.from(lines, (line) => line.textContent ?? "").join("\n")
-            : (code.innerText ?? code.textContent ?? "");
+            : code instanceof HTMLElement
+              ? code.innerText
+              : (code.textContent ?? "");
         await navigator.clipboard.writeText(text);
         const iconCopy = copy.hasAttribute("data-copy-icon") || Boolean(copy.querySelector("svg"));
         const previousText = copy.textContent;
@@ -109,12 +111,12 @@ document.addEventListener("click", async (event) => {
   if (tab) {
     const tabs = tab.closest(".tabs");
     if (tabs) {
-      tabs.querySelectorAll('[role="tab"]').forEach((item) => {
+      tabs.querySelectorAll<HTMLElement>('[role="tab"]').forEach((item) => {
         const selected = item === tab;
         item.setAttribute("aria-selected", selected ? "true" : "false");
         item.setAttribute("tabindex", selected ? "0" : "-1");
       });
-      tabs.querySelectorAll('[role="tabpanel"]').forEach((panel) => {
+      tabs.querySelectorAll<HTMLElement>('[role="tabpanel"]').forEach((panel) => {
         panel.hidden = panel.id !== tab.getAttribute("aria-controls");
       });
     }
@@ -124,11 +126,23 @@ document.addEventListener("click", async (event) => {
   if (!target.closest("[data-popover], [data-demo-trigger]")) {
     closeAllPopovers();
   }
-});
+};
 
-document.addEventListener("keydown", (event) => {
+const onKeyDown = (event: KeyboardEvent): void => {
   if (event.key === "Escape") {
     closeAllPopovers();
-    document.querySelectorAll("dialog[open]").forEach((dialog) => dialog.close());
+    document.querySelectorAll<HTMLDialogElement>("dialog[open]").forEach((dialog) => {
+      dialog.close();
+    });
   }
-});
+};
+
+let mounted = false;
+
+/** Demo-only interactions. Registered once; the docs client never re-mounts it. */
+export function mountDemo(): void {
+  if (mounted) return;
+  mounted = true;
+  document.addEventListener("click", onClick);
+  document.addEventListener("keydown", onKeyDown);
+}
