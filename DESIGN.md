@@ -41,12 +41,12 @@ Vocabulary is defined in [`GLOSSARY.md`](GLOSSARY.md).
 
 ## Scope
 
-The v1 registry contains 30 stable items:
+The v1 registry contains 31 stable items:
 
-- **24 components**: alert, alert-dialog, badge, button, button-group, card,
-  checkbox, dialog, dropdown-menu, empty, field, input, item, kbd, label,
-  native-select, popover, radio, skeleton, switch, table, tabs, textarea and
-  tooltip.
+- **25 components**: alert, alert-dialog, badge, button, button-group, card,
+  checkbox, code-block, dialog, dropdown-menu, empty, field, input, item, kbd,
+  label, native-select, popover, radio, skeleton, switch, table, tabs, textarea
+  and tooltip.
 - **2 primitives**: `dialog-shell` and `popover-primitive`. They are installed
   automatically as dependencies and are not consumer-facing components.
 - **4 foundations**: tokens, reset, base and utilities.
@@ -139,14 +139,18 @@ for embedded SVG data URIs and the dialog backdrop.
 
 Small controls cap their radius with `min(var(--radius-md), 10px or 12px)` so
 they do not become visually rounder than their surface. Checkboxes use a
-fixed 4px radius. These caps are part of the Nova treatment.
+fixed 4px radius. Code Block uses `--radius-xl`; its `sm` size uses
+`--radius-lg`. These caps are part of the Nova treatment.
 
 ### Typography
 
-- loseta ships **no font family**. The reset makes form controls inherit and
+- loseta ships **no UI font family**. The reset makes form controls inherit and
   the system inherits the host document's typography.
+- Code Block uses a monospace stack with `var(--font-mono, …)` so consumers can
+  point it at their own mono family without a global font token.
 - UI text defaults to `--text-sm` (`0.875rem`), with its paired line height.
-  Cards, alerts, items, tables, menus, tabs and dialog bodies follow it.
+  Cards, alerts, items, tables, menus, tabs, code blocks and dialog bodies
+  follow it.
 - Inputs and textareas use `--text-base` (`1rem`) below `48rem` and `--text-sm`
   at and above it.
 - Card, dialog and alert-dialog titles use `--text-base` at their default size
@@ -154,7 +158,8 @@ fixed 4px radius. These caps are part of the Nova treatment.
   `--text-sm`. Badges, kbd, tooltips and `xs` buttons use `--text-xs`; the `sm`
   button is a deliberate `0.8rem` exception.
 - Line heights are paired tokens (`--text-*--line-height`) or explicit unitless
-  values where the component needs a tighter title or description rhythm.
+  values where the component needs a tighter title or description rhythm. Code
+  Block uses `1.6` for code lines.
 
 ### Shadows and icons
 
@@ -166,7 +171,8 @@ fixed 4px radius. These caps are part of the Nova treatment.
 - `--icon-size` is a local component variable, not a global token. The
   fallback is `1rem`; button sizes override it to `0.75rem` (`xs`) or
   `0.875rem` (`sm`). Kbd and badge icons are `0.75rem`; the alert-dialog figure
-  icon is `1.5rem`.
+  icon is `1.5rem`. Code Block title icons are `1rem`; its copy and wrap
+  controls use the `icon-xs` button size (`0.75rem` icons).
 
 ### Spacing
 
@@ -184,6 +190,7 @@ file they own, not by expecting a spacing API.
 | Card | `--card` surface, 1px foreground-at-10% ring shadow, `--radius-xl`. |
 | Alert | `--card` surface, 1px `--border` border, `--radius-lg`; no shadow. |
 | Popover, menu, dialog | `--popover` surface, 1px foreground-at-10% ring, `--shadow-md` for popovers/menus, `--radius-lg` or `--radius-xl` by component. |
+| Code Block | `--muted` surface, 1px foreground-at-5% ring, `--radius-xl`; no header divider. Destructive uses a destructive tint, text and ring. |
 | Muted region | `--muted` at 50% for footers, table footers and subdued rows; `--muted` for skeletons and kbd. |
 | Dialog backdrop | Black at 10% plus a 4px backdrop blur. |
 | Empty | Dashed `--border` outline, no fill. |
@@ -197,7 +204,7 @@ fields, selects, checkboxes, radios and switches.
 | State | Visual rule |
 | --- | --- |
 | Hover | Primary fills mix toward transparent at 20%; outline and ghost use `--muted`; link underlines; menu items use `--accent`; table rows use muted at 50%. |
-| Focus visible | 1px `--ring` border plus a 3px `--ring`-at-50% shadow. Tabs also draw a 1px `--ring` outline; menu items use the accent background instead of a ring. |
+| Focus visible | 1px `--ring` border plus a 3px `--ring`-at-50% shadow. Tabs also draw a 1px `--ring` outline; menu items use the accent background instead of a ring. Code Block rings the block while its `pre` is focused. |
 | Invalid | `--destructive` border plus a 3px destructive-at-20% shadow; dark mode uses stronger destructive mixes. A field containing an invalid control turns its text destructive. |
 | Disabled | 50% opacity. Buttons, tabs and menu items also drop pointer events; inputs, textareas and selects use a not-allowed cursor. |
 | Active | Buttons translate down 1px, except triggers with `aria-haspopup`. |
@@ -223,6 +230,7 @@ visible.
 | Badge | `1.25rem` high | — |
 | Tablist | `2rem` high | Vertical tablists use content height |
 | Kbd | `1.25rem` high, `1.25rem` minimum width | — |
+| Code Block | No fixed height; the `pre` scrolls | `sm`: `--text-xs`, `0.75rem` padding and `--radius-lg` |
 
 Breakpoints:
 
@@ -241,11 +249,13 @@ Component widths:
 - Dropdown menu: at least `8rem`, at least as wide as its trigger.
 - Tooltip: `20rem` maximum.
 - Empty header, section and footer: `24rem` maximum.
-- Cards and items have no fixed width; consumers set their layout width.
+- Cards, items and code blocks have no fixed width; consumers set their layout
+  width. Code Block content scrolls horizontally unless `data-wrap` is present.
 
 Directionality: layout uses logical properties. RTL-specific rules exist for
 the switch thumb, native-select chevron, popover/tooltip placement and
-`[data-rtl-flip]` icons in menus.
+`[data-rtl-flip]` icons in menus. Code Block content is always `dir="ltr"` even
+on an RTL page; its header follows the page direction.
 
 ## Public component API
 
@@ -260,6 +270,7 @@ the switch thumb, native-select chevron, popover/tooltip placement and
 | Button group | `.btn-group` | Buttons, inputs, dropdown/popover wrappers, `span`/`label`/`output` and `hr[role="separator"]`. | `data-orientation="horizontal|vertical"` |
 | Card | `.card` | `header` with title/description/action, `section`, `footer`, optional leading/trailing image. | `data-size="default|sm"`; `data-separator="bottom"` on the header |
 | Checkbox | `.checkbox` | Native `input[type="checkbox"]`; must not carry `role="switch"`. | — |
+| Code Block | `.code-block` | Optional `header` with `[data-slot="title"]` and `[data-slot="actions"]`; required `pre` containing `code`; optional `footer`; line parts `[data-slot="line"]` wrapping `[data-slot="line-content"]`. | `data-size="default|sm"`; `data-variant="default|destructive"`; `pre` `data-line-numbers`, `data-wrap`, `--line-start`; line `data-variant="added|removed|highlighted"` |
 | Dialog | `.dialog` | Native `<dialog>` containing a panel; panel contains `header`, title, description, `section`, `footer` and a close button or `form[method="dialog"]`. | — |
 | Dropdown menu | `.dropdown-menu` | Trigger, `[data-popover]` panel, `[role="menu"]`, menu item roles, `[role="separator"]`, `[role="heading"]`, shortcut and indicator slots. | Item `data-variant="destructive"`; default by omission; placement attributes; `data-inset`; `data-rtl-flip` |
 | Empty | `.empty` | `header` with `figure`, title and description; `section`; `footer`. | — |
@@ -290,18 +301,20 @@ and `.card-action`; prefer the `data-slot` names in new markup.
 
 The public slot vocabulary is shared across components:
 
-- `data-slot="title"` — alert, card, dialog, alert-dialog, popover.
+- `data-slot="title"` — alert, card, code block, dialog, alert-dialog, popover.
 - `data-slot="description"` — alert, card, dialog, alert-dialog, popover.
 - `data-slot="action"` — card.
+- `data-slot="actions"` — code block.
+- `data-slot="line"`, `data-slot="line-content"` — code block.
 - `data-slot="header"` — popover.
 - `data-slot="shortcut"` — dropdown menu.
 - `data-slot="indicator"` — dropdown menu.
 - `data-slot="checkbox-group"`, `data-slot="radio-group"` — field.
 
 Semantic parts are equally public where documented: `header`, `section`,
-`footer`, `figure`, `aside`, `[role="menu"]`, `[role="tablist"]`, `[role="tab"]`
-and `[role="tabpanel"]`. Do not invent a new `data-slot` name for a part that
-already has a semantic element in the anatomy.
+`footer`, `figure`, `aside`, `pre`, `code`, `[role="menu"]`, `[role="tablist"]`,
+`[role="tab"]` and `[role="tabpanel"]`. Do not invent a new `data-slot` name for
+a part that already has a semantic element in the anatomy.
 
 ### Placement attributes
 
@@ -358,11 +371,15 @@ Notes:
   navigation. It is not part of the public state contract.
 - The CSS-only tooltip shows on `:hover` and `:focus-visible`; it has no
   JavaScript open state.
+- Code Block's `data-line-numbers`, `data-wrap` and line `data-variant` are
+  presentation modifiers, not states. `--line-start` on the `pre` is a local
+  customization property, not a global token.
 
 ## Motion
 
 - Standard easing is `cubic-bezier(0.4, 0, 0.2, 1)`.
 - Controls, hover states, tabs, table rows and tooltips transition in `150ms`.
+- Code Block's floating actions fade in `150ms` on hover and focus-within.
 - Nova overlays (popover, dropdown, dialog, alert dialog) transition in
   `100ms`; the underlying shell defaults to `150ms` when a theme does not
   override it.
@@ -394,6 +411,10 @@ intentional exclusion.
   present, `aria-describedby`. Use `showModal()` and `close()`.
 - Tabs must maintain `aria-selected`, `hidden` on inactive panels and roving
   `tabindex`; CSS does not switch panels.
+- Code Block must keep its content `dir="ltr"` and focusable through
+  `tabindex="0"`; line numbers and diff markers are generated content and are
+  excluded from selection. Copy controls need an accessible label and a
+  consumer-managed announcement; a wrap toggle uses `aria-pressed`.
 - Dropdown menus must maintain `aria-expanded` on the trigger,
   `aria-hidden` on the panel and roving focus; checkable items use
   `aria-checked`.
@@ -432,7 +453,8 @@ installs `dialog-shell`; installing `dropdown-menu` or `popover` also installs
 `popover-primitive`. Optional dependencies are composition hints only and are
 never installed automatically. Notable optional pairs are field with its form
 controls, button group with button/input/popover/dropdown-menu, table with
-checkbox, and dropdown-menu with kbd.
+checkbox, dropdown-menu with kbd, and code block with button for copy and wrap
+controls.
 
 ### Compatibility contract
 
@@ -465,8 +487,11 @@ semantic versioning.
 - Tooltip entry only fades; the pseudo-element remains at 95% scale instead of
   animating to 100%.
 - Nova is the only shipped theme; theme switching is not part of v1.
-- No JavaScript behavior is shipped. Dialogs, popovers, dropdown menus and
-  tabs require consumer code.
+- No JavaScript behavior is shipped. Dialogs, popovers, dropdown menus, tabs
+  and Code Block copy/wrap controls require consumer code.
+- Code Block does not ship syntax highlighting, ANSI rendering, streaming or a
+  Show More interaction; syntax highlighting stays in the consumer's
+  highlighter and line numbers/diff/highlights require explicit line markup.
 - No visual regression snapshots. CI covers axe and functional docs behavior,
   not pixel diffs, forced-colors rendering or RTL layouts.
 - Experimental items are outside this contract and are not published.

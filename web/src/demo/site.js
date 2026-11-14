@@ -13,6 +13,21 @@ const applyPackageManager = (value) => {
 
 applyPackageManager(document.documentElement.dataset.packageManager);
 
+const announce = (message) => {
+  let region = document.querySelector("[data-copy-status]");
+  if (!region) {
+    region = document.createElement("span");
+    region.setAttribute("data-copy-status", "");
+    region.setAttribute("role", "status");
+    region.className = "sr-only";
+    document.body.append(region);
+  }
+  region.textContent = "";
+  requestAnimationFrame(() => {
+    region.textContent = message;
+  });
+};
+
 const closeAllPopovers = (except) => {
   document.querySelectorAll("[data-demo] [data-popover]").forEach((popover) => {
     if (popover === except) return;
@@ -26,7 +41,7 @@ document.addEventListener("click", async (event) => {
   const target = event.target;
   if (!(target instanceof Element)) return;
 
-  const copy = target.closest("[data-copy]");
+  const copy = target.closest("[data-copy], [data-demo-copy]");
   if (copy) {
     const block = copy.closest(".code-block, .install-command");
     const manager = document.documentElement.dataset.packageManager ?? "pnpm";
@@ -35,8 +50,13 @@ document.addEventListener("click", async (event) => {
       block?.querySelector("code");
     if (code) {
       try {
-        await navigator.clipboard.writeText(code.textContent ?? "");
-        const iconCopy = copy.hasAttribute("data-copy-icon");
+        const lines = code.querySelectorAll("[data-slot='line']");
+        const text =
+          lines.length > 0
+            ? Array.from(lines, (line) => line.textContent ?? "").join("\n")
+            : (code.innerText ?? code.textContent ?? "");
+        await navigator.clipboard.writeText(text);
+        const iconCopy = copy.hasAttribute("data-copy-icon") || Boolean(copy.querySelector("svg"));
         const previousText = copy.textContent;
         const previousLabel = copy.getAttribute("aria-label");
         if (iconCopy) {
@@ -45,6 +65,7 @@ document.addEventListener("click", async (event) => {
         } else {
           copy.textContent = "Copied";
         }
+        announce("Copied");
         setTimeout(() => {
           if (iconCopy) {
             copy.removeAttribute("data-copied");
@@ -54,8 +75,20 @@ document.addEventListener("click", async (event) => {
           }
         }, 1500);
       } catch {
-        // Clipboard access can be blocked; leaving the label untouched is fine.
+        announce("Copy failed");
       }
+    }
+    return;
+  }
+
+  const wrap = target.closest("[data-demo-wrap]");
+  if (wrap) {
+    const block = wrap.closest('[data-demo="code-block"]');
+    const pre = block?.querySelector("pre");
+    if (pre) {
+      const next = !pre.hasAttribute("data-wrap");
+      pre.toggleAttribute("data-wrap", next);
+      wrap.setAttribute("aria-pressed", String(next));
     }
     return;
   }
@@ -117,7 +150,7 @@ document.addEventListener("click", async (event) => {
     return;
   }
 
-  if (!target.closest("[data-demo]")) {
+  if (!target.closest("[data-popover], [data-demo-trigger]")) {
     closeAllPopovers();
   }
 });

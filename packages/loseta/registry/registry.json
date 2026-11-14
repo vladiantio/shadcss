@@ -338,6 +338,38 @@
       ]
     },
     {
+      "name": "code-block",
+      "type": "component",
+      "status": "stable",
+      "title": "Code Block",
+      "description": "Displays code with an optional header, line numbers and diff highlighting.",
+      "docs": "/docs/components/code-block",
+      "root": [
+        ".code-block"
+      ],
+      "registryDependencies": [],
+      "optionalDependencies": [
+        "button"
+      ],
+      "files": [
+        {
+          "path": "components/code-block.css",
+          "target": "components/code-block.css",
+          "role": "base",
+          "layer": "loseta.components"
+        },
+        {
+          "path": "themes/nova/code-block.css",
+          "target": "themes/nova/code-block.css",
+          "role": "theme",
+          "layer": "loseta.theme"
+        }
+      ],
+      "examples": [
+        "examples/code-block.html"
+      ]
+    },
+    {
       "name": "dialog",
       "type": "component",
       "status": "stable",

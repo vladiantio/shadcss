@@ -17,6 +17,7 @@ const groupBy: Record<string, ComponentGroup> = {
   alert: "Surfaces",
   badge: "Surfaces",
   card: "Surfaces",
+  "code-block": "Surfaces",
   empty: "Surfaces",
   item: "Surfaces",
   kbd: "Surfaces",
@@ -36,6 +37,8 @@ const notesBy: Record<string, string> = {
   "button-group":
     "Composition is semantic: the CSS does not require .btn, but the examples use it so the group looks like buttons.",
   card: "Use data-slot=\"title\", \"description\" and \"action\" for parts. data-separator=\"bottom\" adds a header divider.",
+  "code-block":
+    "Use [data-slot=\"actions\"] for copy and wrap controls; it floats when it is a direct child of the root. Add data-line-numbers to the pre; line numbers need explicit [data-slot=\"line\"] elements. Set style=\"--line-start: 42\" to change the first number and data-wrap to wrap long lines. Copy and wrap behavior is consumer JavaScript; the pre is dir=\"ltr\" and focusable. Syntax highlighting is not included; put token spans inside [data-slot=\"line-content\"]. Use footer for controls below the code; Show More needs your own JavaScript.",
   checkbox: "The .checkbox class is required. Use native checked/disabled and aria-invalid=\"true\".",
   dialog:
     "Uses native <dialog>. CSS only handles presentation; call showModal() and close() from your JavaScript.",

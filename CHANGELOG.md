@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Code Block component with an optional header, actions, line numbers, diff and
+  highlighted lines, wrap and size variants, and a destructive variant.
+- Docs code snippets now use the registry Code Block anatomy.
+
 ## 0.1.0 - 2026-11-12
 
 ### Added

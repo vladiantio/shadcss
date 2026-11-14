@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import InstallCommand from "@/components/InstallCommand.astro";
 import CodeBlock from "@/components/CodeBlock.astro";
+import { components } from "@/data/components";
 ---
 
 <Layout title="Documentation" description="Install, configure and theme loseta.">
@@ -24,7 +25,7 @@ import CodeBlock from "@/components/CodeBlock.astro";
       </a>
       <a class="docs-card" href="/docs/components">
         <span class="docs-card-title">Components</span>
-        <span class="docs-card-description">Browse the 24 stable components in v1.</span>
+        <span class="docs-card-description">Browse the {components.length} stable components in v1.</span>
       </a>
     </div>
 

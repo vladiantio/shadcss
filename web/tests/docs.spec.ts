@@ -114,6 +114,24 @@ test("install command remembers the package manager", async ({ page }) => {
   expect(await page.evaluate(() => localStorage.getItem("package-manager"))).toBe("npm");
 });
 
+test("code block wrap toggle updates the pre", async ({ page }) => {
+  await page.goto("/docs/components/code-block");
+  const block = page.locator('[data-demo="code-block"]:has([data-demo-wrap])');
+  const toggle = block.locator("[data-demo-wrap]");
+  const pre = block.locator("pre");
+
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await expect(pre).toHaveAttribute("data-wrap", "");
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await expect(pre).not.toHaveAttribute("data-wrap", "");
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await expect(pre).toHaveAttribute("data-wrap", "");
+});
+
 for (const path of pages) {
   test(`axe: ${path}`, async ({ page }) => {
     await page.goto(path);

@@ -14,6 +14,7 @@
 @import "../../../packages/loseta/registry/components/button-group.css";
 @import "../../../packages/loseta/registry/components/card.css";
 @import "../../../packages/loseta/registry/components/checkbox.css";
+@import "../../../packages/loseta/registry/components/code-block.css";
 @import "../../../packages/loseta/registry/components/dialog.css";
 @import "../../../packages/loseta/registry/components/dropdown-menu.css";
 @import "../../../packages/loseta/registry/components/empty.css";
@@ -41,6 +42,7 @@
 @import "../../../packages/loseta/registry/themes/nova/button-group.css";
 @import "../../../packages/loseta/registry/themes/nova/card.css";
 @import "../../../packages/loseta/registry/themes/nova/checkbox.css";
+@import "../../../packages/loseta/registry/themes/nova/code-block.css";
 @import "../../../packages/loseta/registry/themes/nova/dialog.css";
 @import "../../../packages/loseta/registry/themes/nova/dropdown-menu.css";
 @import "../../../packages/loseta/registry/themes/nova/empty.css";

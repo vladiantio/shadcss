@@ -37,10 +37,10 @@ npx loseta add button --html # print the example markup
   data-attribute contract; the docs use a small demo-only script to keep the
   examples interactive.
 
-The v1 registry includes 24 stable components: alert, alert-dialog, badge,
-button, button-group, card, checkbox, dialog, dropdown-menu, empty, field,
-input, item, kbd, label, native-select, popover, radio, skeleton, switch, table,
-tabs, textarea and tooltip.
+The v1 registry includes 25 stable components: alert, alert-dialog, badge,
+button, button-group, card, checkbox, code-block, dialog, dropdown-menu, empty,
+field, input, item, kbd, label, native-select, popover, radio, skeleton,
+switch, table, tabs, textarea and tooltip.
 
 ## Repository
 

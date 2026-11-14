@@ -6,6 +6,8 @@ export interface Example {
 const arrowRight = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
 const search = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`;
 const shield = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.7 8.9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1 1 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/></svg>`;
+const copy = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+const wrap = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><path d="M3 12h15a3 3 0 1 1 0 6h-4"/><polyline points="16 16 14 18 16 20"/><line x1="3" x2="10" y1="18" y2="18"/></svg>`;
 
 export const examples: Record<string, Example[]> = {
   alert: [
@@ -140,6 +142,87 @@ export const examples: Record<string, Example[]> = {
     Accept terms and conditions
   </label>
   <p>You agree to our Terms of Service and Privacy Policy.</p>
+</div>`
+    }
+  ],
+  "code-block": [
+    {
+      title: "Header and actions",
+      html: `<div class="code-block" data-demo="code-block">
+  <header>
+    <span data-slot="title">app/api/chat/route.ts</span>
+    <div data-slot="actions">
+      <button class="btn" data-variant="ghost" data-size="icon-xs" type="button" data-demo-copy aria-label="Copy code">${copy}</button>
+    </div>
+  </header>
+  <pre dir="ltr" tabindex="0"><code>import { streamText } from "ai";
+
+export async function POST(request: Request) {
+  const { messages } = await request.json();
+  const result = streamText({
+    model: "anthropic/claude-sonnet-4.5",
+    messages
+  });
+
+  return result.toUIMessageStreamResponse();
+}</code></pre>
+</div>`
+    },
+    {
+      title: "Line numbers",
+      html: `<div class="code-block" data-demo="code-block">
+  <header>
+    <span data-slot="title">app/dashboard/page.tsx</span>
+  </header>
+  <pre data-line-numbers style="--line-start: 12" dir="ltr" tabindex="0"><code><span data-slot="line"><span data-slot="line-content">  if (!session) {</span></span>
+<span data-slot="line"><span data-slot="line-content">    redirect("/login");</span></span>
+<span data-slot="line"><span data-slot="line-content">  }</span></span>
+<span data-slot="line"><span data-slot="line-content"></span></span>
+<span data-slot="line"><span data-slot="line-content">  const projects = await db.project.findMany({</span></span>
+<span data-slot="line"><span data-slot="line-content">    where: { ownerId: session.user.id },</span></span>
+<span data-slot="line"><span data-slot="line-content">    orderBy: { updatedAt: "desc" }</span></span>
+<span data-slot="line"><span data-slot="line-content">  });</span></span>
+<span data-slot="line"><span data-slot="line-content">  return &lt;ProjectList projects={projects} /&gt;;</span></span>
+<span data-slot="line"><span data-slot="line-content">}</span></span></code></pre>
+</div>`
+    },
+    {
+      title: "Diff and highlighted lines",
+      html: `<div class="code-block" data-demo="code-block">
+  <header>
+    <span data-slot="title">components/greeting.tsx</span>
+  </header>
+  <pre dir="ltr" tabindex="0"><code><span data-slot="line"><span data-slot="line-content">export function Greeting({ name }: { name: string }) {</span></span>
+<span data-slot="line"><span data-slot="line-content">  return &lt;p&gt;Hello, {name}&lt;/p&gt;;</span></span>
+<span data-slot="line" data-variant="removed"><span data-slot="line-content">  return &lt;p className="text-sm text-muted-foreground"&gt;Hello, {name}!&lt;/p&gt;;</span></span>
+<span data-slot="line" data-variant="added"><span data-slot="line-content">  return &lt;p&gt;Hello, {name}!&lt;/p&gt;;</span></span>
+<span data-slot="line" data-variant="highlighted"><span data-slot="line-content">  const message = "Hello, " + name + "!";</span></span>
+<span data-slot="line"><span data-slot="line-content">}</span></span></code></pre>
+</div>`
+    },
+    {
+      title: "Small, wrapped and destructive",
+      html: `<div class="code-block" data-size="sm" data-variant="destructive" data-demo="code-block">
+  <header>
+    <span data-slot="title">Error</span>
+    <div data-slot="actions">
+      <button class="btn" data-variant="ghost" data-size="icon-xs" type="button" data-demo-wrap aria-label="Wrap lines" aria-pressed="true">${wrap}</button>
+      <button class="btn" data-variant="ghost" data-size="icon-xs" type="button" data-demo-copy aria-label="Copy output">${copy}</button>
+    </div>
+  </header>
+  <pre data-wrap dir="ltr" tabindex="0"><code>TypeError: The model "anthropic/claude-sonnet-4.5" returned an error: Request too large. The prompt is 212,431 tokens but the context window is 200,000 tokens.</code></pre>
+</div>`
+    },
+    {
+      title: "Floating actions",
+      html: `<div class="code-block" data-demo="code-block">
+  <div data-slot="actions">
+    <button class="btn" data-variant="ghost" data-size="icon-xs" type="button" data-demo-copy aria-label="Copy output">${copy}</button>
+  </div>
+  <pre dir="ltr" tabindex="0"><code>$ pnpm add ai @ai-sdk/react zod
+Packages: +14
+Progress: resolved 412, reused 398, downloaded 14, added 14, done
+Done in 2.8s using pnpm v10.18.0</code></pre>
 </div>`
     }
   ],
