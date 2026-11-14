@@ -73,6 +73,7 @@ export function applyPreferences(
       window.matchMedia("(prefers-color-scheme: dark)").matches);
 
   root.classList.toggle("dark", dark);
+  root.dataset.js = "true";
   root.dataset.theme = preferences.theme;
   root.dataset.packageManager = preferences.packageManager;
 }

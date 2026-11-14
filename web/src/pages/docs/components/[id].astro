@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import Example from "@/components/Example.astro";
+import ComponentPreview from "@/components/ComponentPreview.astro";
 import InstallCommand from "@/components/InstallCommand.astro";
 import { components, type ComponentDoc } from "@/data/components";
 
@@ -46,8 +46,12 @@ const { component } = Astro.props;
       component.examples.length > 0 && (
         <>
           <h2>Examples</h2>
-          {component.examples.map((example) => (
-            <Example title={example.title} html={example.html} />
+          {component.examples.map((example, index) => (
+            <ComponentPreview
+              id={`${component.id}-example-${index + 1}`}
+              title={example.title}
+              html={example.html}
+            />
           ))}
         </>
       )

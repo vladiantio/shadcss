@@ -1,0 +1,16 @@
+---
+import { CheckIcon, CopyIcon } from "@lucide/astro";
+---
+
+<button
+  class="btn"
+  data-variant="ghost"
+  data-size="icon-xs"
+  type="button"
+  data-copy
+  data-copy-icon
+  aria-label="Copy code"
+>
+  <CopyIcon class="code-copy-glyph" aria-hidden="true" />
+  <CheckIcon class="code-copy-glyph code-copy-check" aria-hidden="true" />
+</button>

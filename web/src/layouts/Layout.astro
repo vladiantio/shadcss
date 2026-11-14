@@ -61,6 +61,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
           "dark",
           theme === "dark" || (theme === "system" && media.matches)
         );
+        root.dataset.js = "true";
         root.dataset.theme = theme;
         root.dataset.packageManager = packageManager;
       })();

@@ -1,3 +1,4 @@
+import { componentPreview } from "./component-preview";
 import { controls } from "./controls";
 import { mountDemo } from "./demo";
 import { startPageLifecycle } from "./lifecycle";
@@ -8,6 +9,6 @@ import { toc } from "./toc";
 mountDemo();
 
 startPageLifecycle({
-  behaviors: [navigation, controls, toc],
+  behaviors: [navigation, controls, componentPreview, toc],
   applyPreferences
 });

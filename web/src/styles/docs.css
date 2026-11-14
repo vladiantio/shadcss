@@ -24,7 +24,7 @@
 
   /* Docs chrome only: previews contain components that define their own
      focus styles (border + ring), so a global outline would double up. */
-  :focus-visible:not(.docs-preview *, .code-block *) {
+  :focus-visible:not(.docs-preview *, .code-block *, .component-preview-code *) {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
@@ -738,20 +738,111 @@
     font-weight: 600;
   }
 
-  .docs-preview {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 1rem;
+  .component-preview {
+    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: var(--radius-xl);
     background-color: var(--background);
+  }
+
+  .docs-preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
     padding: 2rem;
     min-height: 8rem;
   }
 
   .docs-preview > * {
     max-width: 100%;
+  }
+
+  .component-preview-code {
+    position: relative;
+    overflow: hidden;
+    border-block-start: 1px solid var(--border);
+    background-color: var(--muted);
+  }
+
+  .component-preview-source .code-block {
+    border-radius: 0;
+    background-color: var(--muted);
+    box-shadow: none;
+  }
+
+  /* The collapsed teaser clips at three code lines plus the pre's top padding. */
+  html[data-js]
+    .component-preview:not([data-code-open])
+    .component-preview-source
+    .code-block
+    > [data-slot="actions"] {
+    display: none;
+  }
+
+  html[data-js] .component-preview:not([data-code-open]) .component-preview-code {
+    padding-block-end: 2.5rem;
+  }
+
+  html[data-js]
+    .component-preview:not([data-code-open])
+    .component-preview-source
+    .code-block
+    > pre {
+    max-height: calc(3 * 1.6em + 1rem);
+    overflow: hidden;
+  }
+
+  html[data-js]
+    .component-preview[data-code-open]
+    .component-preview-source
+    .code-block
+    > pre {
+    max-height: 18rem;
+    overflow: auto;
+  }
+
+  .component-preview-source .code-block:has(> pre:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .component-preview-source .code-block > pre:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: -2px;
+  }
+
+  .component-preview-reveal {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    padding-block-end: 0.5rem;
+  }
+
+  .component-preview-reveal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      var(--muted),
+      color-mix(in oklab, var(--muted) 60%, transparent) 55%,
+      transparent
+    );
+  }
+
+  html[data-js] .component-preview:not([data-code-open]) .component-preview-reveal {
+    display: flex;
+  }
+
+  .component-preview-toggle {
+    position: relative;
+    z-index: 1;
+    inline-size: 100%;
   }
 
   .code-block [data-copy-icon] .code-copy-check {

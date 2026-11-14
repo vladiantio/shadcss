@@ -1,0 +1,50 @@
+---
+// Docs-only preview shell. This component never ships in the registry.
+import CodeBlock from "@/components/CodeBlock.astro";
+import { stripDemoHooks } from "@/lib/example-markup";
+
+interface Props {
+  id: string;
+  title: string;
+  html: string;
+}
+
+const { id, title, html } = Astro.props;
+const code = stripDemoHooks(html);
+const codeId = `${id}-code`;
+const codeLines = code.split("\n").length;
+const isShort = codeLines <= 5;
+---
+
+<section class="example">
+  <h3 class="example-title">{title}</h3>
+  <div
+    class="component-preview"
+    data-component-preview
+    data-code-open={isShort ? "true" : undefined}
+  >
+    <div class="docs-preview" data-toc-ignore set:html={html} />
+    <div class="component-preview-code">
+      <div class="component-preview-source" id={codeId} data-preview-source>
+        <CodeBlock code={code} lang="html" floating />
+      </div>
+      {
+        !isShort && (
+          <div class="component-preview-reveal">
+            <button
+              class="btn component-preview-toggle"
+              data-variant="ghost"
+              data-size="sm"
+              type="button"
+              aria-expanded="false"
+              aria-controls={codeId}
+              data-preview-toggle
+            >
+              View code
+            </button>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

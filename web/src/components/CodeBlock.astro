@@ -1,41 +1,40 @@
 ---
 import { Code } from "astro:components";
 import type { CodeLanguage } from "astro";
-import { CheckIcon, CopyIcon } from "@lucide/astro";
+import CodeBlockCopyButton from "@/components/CodeBlockCopyButton.astro";
 import { shikiThemes } from "@/lib/shiki";
 
 interface Props {
   code: string;
   lang?: CodeLanguage;
   label?: string;
+  floating?: boolean;
 }
 
-const { code, lang = "bash", label = lang } = Astro.props;
+const { code, lang = "bash", label = lang, floating = false } = Astro.props;
 ---
 
 <div class="code-block">
-  <header>
-    <span data-slot="title">{label}</span>
-    <div data-slot="actions">
-      <button
-        class="btn"
-        data-variant="ghost"
-        data-size="icon-xs"
-        type="button"
-        data-copy
-        data-copy-icon
-        aria-label="Copy code"
-      >
-        <CopyIcon class="code-copy-glyph" aria-hidden="true" />
-        <CheckIcon class="code-copy-glyph code-copy-check" aria-hidden="true" />
-      </button>
-    </div>
-  </header>
+  {
+    floating ? (
+      <div data-slot="actions">
+        <CodeBlockCopyButton />
+      </div>
+    ) : (
+      <header>
+        <span data-slot="title">{label}</span>
+        <div data-slot="actions">
+          <CodeBlockCopyButton />
+        </div>
+      </header>
+    )
+  }
   <Code
     code={code.trim()}
     lang={lang}
     themes={shikiThemes}
     defaultColor={false}
+    wrap={null}
     transformers={[
       {
         // The code block styles line numbers and variants through these slots.
