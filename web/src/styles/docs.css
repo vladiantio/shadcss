@@ -6,11 +6,6 @@
     --docs-header-height: 3.5rem;
     --docs-sidebar-width: 16rem;
     --docs-content-width: 56rem;
-    --docs-code-surface: color-mix(in oklab, var(--muted) 72%, var(--background));
-  }
-
-  html.dark {
-    --docs-code-surface: color-mix(in oklab, var(--muted) 30%, var(--background));
   }
 
   html {
@@ -398,19 +393,22 @@
 
   .install-command {
     overflow: hidden;
-    border-radius: var(--radius-2xl);
-    background-color: var(--docs-code-surface);
+    border-radius: var(--radius-xl);
+    background-color: var(--muted);
     font-size: var(--text-sm);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 5%, transparent);
+  }
+
+  html.dark .install-command {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
   }
 
   .install-command-header {
     display: flex;
-    min-height: 2.25rem;
     align-items: center;
     gap: 0.5rem;
-    border-block-end: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
-    padding-inline: 0.75rem;
-    padding-block: 0.25rem;
+    padding: 1rem 1rem 0;
+    color: var(--muted-foreground);
   }
 
   .install-command-icon {
@@ -420,15 +418,12 @@
     height: 1rem;
     align-items: center;
     justify-content: center;
-    border-radius: 0.0625rem;
-    background-color: var(--foreground);
-    color: var(--background);
-    opacity: 0.7;
+    color: var(--foreground);
   }
 
   .install-command-icon svg {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 1rem;
+    height: 1rem;
   }
 
   .install-command-tabs {
@@ -438,40 +433,41 @@
   }
 
   .install-command-tab {
-    height: 1.75rem;
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
+    height: 1.5rem;
+    border: 0;
+    border-radius: min(var(--radius-md), 10px);
     background-color: transparent;
     padding-inline: 0.5rem;
     font-family: inherit;
     font-size: var(--text-sm);
     font-weight: 500;
-    color: color-mix(in oklab, var(--muted-foreground) 78%, var(--foreground));
+    color: color-mix(in oklab, var(--muted-foreground) 80%, var(--foreground));
     cursor: pointer;
-    transition: background-color 150ms, border-color 150ms, color 150ms;
+    transition: background-color 150ms, color 150ms, box-shadow 150ms;
   }
 
   .install-command-tab:hover {
+    background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
     color: var(--foreground);
   }
 
   html[data-package-manager="pnpm"] .install-command-tab[data-package-manager-value="pnpm"],
   html[data-package-manager="npm"] .install-command-tab[data-package-manager-value="npm"] {
-    border-color: var(--input);
     background-color: var(--background);
     color: var(--foreground);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
   }
 
   .install-command-copy {
     display: inline-flex;
     flex: none;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
     margin-inline-start: auto;
     align-items: center;
     justify-content: center;
     border: 0;
-    border-radius: var(--radius-md);
+    border-radius: min(var(--radius-md), 10px);
     background-color: transparent;
     color: var(--muted-foreground);
     cursor: pointer;
@@ -479,13 +475,13 @@
   }
 
   .install-command-copy:hover {
-    background-color: color-mix(in oklab, var(--accent) 60%, transparent);
+    background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
     color: var(--foreground);
   }
 
   .install-command-copy-glyph {
-    width: 0.875rem;
-    height: 0.875rem;
+    width: 0.75rem;
+    height: 0.75rem;
   }
 
   .install-command-copy-check {
@@ -502,8 +498,8 @@
 
   .install-command-code {
     overflow-x: auto;
-    padding-inline: 1rem;
-    padding-block: 0.875rem;
+    padding: 0.5rem 1rem 1rem;
+    line-height: 1.6;
   }
 
   html[data-package-manager="pnpm"] .install-command [data-package-manager-panel="npm"],
@@ -516,9 +512,12 @@
     white-space: nowrap;
   }
 
-  html.dark[data-package-manager="pnpm"] .install-command-tab[data-package-manager-value="pnpm"],
-  html.dark[data-package-manager="npm"] .install-command-tab[data-package-manager-value="npm"] {
-    background-color: color-mix(in oklab, var(--input) 30%, transparent);
+  html.dark .install-command-tab:not([aria-pressed="true"]):hover {
+    background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
+  }
+
+  html.dark .install-command-copy:hover {
+    background-color: color-mix(in oklab, var(--foreground) 10%, transparent);
   }
 
   .example {
