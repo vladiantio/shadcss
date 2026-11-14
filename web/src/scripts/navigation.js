@@ -1,46 +1,3 @@
-const themes = ["system", "light", "dark"];
-const packageManagers = ["pnpm", "npm"];
-
-const getTheme = () => {
-  try {
-    const stored = localStorage.getItem("theme");
-    return themes.includes(stored) ? stored : "system";
-  } catch {
-    return "system";
-  }
-};
-
-const getPackageManager = () => {
-  try {
-    const stored = localStorage.getItem("package-manager");
-    return packageManagers.includes(stored) ? stored : "pnpm";
-  } catch {
-    return "pnpm";
-  }
-};
-
-const applyTheme = (root, theme) => {
-  root.classList.toggle(
-    "dark",
-    theme === "dark" ||
-      (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches)
-  );
-  root.dataset.theme = theme;
-};
-
-const applyRootState = (root) => {
-  applyTheme(root, getTheme());
-  root.dataset.packageManager = getPackageManager();
-};
-
-const syncThemeButtons = () => {
-  const theme = getTheme();
-  document.querySelectorAll("[data-theme-value]").forEach((button) => {
-    if (!(button instanceof HTMLElement)) return;
-    button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
-  });
-};
-
 const normalizePath = (path) => (path === "/" ? "/" : path.replace(/\/+$/, ""));
 
 const isActiveNavLink = (target, pathname) => {
@@ -134,14 +91,7 @@ document.addEventListener("astro:before-preparation", (event) => {
   startProgress();
 });
 
-document.addEventListener("astro:before-swap", (event) => {
-  applyRootState(event.newDocument.documentElement);
-});
-
 document.addEventListener("astro:after-swap", () => {
-  applyRootState(document.documentElement);
-  syncThemeButtons();
-
   const sidebar = document.querySelector(".docs-sidebar");
   if (sidebar instanceof HTMLElement) {
     // The persisted sidebar is re-inserted after the swap; force layout before
@@ -158,7 +108,6 @@ document.addEventListener("astro:after-swap", () => {
 
 document.addEventListener("astro:page-load", () => {
   stopProgress();
-  syncThemeButtons();
   syncSidebar(false);
 
   const shouldFocus =
@@ -186,5 +135,4 @@ document.addEventListener("astro:page-load", () => {
   navigatedFromSidebar = false;
 });
 
-syncThemeButtons();
 syncSidebar(false);

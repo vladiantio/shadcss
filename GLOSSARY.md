@@ -149,3 +149,7 @@ _Avoid_: style guide, design system docs
 **Example**:
 A canonical HTML fragment shipped with an item and rendered in the docs.
 _Avoid_: demo, snippet, sample
+
+**Docs client**:
+The browser-side module of the docs site that applies stored preferences and mounts per-page behavior across client-side navigation.
+_Avoid_: docs runtime, docs shell

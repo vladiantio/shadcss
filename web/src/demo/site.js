@@ -1,22 +1,3 @@
-const packageManagers = ["pnpm", "npm"];
-
-const applyPackageManager = (value) => {
-  const manager = packageManagers.includes(value) ? value : "pnpm";
-  document.documentElement.dataset.packageManager = manager;
-  document.querySelectorAll("[data-package-manager-value]").forEach((button) => {
-    button.setAttribute(
-      "aria-pressed",
-      String(button.getAttribute("data-package-manager-value") === manager)
-    );
-  });
-};
-
-applyPackageManager(document.documentElement.dataset.packageManager);
-
-document.addEventListener("astro:page-load", () => {
-  applyPackageManager(document.documentElement.dataset.packageManager);
-});
-
 const announce = (message) => {
   let region = document.querySelector("[data-copy-status]");
   if (!region) {
@@ -93,20 +74,6 @@ document.addEventListener("click", async (event) => {
       const next = !pre.hasAttribute("data-wrap");
       pre.toggleAttribute("data-wrap", next);
       wrap.setAttribute("aria-pressed", String(next));
-    }
-    return;
-  }
-
-  const packageManager = target.closest("[data-package-manager-value]");
-  if (packageManager) {
-    const value = packageManager.getAttribute("data-package-manager-value");
-    if (packageManagers.includes(value)) {
-      applyPackageManager(value);
-      try {
-        localStorage.setItem("package-manager", value);
-      } catch {
-        // Storage can be unavailable; the switch still works for this page.
-      }
     }
     return;
   }

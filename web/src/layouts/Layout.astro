@@ -41,59 +41,28 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
       (() => {
         const root = document.documentElement;
         const media = window.matchMedia("(prefers-color-scheme: dark)");
-        const themes = ["system", "light", "dark"];
+        let theme = "system";
+        let packageManager = "pnpm";
 
-        const getTheme = () => {
-          try {
-            const stored = localStorage.getItem("theme");
-            return themes.includes(stored) ? stored : "system";
-          } catch {
-            return "system";
-          }
-        };
-
-        const apply = (theme) => {
-          root.classList.toggle(
-            "dark",
-            theme === "dark" || (theme === "system" && media.matches)
-          );
-          root.dataset.theme = theme;
-          document.querySelectorAll("[data-theme-value]").forEach((button) => {
-            button.setAttribute("aria-pressed", String(button.dataset.themeValue === theme));
-          });
-        };
-
-        apply(getTheme());
-        document.addEventListener("DOMContentLoaded", () => apply(getTheme()));
-        media.addEventListener("change", () => {
-          if (getTheme() === "system") apply("system");
-        });
-        document.addEventListener("click", (event) => {
-          if (!(event.target instanceof Element)) return;
-          const button = event.target.closest("[data-theme-value]");
-          if (!button) return;
-          const theme = button.dataset.themeValue;
-          if (!themes.includes(theme)) return;
-          try {
-            localStorage.setItem("theme", theme);
-          } catch {
-            // Storage can be unavailable; the switch still works for this page.
-          }
-          apply(theme);
-        });
-      })();
-    </script>
-    <script is:inline>
-      (() => {
-        const managers = ["pnpm", "npm"];
         try {
-          const stored = localStorage.getItem("package-manager");
-          if (managers.includes(stored)) {
-            document.documentElement.dataset.packageManager = stored;
+          const storedTheme = localStorage.getItem("theme");
+          if (storedTheme === "system" || storedTheme === "light" || storedTheme === "dark") {
+            theme = storedTheme;
+          }
+          const storedManager = localStorage.getItem("package-manager");
+          if (storedManager === "pnpm" || storedManager === "npm") {
+            packageManager = storedManager;
           }
         } catch {
-          // Storage can be unavailable; keep the pnpm default.
+          // Storage can be unavailable; keep the defaults.
         }
+
+        root.classList.toggle(
+          "dark",
+          theme === "dark" || (theme === "system" && media.matches)
+        );
+        root.dataset.theme = theme;
+        root.dataset.packageManager = packageManager;
       })();
     </script>
   </head>
@@ -215,6 +184,7 @@ const pageTitle = title === "loseta" ? "loseta — Native CSS component scaffold
     </div>
 
     <script>
+      import "@/scripts/docs-client";
       import "@/scripts/navigation.js";
       import "@/demo/site.js";
     </script>
