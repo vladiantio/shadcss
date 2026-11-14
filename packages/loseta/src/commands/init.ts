@@ -9,16 +9,11 @@ import {
   readConfig,
   writeConfig
 } from "../config.js";
-import { copyFile, hashFile } from "../fs.js";
-import { addEntrypointImport, writeIndex } from "../imports.js";
-import {
-  installedNames,
-  readManifest,
-  upsertManifestItem,
-  writeManifest
-} from "../manifest.js";
+import { addEntrypointImport } from "../imports.js";
+import { installItems } from "../install.js";
+import { readManifest } from "../manifest.js";
 import { loadRegistry, registryDir, resolveItems } from "../registry.js";
-import type { Manifest, ManifestFile, LosetaConfig } from "../types.js";
+import type { LosetaConfig } from "../types.js";
 
 export const initCommand = defineCommand({
   meta: {
@@ -54,6 +49,21 @@ export const initCommand = defineCommand({
   async run({ args }) {
     const projectRoot = process.cwd();
     intro("loseta init");
+
+    const registry = loadRegistry();
+    const foundation = registry.items.filter(
+      (item) => item.type === "foundation" && item.status === "stable"
+    );
+    const foundationNames = new Set(foundation.map((item) => item.name));
+    const existingManifest = readManifest(projectRoot);
+    const tracked =
+      existingManifest?.items.filter((item) => !foundationNames.has(item.name)) ?? [];
+
+    if (tracked.length > 0) {
+      log.warn(
+        `Reinitializing resets the manifest to the foundation. ${tracked.length} installed item(s) stay on disk but are no longer tracked; run \`loseta add all\` to restore them.`
+      );
+    }
 
     const existingConfig = readConfig(projectRoot);
     if (existingConfig && !args.yes) {
@@ -120,35 +130,20 @@ export const initCommand = defineCommand({
     };
     writeConfig(projectRoot, config);
 
-    const registry = loadRegistry();
-    const foundation = registry.items.filter(
-      (item) => item.type === "foundation" && item.status === "stable"
-    );
     const items = resolveItems(
       registry,
       foundation.map((item) => item.name)
     );
 
-    const cssDirAbs = resolve(projectRoot, cssDir);
-    const manifest: Manifest = { version: registry.version, items: [] };
-
-    for (const item of items) {
-      const files: ManifestFile[] = [];
-      for (const file of item.files) {
-        const source = join(registryDir, file.path);
-        const target = join(cssDirAbs, file.target);
-        copyFile(source, target);
-        files.push({ path: file.target, hash: hashFile(target) });
-      }
-      upsertManifestItem(manifest, {
-        name: item.name,
-        version: registry.version,
-        files
-      });
-    }
-
-    writeManifest(projectRoot, manifest);
-    writeIndex(projectRoot, config, registry, installedNames(manifest));
+    await installItems({
+      projectRoot,
+      config,
+      registry,
+      sourceRoot: registryDir,
+      manifest: { version: registry.version, items: [] },
+      items,
+      onConflict: () => "overwrite"
+    });
 
     if (config.entrypoint) {
       const entrypointAbs = resolve(projectRoot, config.entrypoint);
